@@ -1,0 +1,25 @@
+Package: tbltools
+Title: Tools for Working with Tibbles
+Version: 0.0.1
+Authors@R: 
+    person(given = "Michael W.",
+           family = "Kearney",
+           role = c("aut", "cre"),
+           email = "kearneymw@missouri.edu",
+           comment = c(ORCID = "0000-0002-0730-4694"))
+Description: Tools for working with tibbles, data frame-like objects generated
+    by the tibble package <https://tibble.tidyverse.org/>. Functions assist in
+    converting objects to tibbles and creating frequency tables.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    tfse,
+    tibble,
+    rlang,
+    tidyselect
+Suggests: 
+    testthat
+RoxygenNote: 6.1.0.9000
+URL: https://github.com/mkearney/tbltools
+BugReports: https://github.com/mkearney/tbltools/issues
