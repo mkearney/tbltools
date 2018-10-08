@@ -1,12 +1,6 @@
----
-output: github_document
----
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(echo = TRUE, collapse = TRUE, comment = "#>")
-```
 # tbltools
 
 <!--[![Build status](https://travis-ci.org/mkearney/tbltools.svg?branch=master)](https://travis-ci.org/mkearney/tbltools)
@@ -15,6 +9,7 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE, comment = "#>")
 
 #![Downloads](https://cranlogs.r-pkg.org/badges/tbltools)
 #![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/tbltools)-->
+
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
 Tools for Working with Tibbles
