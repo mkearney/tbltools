@@ -3,11 +3,14 @@
 
 # tbltools
 
-<!--[![Build status](https://travis-ci.org/mkearney/tbltools.svg?branch=master)](https://travis-ci.org/mkearney/tbltools)
-[![CRAN status](https://www.r-pkg.org/badges/version/tbltools)](https://cran.r-project.org/package=tbltools)
-[![Coverage Status](https://codecov.io/gh/mkearney/tbltools/branch/master/graph/badge.svg)](https://codecov.io/gh/mkearney/tbltools?branch=master)
+[![Build
+status](https://travis-ci.org/mkearney/tbltools.svg?branch=master)](https://travis-ci.org/mkearney/tbltools)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/tbltools)](https://cran.r-project.org/package=tbltools)
+[![Coverage
+status](https://codecov.io/gh/mkearney/tbltools/branch/master/graph/badge.svg)](https://codecov.io/github/mkearney/tbltools?branch=master)
 
-#![Downloads](https://cranlogs.r-pkg.org/badges/tbltools)
+<!--#![Downloads](https://cranlogs.r-pkg.org/badges/tbltools)
 #![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/tbltools)-->
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
