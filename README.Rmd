@@ -23,7 +23,7 @@ Tools for Working with Tibbles
 
 Install the development version from Github with:
 
-``` r
+```{r, eval=FALSE}
 ## install remotes pkg if not already
 if (!requireNamespace("remotes")) {
   install.packages("remotes")
