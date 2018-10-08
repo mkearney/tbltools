@@ -21,10 +21,10 @@ as_tbl <- function(x, row.names = FALSE) {
   #x[isdf] <- lapply(x[isdf], list)
   if (row.names && !identical(as.character(seq_len(nrow(x))), row.names(x))) {
     x$row_names <- row.names(x)
-    x[c(ncol(x), 1:(ncol(x) - 1))]
-  } else {
-    tibble::as_tibble(x)
+    x <- x[c(ncol(x), 1:(ncol(x) - 1))]
+    row.names(x) <- NULL
   }
+  tibble::as_tibble(x)
 }
 
 
