@@ -73,6 +73,14 @@ tabsort <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE) {
     ## otherwise use tidy selection of any supplied var names
   } else {
     .data <- tidyselector(.data, ...)
+    if ("n" %in% names(.data)) {
+      warning("variable n renamed to .n", call. = FALSE)
+      names(.data)[names(.data) == "n"] <- ".n"
+    }
+    if ("prop" %in% names(.data)) {
+      warning("variable prop renamed to .prop", call. = FALSE)
+      names(.data)[names(.data) == "prop"] <- ".prop"
+    }
   }
   if (na_omit) {
     .data <- tfse::na_omit(.data)
