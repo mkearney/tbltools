@@ -7,7 +7,7 @@
 \usage{
 tabsort(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE)
 
-ntbl(data, ...)
+ntbl(.data, ...)
 }
 \arguments{
 \item{.data}{Data}

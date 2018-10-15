@@ -99,7 +99,7 @@ tabsort <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE) {
 #' @inheritParams tabsort
 #' @rdname tabsort
 #' @export
-ntbl <- function(data, ...) {
-  data <- rlang::with_env(data, tidyselector(data, ...))
-  as_tbl(table(data))
+ntbl <- function(.data, ...) {
+  .data <- rlang::with_env(.data, tidyselector(.data, ...))
+  as_tbl(table(.data))
 }
