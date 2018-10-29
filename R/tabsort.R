@@ -12,6 +12,15 @@
 #' @param na_omit Logical indicating whether to exclude missing. If all
 #'   responses are missing, a missing value is used as the single category.
 #' @return Frequency tbl
+#' @examples 
+#' 
+#' x <- sample(letters[1:4], 200, replace = TRUE)
+#' y <- sample(letters[5:8], 200, replace = TRUE)
+#' dat <- data.frame(x, y)
+#' tabsort(x)
+#' tabsort(dat, x)
+#' tabsort(dat, x, y)
+#' 
 #' @export
 tabsort <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE) {
   vars <- names(rlang::enquos(...))
