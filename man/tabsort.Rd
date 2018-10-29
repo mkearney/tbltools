@@ -29,3 +29,13 @@ Frequency tbl
 \description{
 Returns a sorted (descending) frequency tbl
 }
+\examples{
+
+x <- sample(letters[1:4], 200, replace = TRUE)
+y <- sample(letters[5:8], 200, replace = TRUE)
+dat <- data.frame(x, y)
+tabsort(x)
+tabsort(dat, x)
+tabsort(dat, x, y)
+
+}
