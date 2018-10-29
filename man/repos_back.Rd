@@ -2,15 +2,26 @@
 % Please edit documentation in R/tbl.R
 \name{repos_back}
 \alias{repos_back}
-\title{move vars to front}
+\title{move vars to back}
 \usage{
 repos_back(data, ...)
 }
 \arguments{
 \item{data}{data frame}
 
-\item{...}{columns to move to front}
+\item{...}{columns to move to back}
+}
+\value{
+Reordered data frame.
 }
 \description{
-move vars to front
+move vars to back
+}
+\examples{
+## data with row names
+d <- data.frame(x = rnorm(5), y = rnorm(5), row.names = letters[1:5])
+
+## move x to back
+repos_back(d, x)
+
 }

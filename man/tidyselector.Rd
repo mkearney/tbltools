@@ -11,6 +11,17 @@ tidyselector(data, ...)
 
 \item{...}{vars to select}
 }
+\value{
+Data with selected columns.
+}
 \description{
 Select columns using tidy eval
+}
+\examples{
+## data with row names
+d <- data.frame(x = rnorm(5), y = rnorm(5), row.names = letters[1:5])
+
+## select only x
+tidyselector(d, x)
+
 }

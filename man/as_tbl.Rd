@@ -4,14 +4,25 @@
 \alias{as_tbl}
 \title{as_tbl}
 \usage{
-as_tbl(x, row.names = FALSE)
+as_tbl(x, row_names = FALSE)
 }
 \arguments{
 \item{x}{Data}
 
-\item{row.names}{Logical indicating whether to convert non-null row names
+\item{row_names}{Logical indicating whether to convert non-null row names
 into the first column.}
 }
 \description{
 See \code{tibble::\link[tibble]{as_tibble}} for details.
+}
+\examples{
+## data with row names
+d <- data.frame(x = rnorm(5), y = rnorm(5), row.names = letters[1:5])
+
+## convert to tibble
+as_tbl(d)
+
+## convert to tibble and create row_names variable
+as_tbl(d, row_names = TRUE)
+
 }
