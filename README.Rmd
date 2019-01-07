@@ -6,15 +6,16 @@ output: github_document
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE, comment = "#>")
+library(tbltools)
 ```
-# tbltools
+# tbltools <img src="man/figures/logo.png" width="160px" align="right" />
 
 [![Build status](https://travis-ci.org/mkearney/tbltools.svg?branch=master)](https://travis-ci.org/mkearney/tbltools)
 [![CRAN status](https://www.r-pkg.org/badges/version/tbltools)](https://cran.r-project.org/package=tbltools)
 [![Coverage status](https://codecov.io/gh/mkearney/tbltools/branch/master/graph/badge.svg)](https://codecov.io/github/mkearney/tbltools?branch=master)
 
-<!--#![Downloads](https://cranlogs.r-pkg.org/badges/tbltools)
-#![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/tbltools)-->
+![Downloads](https://cranlogs.r-pkg.org/badges/tbltools)
+![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/tbltools)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
 Tools for Working with Tibbles
@@ -31,4 +32,35 @@ if (!requireNamespace("remotes")) {
 
 ## install from github
 remotes::install_github("mkearney/tbltools")
+```
+
+## Use
+
++ **`as_tbl()`**: Convert data frames to tibbles
+
+```{r}
+## convert mtcars to tibble and create row_names variable
+d <- as_tbl(mtcars, row_names = TRUE)
+```
+
++ **`tabsort()`**: Count frequencies
+
+```{r}
+## count by cyl and gear
+tabsort(d, cyl, gear)
+```
+
++ **`filter_rows()`**: Select which rows to return
+
+```{r}
+## count by cyl and gear
+filter_rows(d, d$gear == 5)
+```
+
+
++ **`arrange_rows()`**: Organize rows by column(s) value
+
+```{r}
+## count by cyl and gear
+arrange_rows(d, gear, cyl)
 ```
