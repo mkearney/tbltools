@@ -15,9 +15,19 @@ filter_rows.default <- function(.data, ...) {
   if (length(dim(.data)) != 2) {
     stop("filter_rows method requires two-dimensional object", call. = FALSE)
   }
-  i <- unlist(lapply(list(...), eval))
+  dots <- tfse:::capture_dots(...)
+  i <- lapply(dots, function(.x) {
+    o <- eval(.x, as.list(.data), parent.frame())
+    if (is.logical(o)) o <- which(o)
+    o
+  })
+  it <- table(unlist(i))
+  i <- as.integer(names(it[it == length(i)]))
+  #i <- unlist(lapply(list(...), eval))
   if (length(i) == 0) return(.data)
   if (is.logical(i)) i <- which(i)
   i <- i[i <= nrow(.data)]
-  `[`(.data, i, )
+  .data <- `[`(.data, i, )
+  row.names(.data) <- NULL
+  .data
 }
