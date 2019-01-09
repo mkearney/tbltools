@@ -17,10 +17,12 @@ Imports:
     tfse,
     tibble,
     rlang,
-    tidyselect
+    tidyselect,
+    dapr
 Suggests: 
     testthat,
     covr
+Remotes: dapr
 RoxygenNote: 6.1.1
 URL: https://github.com/mkearney/tbltools
 BugReports: https://github.com/mkearney/tbltools/issues

@@ -9,13 +9,31 @@ filter_rows(.data, ...)
 \arguments{
 \item{.data}{Data frame or two dimensional array}
 
-\item{...}{This should evaluate and reduce down to a numeric (row number)
-or logical vector. Row numbers higher than what exists in x will be
-ignored. Any numeric vector must be either all positive or all negative.}
+\item{...}{Each argument/expression should should evaluate and reduce down to an
+integer (row number) or logical vector. The filter will keep all row numbers that appear
+in all evaluated expressions (commas are the equivalent to \code{&}. Row numbers higher than what exists in x will be
+ignored. Any numeric vector must be either all positive or all negative (excludes). This function
+uses non-standard evaluation–users can refer to column names without quotations.}
 }
 \value{
 Sliced/filtered data frame
 }
 \description{
 Filter rows via integer/numeric position or logical vector
+}
+\examples{
+set.seed(12)
+d <- data.frame(
+  mpg = rnorm(100, 25, 3),
+  gear = sample(3:6, 100, replace = TRUE),
+  vs = sample(0:1, 100, replace = TRUE),
+  stringsAsFactors = FALSE
+)
+
+filter_rows(d, mpg > 30)
+filter_rows(d, !mpg < 30)
+filter_rows(d, mpg > 30, !mpg < 30)
+filter_rows(d, mpg > 30, gear == 4)
+filter_rows(d, mpg > 30 | gear == 4, vs == 1)
+
 }
