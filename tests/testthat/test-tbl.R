@@ -30,3 +30,27 @@ test_that("filter_rows, arrange_rows", {
   )
   expect_equal(nrow(d), 100)
 })
+
+
+test_that("do_call_rbind", {
+  ## list of data frames with inconsistent columns
+  x <- data.frame(
+    a = letters,
+    b = 1:26,
+    c = rnorm(26),
+    stringsAsFactors = FALSE
+  )
+  xx <- x
+  xx$d <- "d"
+  xxx <- x
+  xxx$a <- factor(xxx$a)
+  l <- list(x, xx, xxx)
+  d <- do_call_rbind(l)
+  expect_true(is.data.frame(d))
+  expect_equal(nrow(d), 78)
+  expect_equal(ncol(d), 4)
+  expect_true(is.character(d$a))
+  expect_true(is.character(d$d))
+})
+
+
