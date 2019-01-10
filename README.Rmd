@@ -80,3 +80,10 @@ lst <- list(d, d, dd)
 do_call_rbind(lst)
 ```
 
++ **`select_cols()`**: Select columns of data frame
+
+```{r}
+## select only these columns
+select_cols(d, cyl, gear, weight = wt)
+```
+

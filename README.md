@@ -139,3 +139,26 @@ do_call_rbind(lst)
 #> 10 Merc 280   19.2     6  168.   123  3.92  3.44  18.3     1     0     4
 #> # … with 86 more rows, and 2 more variables: carb <dbl>, new_var <chr>
 ```
+
+  - **`select_cols()`**: Select columns of data frame
+
+<!-- end list -->
+
+``` r
+## select only these columns
+select_cols(d, cyl, gear, weight = wt)
+#> # A tibble: 32 x 3
+#>      cyl  gear weight
+#>  * <dbl> <dbl>  <dbl>
+#>  1     6     4   2.62
+#>  2     6     4   2.88
+#>  3     4     4   2.32
+#>  4     6     3   3.22
+#>  5     8     3   3.44
+#>  6     6     3   3.46
+#>  7     8     3   3.57
+#>  8     4     4   3.19
+#>  9     4     4   3.15
+#> 10     6     4   3.44
+#> # … with 22 more rows
+```
