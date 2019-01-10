@@ -36,12 +36,16 @@ tabsort <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE) {
 
 #' @export
 tabsort.default <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE) {
+  ## get names from dots
   vars <- names(pretty_dots(...))
+
+  ## validate
   if (!is.logical(prop)) {
     stop("'prop' should be logical, indicating whether to return proportions. ",
       "If you supplied a vector with the name 'prop' please rename to ",
       "something else", call. = FALSE)
   }
+
   ## if only named objects are supplied
   if (missing(.data) && length(vars) > 0) {
     .data <- data.frame(..., stringsAsFactors = FALSE)
