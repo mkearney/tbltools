@@ -67,7 +67,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tbltools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
       </span>
     </div>
 
@@ -128,9 +128,11 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>This should evaluate and reduce down to a numeric (row number)
-or logical vector. Row numbers higher than what exists in x will be
-ignored. Any numeric vector must be either all positive or all negative.</p></td>
+      <td><p>Each argument/expression should should evaluate and reduce down to an
+integer (row number) or logical vector. The filter will keep all row numbers that appear
+in all evaluated expressions (commas are the equivalent to <code>&amp;</code>. Row numbers higher than what exists in x will be
+ignored. Any numeric vector must be either all positive or all negative (excludes). This function
+uses non-standard evaluation–users can refer to column names without quotations.</p></td>
     </tr>
     </table>
     
@@ -139,6 +141,137 @@ ignored. Any numeric vector must be either all positive or all negative.</p></td
     <p>Sliced/filtered data frame</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>12</span>)
+<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
+  <span class='kw'>mpg</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>100</span>, <span class='fl'>25</span>, <span class='fl'>3</span>),
+  <span class='kw'>gear</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fl'>3</span>:<span class='fl'>6</span>, <span class='fl'>100</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+  <span class='kw'>vs</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fl'>0</span>:<span class='fl'>1</span>, <span class='fl'>100</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+  <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
+
+<span class='fu'>filter_rows</span>(<span class='no'>d</span>, <span class='no'>mpg</span> <span class='kw'>&gt;</span> <span class='fl'>30</span>)</div><div class='output co'>#&gt;        mpg gear vs
+#&gt; 1 31.02160    3  0
+#&gt; 2 31.21611    3  1
+#&gt; 3 31.06100    3  0
+#&gt; 4 30.86232    6  0</div><div class='input'><span class='fu'>filter_rows</span>(<span class='no'>d</span>, !<span class='no'>mpg</span> <span class='kw'>&lt;</span> <span class='fl'>30</span>)</div><div class='output co'>#&gt;        mpg gear vs
+#&gt; 1 31.02160    3  0
+#&gt; 2 31.21611    3  1
+#&gt; 3 31.06100    3  0
+#&gt; 4 30.86232    6  0</div><div class='input'><span class='fu'>filter_rows</span>(<span class='no'>d</span>, <span class='no'>mpg</span> <span class='kw'>&gt;</span> <span class='fl'>30</span>, !<span class='no'>mpg</span> <span class='kw'>&lt;</span> <span class='fl'>30</span>)</div><div class='output co'>#&gt;        mpg gear vs
+#&gt; 1 31.02160    3  0
+#&gt; 2 31.21611    3  1
+#&gt; 3 31.06100    3  0
+#&gt; 4 30.86232    6  0</div><div class='input'><span class='fu'>filter_rows</span>(<span class='no'>d</span>, <span class='no'>mpg</span> <span class='kw'>&gt;</span> <span class='fl'>30</span>, <span class='no'>gear</span> <span class='kw'>==</span> <span class='fl'>4</span>)</div><div class='output co'>#&gt;          mpg gear vs
+#&gt; 1   20.55830    6  1
+#&gt; 2   29.73151    3  1
+#&gt; 3   22.12977    5  1
+#&gt; 4   22.23998    6  1
+#&gt; 5   19.00707    6  0
+#&gt; 6   24.18311    5  1
+#&gt; 7   24.05395    4  0
+#&gt; 8   23.11523    3  1
+#&gt; 9   24.68061    5  1
+#&gt; 10  26.28404    4  1
+#&gt; 11  22.66684    6  1
+#&gt; 12  21.11835    3  1
+#&gt; 13  22.66130    4  1
+#&gt; 14  25.03586    5  0
+#&gt; 15  24.54275    5  0
+#&gt; 16  22.88961    5  0
+#&gt; 17  28.56664    3  1
+#&gt; 18  26.02154    4  1
+#&gt; 19  26.52090    6  1
+#&gt; 20  24.12008    3  1
+#&gt; 21  25.67092    5  0
+#&gt; 22  31.02160    3  0
+#&gt; 23  28.03594    4  1
+#&gt; 24  24.09262    5  0
+#&gt; 25  21.92427    4  0
+#&gt; 26  24.19785    3  0
+#&gt; 27  24.40268    6  1
+#&gt; 28  25.39337    5  1
+#&gt; 29  25.43740    3  0
+#&gt; 30  26.08619    5  0
+#&gt; 31  27.02194    3  0
+#&gt; 32  31.21611    3  1
+#&gt; 33  23.37691    4  0
+#&gt; 34  21.78852    4  1
+#&gt; 35  23.88263    4  1
+#&gt; 36  23.54458    4  0
+#&gt; 37  25.82435    5  0
+#&gt; 38  23.56146    4  1
+#&gt; 39  27.39432    6  1
+#&gt; 40  21.98665    6  1
+#&gt; 41  25.31495    4  0
+#&gt; 42  21.53202    3  0
+#&gt; 43  26.73440    6  0
+#&gt; 44  20.21312    4  0
+#&gt; 45  24.07449    5  0
+#&gt; 46  26.34840    5  0
+#&gt; 47  22.06884    3  0
+#&gt; 48  25.56999    6  1
+#&gt; 49  27.19436    3  1
+#&gt; 50  23.52220    5  1
+#&gt; 51  24.87195    6  1
+#&gt; 52  24.66199    3  0
+#&gt; 53  26.37048    4  0
+#&gt; 54  31.06100    3  0
+#&gt; 55  21.84733    6  1
+#&gt; 56  27.20396    6  0
+#&gt; 57  26.61775    3  1
+#&gt; 58  21.05718    6  0
+#&gt; 59  24.24988    4  0
+#&gt; 60  25.94261    3  0
+#&gt; 61  26.21964    6  0
+#&gt; 62  27.98326    4  0
+#&gt; 63  27.56731    5  0
+#&gt; 64  25.59139    4  0
+#&gt; 65  27.50298    3  0
+#&gt; 66  27.54037    3  1
+#&gt; 67  30.86232    6  0
+#&gt; 68  18.55222    6  0
+#&gt; 69  27.91336    4  0
+#&gt; 70  28.43518    6  1
+#&gt; 71  23.42380    6  0
+#&gt; 72  25.75096    3  0
+#&gt; 73  23.71178    5  0
+#&gt; 74  24.45244    5  1
+#&gt; 75  24.69007    6  1
+#&gt; 76  23.09849    5  0
+#&gt; 77  21.18684    3  1
+#&gt; 78  23.84815    5  1
+#&gt; 79  26.55027    5  1
+#&gt; 80  24.46609    3  1
+#&gt; 81  25.01277    6  1
+#&gt; 82  21.17782    3  0
+#&gt; 83  24.39367    3  0
+#&gt; 84  28.49340    4  0
+#&gt; 85  24.92986    6  1
+#&gt; 86  27.69147    3  1
+#&gt; 87  24.46983    6  1
+#&gt; 88  28.34113    3  0
+#&gt; 89  23.37433    3  1
+#&gt; 90  22.10981    6  1
+#&gt; 91  26.12935    3  1
+#&gt; 92  22.04598    6  0
+#&gt; 93  27.69268    3  1
+#&gt; 94  25.38779    6  0
+#&gt; 95  28.10111    5  1
+#&gt; 96  23.97313    4  0
+#&gt; 97  26.35684    3  0
+#&gt; 98  22.91579    5  0
+#&gt; 99  24.28296    3  0
+#&gt; 100 21.97810    6  1</div><div class='input'><span class='fu'>filter_rows</span>(<span class='no'>d</span>, <span class='no'>mpg</span> <span class='kw'>&gt;</span> <span class='fl'>30</span> <span class='kw'>|</span> <span class='no'>gear</span> <span class='kw'>==</span> <span class='fl'>4</span>, <span class='no'>vs</span> <span class='kw'>==</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt;        mpg gear vs
+#&gt; 1 26.28404    4  1
+#&gt; 2 22.66130    4  1
+#&gt; 3 26.02154    4  1
+#&gt; 4 28.03594    4  1
+#&gt; 5 31.21611    3  1
+#&gt; 6 21.78852    4  1
+#&gt; 7 23.88263    4  1
+#&gt; 8 23.56146    4  1</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -146,7 +279,9 @@ ignored. Any numeric vector must be either all positive or all negative.</p></td
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
