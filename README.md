@@ -68,16 +68,22 @@ tabsort(d, cyl, gear)
 
 ``` r
 ## count by cyl and gear
-filter_rows(d, d$gear == 5)
-#> # A tibble: 5 x 12
-#>   row_names   mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear
-#>   <chr>     <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-#> 1 Porsche …  26       4 120.     91  4.43  2.14  16.7     0     1     5
-#> 2 Lotus Eu…  30.4     4  95.1   113  3.77  1.51  16.9     1     1     5
-#> 3 Ford Pan…  15.8     8 351     264  4.22  3.17  14.5     0     1     5
-#> 4 Ferrari …  19.7     6 145     175  3.62  2.77  15.5     0     1     5
-#> 5 Maserati…  15       8 301     335  3.54  3.57  14.6     0     1     5
-#> # ... with 1 more variable: carb <dbl>
+filter_rows(d, gear > 3 | mpg > 30, vs == 1)
+#> # A tibble: 11 x 12
+#>    row_names   mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear
+#>    <chr>     <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+#>  1 Datsun 7…  22.8     4 108      93  3.85  2.32  18.6     1     1     4
+#>  2 Merc 240D  24.4     4 147.     62  3.69  3.19  20       1     0     4
+#>  3 Merc 230   22.8     4 141.     95  3.92  3.15  22.9     1     0     4
+#>  4 Merc 280   19.2     6 168.    123  3.92  3.44  18.3     1     0     4
+#>  5 Merc 280C  17.8     6 168.    123  3.92  3.44  18.9     1     0     4
+#>  6 Fiat 128   32.4     4  78.7    66  4.08  2.2   19.5     1     1     4
+#>  7 Honda Ci…  30.4     4  75.7    52  4.93  1.62  18.5     1     1     4
+#>  8 Toyota C…  33.9     4  71.1    65  4.22  1.84  19.9     1     1     4
+#>  9 Fiat X1-9  27.3     4  79      66  4.08  1.94  18.9     1     1     4
+#> 10 Lotus Eu…  30.4     4  95.1   113  3.77  1.51  16.9     1     1     5
+#> 11 Volvo 14…  21.4     4 121     109  4.11  2.78  18.6     1     1     4
+#> # … with 1 more variable: carb <dbl>
 ```
 
   - **`arrange_rows()`**: Organize rows by column(s) value
@@ -100,5 +106,36 @@ arrange_rows(d, gear, cyl)
 #>  8 Merc 280   19.2     6 168.    123  3.92  3.44  18.3     1     0     4
 #>  9 Merc 280C  17.8     6 168.    123  3.92  3.44  18.9     1     0     4
 #> 10 Datsun 7…  22.8     4 108      93  3.85  2.32  18.6     1     1     4
-#> # ... with 22 more rows, and 1 more variable: carb <dbl>
+#> # … with 22 more rows, and 1 more variable: carb <dbl>
+```
+
+  - **`do_call_rbind()`**: Collapse list of data frames into single data
+    frame
+
+<!-- end list -->
+
+``` r
+## create version of data with new variable
+dd <- d
+dd$new_var <- sample(letters, nrow(d), replace = TRUE)
+
+## combine multiple data sets into list
+lst <- list(d, d, dd)
+
+## bind rows into single data frame
+do_call_rbind(lst)
+#> # A tibble: 96 x 13
+#>    row_names   mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear
+#>    <chr>     <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+#>  1 Mazda RX4  21       6  160    110  3.9   2.62  16.5     0     1     4
+#>  2 Mazda RX…  21       6  160    110  3.9   2.88  17.0     0     1     4
+#>  3 Datsun 7…  22.8     4  108     93  3.85  2.32  18.6     1     1     4
+#>  4 Hornet 4…  21.4     6  258    110  3.08  3.22  19.4     1     0     3
+#>  5 Hornet S…  18.7     8  360    175  3.15  3.44  17.0     0     0     3
+#>  6 Valiant    18.1     6  225    105  2.76  3.46  20.2     1     0     3
+#>  7 Duster 3…  14.3     8  360    245  3.21  3.57  15.8     0     0     3
+#>  8 Merc 240D  24.4     4  147.    62  3.69  3.19  20       1     0     4
+#>  9 Merc 230   22.8     4  141.    95  3.92  3.15  22.9     1     0     4
+#> 10 Merc 280   19.2     6  168.   123  3.92  3.44  18.3     1     0     4
+#> # … with 86 more rows, and 2 more variables: carb <dbl>, new_var <chr>
 ```

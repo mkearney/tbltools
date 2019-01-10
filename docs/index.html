@@ -127,16 +127,22 @@
 <strong><code><a href="reference/filter_rows.html">filter_rows()</a></code></strong>: Select which rows to return</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co">## count by cyl and gear</span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="kw"><a href="reference/filter_rows.html">filter_rows</a></span>(d, d<span class="op">$</span>gear <span class="op">==</span><span class="st"> </span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt; # A tibble: 5 x 12</span></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt;   row_names   mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear</span></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt; 1 Porsche …  26       4 120.     91  4.43  2.14  16.7     0     1     5</span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt; 2 Lotus Eu…  30.4     4  95.1   113  3.77  1.51  16.9     1     1     5</span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt; 3 Ford Pan…  15.8     8 351     264  4.22  3.17  14.5     0     1     5</span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; 4 Ferrari …  19.7     6 145     175  3.62  2.77  15.5     0     1     5</span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; 5 Maserati…  15       8 301     335  3.54  3.57  14.6     0     1     5</span></a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="co">#&gt; # … with 1 more variable: carb &lt;dbl&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw"><a href="reference/filter_rows.html">filter_rows</a></span>(d, gear <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span> <span class="op">|</span><span class="st"> </span>mpg <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span>, vs <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt; # A tibble: 11 x 12</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt;    row_names   mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt;    &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt;  1 Datsun 7…  22.8     4 108      93  3.85  2.32  18.6     1     1     4</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt;  2 Merc 240D  24.4     4 147.     62  3.69  3.19  20       1     0     4</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt;  3 Merc 230   22.8     4 141.     95  3.92  3.15  22.9     1     0     4</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt;  4 Merc 280   19.2     6 168.    123  3.92  3.44  18.3     1     0     4</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt;  5 Merc 280C  17.8     6 168.    123  3.92  3.44  18.9     1     0     4</span></a>
+<a class="sourceLine" id="cb4-11" title="11"><span class="co">#&gt;  6 Fiat 128   32.4     4  78.7    66  4.08  2.2   19.5     1     1     4</span></a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="co">#&gt;  7 Honda Ci…  30.4     4  75.7    52  4.93  1.62  18.5     1     1     4</span></a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="co">#&gt;  8 Toyota C…  33.9     4  71.1    65  4.22  1.84  19.9     1     1     4</span></a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="co">#&gt;  9 Fiat X1-9  27.3     4  79      66  4.08  1.94  18.9     1     1     4</span></a>
+<a class="sourceLine" id="cb4-15" title="15"><span class="co">#&gt; 10 Lotus Eu…  30.4     4  95.1   113  3.77  1.51  16.9     1     1     5</span></a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="co">#&gt; 11 Volvo 14…  21.4     4 121     109  4.11  2.78  18.6     1     1     4</span></a>
+<a class="sourceLine" id="cb4-17" title="17"><span class="co">#&gt; # … with 1 more variable: carb &lt;dbl&gt;</span></a></code></pre></div>
 <ul>
 <li>
 <strong><code><a href="reference/arrange_rows.html">arrange_rows()</a></code></strong>: Organize rows by column(s) value</li>
@@ -157,6 +163,33 @@
 <a class="sourceLine" id="cb5-14" title="14"><span class="co">#&gt;  9 Merc 280C  17.8     6 168.    123  3.92  3.44  18.9     1     0     4</span></a>
 <a class="sourceLine" id="cb5-15" title="15"><span class="co">#&gt; 10 Datsun 7…  22.8     4 108      93  3.85  2.32  18.6     1     1     4</span></a>
 <a class="sourceLine" id="cb5-16" title="16"><span class="co">#&gt; # … with 22 more rows, and 1 more variable: carb &lt;dbl&gt;</span></a></code></pre></div>
+<ul>
+<li>
+<strong><code><a href="reference/do_call_rbind.html">do_call_rbind()</a></code></strong>: Collapse list of data frames into single data frame</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="co">## create version of data with new variable</span></a>
+<a class="sourceLine" id="cb6-2" title="2">dd &lt;-<span class="st"> </span>d</a>
+<a class="sourceLine" id="cb6-3" title="3">dd<span class="op">$</span>new_var &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(letters, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(d), <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb6-4" title="4"></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="co">## combine multiple data sets into list</span></a>
+<a class="sourceLine" id="cb6-6" title="6">lst &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(d, d, dd)</a>
+<a class="sourceLine" id="cb6-7" title="7"></a>
+<a class="sourceLine" id="cb6-8" title="8"><span class="co">## bind rows into single data frame</span></a>
+<a class="sourceLine" id="cb6-9" title="9"><span class="kw"><a href="reference/do_call_rbind.html">do_call_rbind</a></span>(lst)</a>
+<a class="sourceLine" id="cb6-10" title="10"><span class="co">#&gt; # A tibble: 96 x 13</span></a>
+<a class="sourceLine" id="cb6-11" title="11"><span class="co">#&gt;    row_names   mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear</span></a>
+<a class="sourceLine" id="cb6-12" title="12"><span class="co">#&gt;    &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb6-13" title="13"><span class="co">#&gt;  1 Mazda RX4  21       6  160    110  3.9   2.62  16.5     0     1     4</span></a>
+<a class="sourceLine" id="cb6-14" title="14"><span class="co">#&gt;  2 Mazda RX…  21       6  160    110  3.9   2.88  17.0     0     1     4</span></a>
+<a class="sourceLine" id="cb6-15" title="15"><span class="co">#&gt;  3 Datsun 7…  22.8     4  108     93  3.85  2.32  18.6     1     1     4</span></a>
+<a class="sourceLine" id="cb6-16" title="16"><span class="co">#&gt;  4 Hornet 4…  21.4     6  258    110  3.08  3.22  19.4     1     0     3</span></a>
+<a class="sourceLine" id="cb6-17" title="17"><span class="co">#&gt;  5 Hornet S…  18.7     8  360    175  3.15  3.44  17.0     0     0     3</span></a>
+<a class="sourceLine" id="cb6-18" title="18"><span class="co">#&gt;  6 Valiant    18.1     6  225    105  2.76  3.46  20.2     1     0     3</span></a>
+<a class="sourceLine" id="cb6-19" title="19"><span class="co">#&gt;  7 Duster 3…  14.3     8  360    245  3.21  3.57  15.8     0     0     3</span></a>
+<a class="sourceLine" id="cb6-20" title="20"><span class="co">#&gt;  8 Merc 240D  24.4     4  147.    62  3.69  3.19  20       1     0     4</span></a>
+<a class="sourceLine" id="cb6-21" title="21"><span class="co">#&gt;  9 Merc 230   22.8     4  141.    95  3.92  3.15  22.9     1     0     4</span></a>
+<a class="sourceLine" id="cb6-22" title="22"><span class="co">#&gt; 10 Merc 280   19.2     6  168.   123  3.92  3.44  18.3     1     0     4</span></a>
+<a class="sourceLine" id="cb6-23" title="23"><span class="co">#&gt; # … with 86 more rows, and 2 more variables: carb &lt;dbl&gt;, new_var &lt;chr&gt;</span></a></code></pre></div>
 </div>
 </div>
   </div>

@@ -54,7 +54,7 @@ tabsort(d, cyl, gear)
 
 ```{r}
 ## count by cyl and gear
-filter_rows(d, d$gear == 5)
+filter_rows(d, gear > 3 | mpg > 30, vs == 1)
 ```
 
 
@@ -64,3 +64,19 @@ filter_rows(d, d$gear == 5)
 ## count by cyl and gear
 arrange_rows(d, gear, cyl)
 ```
+
+
++ **`do_call_rbind()`**: Collapse list of data frames into single data frame
+
+```{r}
+## create version of data with new variable
+dd <- d
+dd$new_var <- sample(letters, nrow(d), replace = TRUE)
+
+## combine multiple data sets into list
+lst <- list(d, d, dd)
+
+## bind rows into single data frame
+do_call_rbind(lst)
+```
+
