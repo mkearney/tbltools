@@ -36,7 +36,7 @@ tabsort <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE) {
 
 #' @export
 tabsort.default <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE) {
-  vars <- pretty_dots(...)
+  vars <- names(pretty_dots(...))
   if (!is.logical(prop)) {
     stop("'prop' should be logical, indicating whether to return proportions. ",
       "If you supplied a vector with the name 'prop' please rename to ",
