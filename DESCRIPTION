@@ -1,6 +1,6 @@
 Package: tbltools
 Title: Tools for Working with Tibbles
-Version: 0.0.4
+Version: 0.0.5
 Authors@R: 
     person(given = "Michael W.",
            family = "Kearney",
