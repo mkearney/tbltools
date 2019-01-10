@@ -32,7 +32,7 @@ filter_rows.default <- function(.data, ...) {
   if (length(dim(.data)) != 2) {
     stop("filter_rows method requires two-dimensional object", call. = FALSE)
   }
-  dots <- tfse:::capture_dots(...)
+  dots <- capture_dots(...)
   e <- call_env()
   i <- lapply(dots, function(.x) {
     o <- eval(.x, .data, e)
@@ -51,3 +51,8 @@ filter_rows.default <- function(.data, ...) {
 }
 
 call_env <- function (n = 1) parent.frame(n + 1)
+
+
+capture_dots <- function(...) {
+  eval(substitute(alist(...)), envir = parent.frame())
+}
