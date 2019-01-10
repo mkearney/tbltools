@@ -52,7 +52,7 @@ as_tbl <- function(x, row_names = FALSE) {
 #'
 #' @return Reordered data frame.
 repos_front <- function(data, ...) {
-  re <- rlang::with_env(data, tidyselector(data, ...))
+  re <- rlang::with_env(data, select_cols(data, ...))
   as_tbl(cbind(re, data[!names(data) %in% names(re)]))
 }
 
@@ -70,7 +70,7 @@ repos_front <- function(data, ...) {
 #'
 #' @return Reordered data frame.
 repos_back <- function(data, ...) {
-  re <- rlang::with_env(data, tidyselector(data, ...))
+  re <- rlang::with_env(data, select_cols(data, ...))
   as_tbl(cbind(data[!names(data) %in% names(re)], re))
 }
 
@@ -131,4 +131,61 @@ env_tbls <- function(env = globalenv(), row_names = TRUE) {
     }
   }
   message("Done!")
+}
+
+
+#' Select columns
+#'
+#' Select columns with non-standard evaluation
+#'
+#' @param .data Input data frame
+#' @param ... Unquoted names of columns to select
+#' @export
+#' @return Data frame with select columns
+select_cols <- function(.data, ...) {
+  dots <- pretty_dots(...)
+  if (length(dots) == 0) {
+    return(.data)
+  }
+  e <- call_env()
+  .data <- lapply(dots, function(.x) eval(.x, .data, e))
+  structure(
+    .data,
+    row.names = seq_len(length(.data[[1]])),
+    class = c("tbl_df", "tbl", "data.frame")
+  )
+}
+
+expr_names <- function(args) {
+  vapply(
+    args,
+    deparse,
+    USE.NAMES = FALSE,
+    FUN.VALUE = character(1)
+  )
+}
+
+pretty_dots <- function(...) {
+  ## capture dots as arg list
+  dots <- capture_dots(...)
+
+  ## if none provided, return NULL
+  if (length(dots) == 0) {
+    return(NULL)
+  }
+
+  ## if no names, inherit expression text
+  if (is.null(names(dots))) {
+    names(dots) <- expr_names(dots)
+  }
+
+  ## dots names
+  nms <- names(dots)
+
+  ## if any names missing, assign expression text
+  if ("" %in% nms) {
+    names(dots)[nms == ""] <- expr_names(dots[nms == ""])
+  }
+
+  dots
 }
