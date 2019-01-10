@@ -48,6 +48,7 @@ test_that("as_tbl, tabsort, ntbl", {
         n = sample(c("a", "b", "c"), nrow(e), replace = TRUE))
     )
   ))
+  expect_error(tabsort(prop = 'a'))
 })
 
 test_that("filter_rows, arrange_rows", {
