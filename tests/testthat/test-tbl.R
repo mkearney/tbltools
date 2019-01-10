@@ -41,11 +41,13 @@ test_that("as_tbl, tabsort, ntbl", {
   expect_true(inherits(as_tbl(d), "tbl_df"))
   expect_true(is.data.frame((ntbl(d, n))))
   expect_equal(ncol(ntbl(d, n)), 2)
-  #e$.data <- sample(c("a", "b", "c"), nrow(e), replace = TRUE)
-  expect_warning(
-    tabsort(.data = sample(c("a", "b", "c"), nrow(e), replace = TRUE),
-      n = sample(c("a", "b", "c"), nrow(e), replace = TRUE))
-  )
+
+  expect_true(is.data.frame(
+    expect_warning(
+      tabsort(.data = sample(c("a", "b", "c"), nrow(e), replace = TRUE),
+        n = sample(c("a", "b", "c"), nrow(e), replace = TRUE))
+    )
+  ))
 })
 
 test_that("filter_rows, arrange_rows", {
