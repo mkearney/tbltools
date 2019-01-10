@@ -3,11 +3,13 @@
 #' Filter rows via integer/numeric position or logical vector
 #'
 #' @param .data Data frame or two dimensional array
-#' @param ... Each argument/expression should should evaluate and reduce down to an
-#'   integer (row number) or logical vector. The filter will keep all row numbers that appear
-#'   in all evaluated expressions (commas are the equivalent to \code{&}. Row numbers higher than what exists in x will be
-#'   ignored. Any numeric vector must be either all positive or all negative (excludes). This function
-#'   uses non-standard evaluation–users can refer to column names without quotations.
+#' @param ... Each argument/expression should should evaluate and reduce down to
+#'   an integer (row number) or logical vector. The filter will keep all row
+#'   numbers that appear in all evaluated expressions (commas are the equivalent
+#'   to \code{&}. Row numbers higher than what exists in x will be ignored. Any
+#'   numeric vector must be either all positive or all negative (excludes). This
+#'   function uses non-standard evaluation–users can refer to column names
+#'   without quotations.
 #' @return Sliced/filtered data frame
 #' @examples
 #' set.seed(12)
@@ -41,18 +43,10 @@ filter_rows.default <- function(.data, ...) {
   })
   it <- table(unlist(i))
   i <- as.integer(names(it[it == length(i)]))
-  #i <- unlist(lapply(list(...), eval))
   if (length(i) == 0) return(.data)
   if (is.logical(i)) i <- which(i)
   i <- i[i <= nrow(.data)]
   .data <- `[`(.data, i, )
   row.names(.data) <- NULL
   .data
-}
-
-call_env <- function (n = 1) parent.frame(n + 1)
-
-
-capture_dots <- function(...) {
-  eval(substitute(alist(...)), envir = parent.frame())
 }

@@ -2,13 +2,12 @@
 
 #' as_tbl
 #'
-#' See \code{tibble::\link[tibble]{as_tibble}} for details.
+#' Converts data objects to tibbles.
 #'
-#' @param x Data
+#' @param x Data frame or data frame-like input.
 #' @param row_names Logical indicating whether to convert non-null row names
 #'   into the first column.
 #' @rdname as_tbl
-#' @importFrom tibble as_tibble
 #' @examples
 #' ## data with row names
 #' d <- data.frame(x = rnorm(5), y = rnorm(5), row.names = letters[1:5])
@@ -21,6 +20,18 @@
 #'
 #' @export
 as_tbl <- function(x, row_names = FALSE) {
+  UseMethod("as_tbl")
+}
+
+#' @export
+as_tbl.table <- function(x, row_names = FALSE) {
+  df <- as.data.frame(x, stringsAsFactors = FALSE)
+  names(df) <- c(names(dimnames(x)), "n")
+  as_tbl(df)
+}
+
+#' @export
+as_tbl.default <- function(x, row_names = FALSE) {
   isdf <- which(vapply(x, is.data.frame, FUN.VALUE = logical(1),
     USE.NAMES = FALSE))
   if (length(isdf) > 0) {
@@ -28,79 +39,17 @@ as_tbl <- function(x, row_names = FALSE) {
       x[[i]] <- x[[i]]
     }
   }
-  #x[isdf] <- lapply(x[isdf], list)
   if (row_names && !identical(as.character(seq_len(nrow(x))), row.names(x))) {
     x$row_names <- row.names(x)
     x <- x[c(ncol(x), 1:(ncol(x) - 1))]
     row.names(x) <- NULL
   }
-  tibble::as_tibble(x)
+  structure(
+    x,
+    row.names = .set_row_names(length(x[[1]])),
+    class = c("tbl_df", "tbl", "data.frame")
+  )
 }
-
-
-#' move vars to front
-#'
-#' @param data data frame
-#' @param ... columns to move to front
-#' @export
-#' @examples
-#' ## data with row names
-#' d <- data.frame(x = rnorm(5), y = rnorm(5), row.names = letters[1:5])
-#'
-#' ## move y to front
-#' repos_front(d, y)
-#'
-#' @return Reordered data frame.
-repos_front <- function(data, ...) {
-  re <- rlang::with_env(data, select_cols(data, ...))
-  as_tbl(cbind(re, data[!names(data) %in% names(re)]))
-}
-
-#' move vars to back
-#'
-#' @param data data frame
-#' @param ... columns to move to back
-#' @export
-#' @examples
-#' ## data with row names
-#' d <- data.frame(x = rnorm(5), y = rnorm(5), row.names = letters[1:5])
-#'
-#' ## move x to back
-#' repos_back(d, x)
-#'
-#' @return Reordered data frame.
-repos_back <- function(data, ...) {
-  re <- rlang::with_env(data, select_cols(data, ...))
-  as_tbl(cbind(data[!names(data) %in% names(re)], re))
-}
-
-#' tidyselector
-#'
-#' Select columns using tidy eval
-#'
-#' @param data data frame
-#' @param ... vars to select
-#' @return Data with selected columns.
-#' @examples
-#' ## data with row names
-#' d <- data.frame(x = rnorm(5), y = rnorm(5), row.names = letters[1:5])
-#'
-#' ## select only x
-#' tidyselector(d, x)
-#'
-#' @export
-tidyselector <- function(data, ...) {
-  vars <- tryCatch(tidyselect::vars_select(names(data), ...),
-    error = function(e) return(NULL))
-  #if (is.null(vars)) return(data)
-  if (length(vars) > 0) {
-    data <- data[vars]
-  }
-  data
-}
-
-
-
 
 #' Convert all data frames in environment into tibbles
 #'
@@ -131,61 +80,4 @@ env_tbls <- function(env = globalenv(), row_names = TRUE) {
     }
   }
   message("Done!")
-}
-
-
-#' Select columns
-#'
-#' Select columns with non-standard evaluation
-#'
-#' @param .data Input data frame
-#' @param ... Unquoted names of columns to select
-#' @export
-#' @return Data frame with select columns
-select_cols <- function(.data, ...) {
-  dots <- pretty_dots(...)
-  if (length(dots) == 0) {
-    return(.data)
-  }
-  e <- call_env()
-  .data <- lapply(dots, function(.x) eval(.x, .data, e))
-  structure(
-    .data,
-    row.names = seq_len(length(.data[[1]])),
-    class = c("tbl_df", "tbl", "data.frame")
-  )
-}
-
-expr_names <- function(args) {
-  vapply(
-    args,
-    deparse,
-    USE.NAMES = FALSE,
-    FUN.VALUE = character(1)
-  )
-}
-
-pretty_dots <- function(...) {
-  ## capture dots as arg list
-  dots <- capture_dots(...)
-
-  ## if none provided, return NULL
-  if (length(dots) == 0) {
-    return(NULL)
-  }
-
-  ## if no names, inherit expression text
-  if (is.null(names(dots))) {
-    names(dots) <- expr_names(dots)
-  }
-
-  ## dots names
-  nms <- names(dots)
-
-  ## if any names missing, assign expression text
-  if ("" %in% nms) {
-    names(dots)[nms == ""] <- expr_names(dots[nms == ""])
-  }
-
-  dots
 }

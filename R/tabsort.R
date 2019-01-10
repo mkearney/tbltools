@@ -31,12 +31,12 @@
 #'
 #' @export
 tabsort <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE) {
-  vars <- names(rlang::enquos(...))
-  if (any(vars == "")) {
-    vars2 <- rlang::enquos(...)
-    vars2 <- sapply(vars2[vars == ""], function(.x) encodeString(as.character(.x)[2]))
-    vars[vars == ""] <- vars2
-  }
+  UseMethod("tabsort")
+}
+
+#' @export
+tabsort.default <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE) {
+  vars <- pretty_dots(...)
   if (!is.logical(prop)) {
     stop("'prop' should be logical, indicating whether to return proportions. ",
       "If you supplied a vector with the name 'prop' please rename to ",
@@ -89,7 +89,7 @@ tabsort <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE) {
 
     ## otherwise use tidy selection of any supplied var names
   } else {
-    .data <- tidyselector(.data, ...)
+    .data <- select_cols(.data, ...)
     if ("n" %in% names(.data)) {
       warning("variable n renamed to .n", call. = FALSE)
       names(.data)[names(.data) == "n"] <- ".n"
@@ -102,7 +102,7 @@ tabsort <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE) {
   if (na_omit) {
     .data <- tfse::na_omit(.data)
   }
-  x <- as_tbl(do.call("table", .data))
+  x <- as_tbl(do.call("table", as.list(.data)))
   if (prop) {
     x$prop <- x$n / sum(x$n, na.rm = TRUE)
   }
@@ -117,6 +117,6 @@ tabsort <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE) {
 #' @rdname tabsort
 #' @export
 ntbl <- function(.data, ...) {
-  .data <- rlang::with_env(.data, tidyselector(.data, ...))
+  .data <- select_cols(.data, ...)
   as_tbl(table(.data))
 }

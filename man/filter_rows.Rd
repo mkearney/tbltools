@@ -9,11 +9,13 @@ filter_rows(.data, ...)
 \arguments{
 \item{.data}{Data frame or two dimensional array}
 
-\item{...}{Each argument/expression should should evaluate and reduce down to an
-integer (row number) or logical vector. The filter will keep all row numbers that appear
-in all evaluated expressions (commas are the equivalent to \code{&}. Row numbers higher than what exists in x will be
-ignored. Any numeric vector must be either all positive or all negative (excludes). This function
-uses non-standard evaluation–users can refer to column names without quotations.}
+\item{...}{Each argument/expression should should evaluate and reduce down to
+an integer (row number) or logical vector. The filter will keep all row
+numbers that appear in all evaluated expressions (commas are the equivalent
+to \code{&}. Row numbers higher than what exists in x will be ignored. Any
+numeric vector must be either all positive or all negative (excludes). This
+function uses non-standard evaluation–users can refer to column names
+without quotations.}
 }
 \value{
 Sliced/filtered data frame

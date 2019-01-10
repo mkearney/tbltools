@@ -7,13 +7,13 @@
 as_tbl(x, row_names = FALSE)
 }
 \arguments{
-\item{x}{Data}
+\item{x}{Data frame or data frame-like input.}
 
 \item{row_names}{Logical indicating whether to convert non-null row names
 into the first column.}
 }
 \description{
-See \code{tibble::\link[tibble]{as_tibble}} for details.
+Converts data objects to tibbles.
 }
 \examples{
 ## data with row names

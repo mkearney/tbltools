@@ -14,11 +14,11 @@ arrange_rows <- function(.data, ..., desc = TRUE) {
 
 #' @export
 arrange_rows.default <- function(.data, ..., desc = TRUE) {
-  row_names <- order(tidyselector(.data, ...)[[1]], decreasing = desc)
+  row_names <- order(select_cols(.data, ...)[[1]], decreasing = desc)
   .data <- .data[row_names, ]
-  if (ncol(tidyselector(.data, ...)) > 1L) {
-    col1 <- tidyselector(.data, ...)[[1]]
-    col2 <- tidyselector(.data, ...)[[2]]
+  if (ncol(select_cols(.data, ...)) > 1L) {
+    col1 <- select_cols(.data, ...)[[1]]
+    col2 <- select_cols(.data, ...)[[2]]
     row_names <- seq_len(nrow(.data))
     if (tfse::n_uq(col1) < nrow(.data)) {
       uqv <- unique(col1)
