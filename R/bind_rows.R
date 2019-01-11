@@ -18,10 +18,10 @@
 #' l <- list(x, xx, mtcars)
 #'
 #' ## bind rows and fill missing columns with NAs
-#' do_call_rbind(l)
+#' bind_rows_data(l)
 #'
 #' @export
-do_call_rbind <- function(x, fill = TRUE) {
+bind_rows_data <- function(x, fill = TRUE) {
   stopifnot(is.list(x))
   if (length(x) == 1L && is.data.frame(x)) return(x)
   is_df <- sapply(x, is.data.frame)

@@ -62,13 +62,13 @@ tabsort(d, cyl, gear)
 #> 9 8     4         0 0
 ```
 
-  - **`filter_rows()`**: Select which rows to return
+  - **`filter_data()`**: Select which rows to return
 
 <!-- end list -->
 
 ``` r
 ## count by cyl and gear
-filter_rows(d, gear > 3 | mpg > 30, vs == 1)
+filter_data(d, gear > 3 | mpg > 30, vs == 1)
 #> # A tibble: 11 x 12
 #>    row_names   mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear
 #>    <chr>     <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
@@ -86,13 +86,13 @@ filter_rows(d, gear > 3 | mpg > 30, vs == 1)
 #> # … with 1 more variable: carb <dbl>
 ```
 
-  - **`arrange_rows()`**: Organize rows by column(s) value
+  - **`arrange_data()`**: Organize rows by column(s) value
 
 <!-- end list -->
 
 ``` r
 ## count by cyl and gear
-arrange_rows(d, gear, cyl)
+arrange_data(d, gear, cyl)
 #> # A tibble: 32 x 12
 #>    row_names   mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear
 #>    <chr>     <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
@@ -109,13 +109,13 @@ arrange_rows(d, gear, cyl)
 #> # … with 22 more rows, and 1 more variable: carb <dbl>
 ```
 
-  - **`select_cols()`**: Select columns of data frame
+  - **`select_data()`**: Select columns of data frame
 
 <!-- end list -->
 
 ``` r
 ## select only these columns
-select_cols(d, cyl, gear, weight = wt)
+select_data(d, cyl, gear, weight = wt)
 #> # A tibble: 32 x 3
 #>      cyl  gear weight
 #>    <dbl> <dbl>  <dbl>
@@ -140,7 +140,7 @@ frame
 ``` r
 ## select cyl, gear, mpg columns and create new logical column for more efficient cars
 d %>%
-  select_cols(cyl, gear, mpg) %>%
+  select_data(cyl, gear, mpg) %>%
   mutate_data(eff = mpg > 20)
 #> # A tibble: 32 x 4
 #>      cyl  gear   mpg eff  
@@ -181,7 +181,7 @@ d %>%
 ``` r
 ## group by cyl
 d %>%
-  select_cols(cyl, gear, mpg) %>%
+  select_data(cyl, gear, mpg) %>%
   group_data(cyl) %>%
   mutate_data(n = length(gear)) %>%
   summarise_data(
@@ -196,8 +196,8 @@ d %>%
 #> 3    14  15.5 8
 ```
 
-  - **`do_call_rbind()`**: Collapse list of data frames into single data
-    frame
+  - **`bind_rows_data()`**: Collapse list of data frames into single
+    data frame
 
 <!-- end list -->
 
@@ -210,7 +210,7 @@ dd$new_var <- sample(letters, nrow(d), replace = TRUE)
 lst <- list(d, d, dd)
 
 ## bind rows into single data frame
-do_call_rbind(lst)
+bind_rows_data(lst)
 #> # A tibble: 96 x 13
 #>    row_names   mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear
 #>    <chr>     <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>

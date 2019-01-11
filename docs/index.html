@@ -124,10 +124,10 @@
 <a class="sourceLine" id="cb3-14" title="14"><span class="co">#&gt; 9 8     4         0 0</span></a></code></pre></div>
 <ul>
 <li>
-<strong><code><a href="reference/filter_rows.html">filter_rows()</a></code></strong>: Select which rows to return</li>
+<strong><code><a href="reference/filter_data.html">filter_data()</a></code></strong>: Select which rows to return</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co">## count by cyl and gear</span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="kw"><a href="reference/filter_rows.html">filter_rows</a></span>(d, gear <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span> <span class="op">|</span><span class="st"> </span>mpg <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span>, vs <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw"><a href="reference/filter_data.html">filter_data</a></span>(d, gear <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span> <span class="op">|</span><span class="st"> </span>mpg <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span>, vs <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt; # A tibble: 11 x 12</span></a>
 <a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt;    row_names   mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear</span></a>
 <a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt;    &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
@@ -145,10 +145,10 @@
 <a class="sourceLine" id="cb4-17" title="17"><span class="co">#&gt; # … with 1 more variable: carb &lt;dbl&gt;</span></a></code></pre></div>
 <ul>
 <li>
-<strong><code><a href="reference/arrange_rows.html">arrange_rows()</a></code></strong>: Organize rows by column(s) value</li>
+<strong><code><a href="reference/arrange_data.html">arrange_data()</a></code></strong>: Organize rows by column(s) value</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co">## count by cyl and gear</span></a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="reference/arrange_rows.html">arrange_rows</a></span>(d, gear, cyl)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="reference/arrange_data.html">arrange_data</a></span>(d, gear, cyl)</a>
 <a class="sourceLine" id="cb5-3" title="3"><span class="co">#&gt; # A tibble: 32 x 12</span></a>
 <a class="sourceLine" id="cb5-4" title="4"><span class="co">#&gt;    row_names   mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear</span></a>
 <a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt;    &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
@@ -165,10 +165,10 @@
 <a class="sourceLine" id="cb5-16" title="16"><span class="co">#&gt; # … with 22 more rows, and 1 more variable: carb &lt;dbl&gt;</span></a></code></pre></div>
 <ul>
 <li>
-<strong><code><a href="reference/select_cols.html">select_cols()</a></code></strong>: Select columns of data frame</li>
+<strong><code><a href="reference/select_data.html">select_data()</a></code></strong>: Select columns of data frame</li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="co">## select only these columns</span></a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="reference/select_cols.html">select_cols</a></span>(d, cyl, gear, <span class="dt">weight =</span> wt)</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="reference/select_data.html">select_data</a></span>(d, cyl, gear, <span class="dt">weight =</span> wt)</a>
 <a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt; # A tibble: 32 x 3</span></a>
 <a class="sourceLine" id="cb6-4" title="4"><span class="co">#&gt;      cyl  gear weight</span></a>
 <a class="sourceLine" id="cb6-5" title="5"><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
@@ -189,7 +189,7 @@
 </ul>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co">## select cyl, gear, mpg columns and create new logical column for more efficient cars</span></a>
 <a class="sourceLine" id="cb7-2" title="2">d <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-3" title="3"><span class="st">  </span><span class="kw"><a href="reference/select_cols.html">select_cols</a></span>(cyl, gear, mpg) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="st">  </span><span class="kw"><a href="reference/select_data.html">select_data</a></span>(cyl, gear, mpg) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-4" title="4"><span class="st">  </span><span class="kw"><a href="reference/mutate_data.html">mutate_data</a></span>(<span class="dt">eff =</span> mpg <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>)</a>
 <a class="sourceLine" id="cb7-5" title="5"><span class="co">#&gt; # A tibble: 32 x 4</span></a>
 <a class="sourceLine" id="cb7-6" title="6"><span class="co">#&gt;      cyl  gear   mpg eff  </span></a>
@@ -222,7 +222,7 @@
 </ul>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co">## group by cyl</span></a>
 <a class="sourceLine" id="cb9-2" title="2">d <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="st">  </span><span class="kw"><a href="reference/select_cols.html">select_cols</a></span>(cyl, gear, mpg) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="st">  </span><span class="kw"><a href="reference/select_data.html">select_data</a></span>(cyl, gear, mpg) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb9-4" title="4"><span class="st">  </span><span class="kw"><a href="reference/group_data.html">group_data</a></span>(cyl) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb9-5" title="5"><span class="st">  </span><span class="kw"><a href="reference/mutate_data.html">mutate_data</a></span>(<span class="dt">n =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(gear)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb9-6" title="6"><span class="st">  </span><span class="kw"><a href="reference/summarise_data.html">summarise_data</a></span>(</a>
@@ -237,7 +237,7 @@
 <a class="sourceLine" id="cb9-15" title="15"><span class="co">#&gt; 3    14  15.5 8</span></a></code></pre></div>
 <ul>
 <li>
-<strong><code><a href="reference/do_call_rbind.html">do_call_rbind()</a></code></strong>: Collapse list of data frames into single data frame</li>
+<strong><code><a href="reference/bind_rows_data.html">bind_rows_data()</a></code></strong>: Collapse list of data frames into single data frame</li>
 </ul>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="co">## create version of data with new variable</span></a>
 <a class="sourceLine" id="cb10-2" title="2">dd &lt;-<span class="st"> </span>d</a>
@@ -247,7 +247,7 @@
 <a class="sourceLine" id="cb10-6" title="6">lst &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(d, d, dd)</a>
 <a class="sourceLine" id="cb10-7" title="7"></a>
 <a class="sourceLine" id="cb10-8" title="8"><span class="co">## bind rows into single data frame</span></a>
-<a class="sourceLine" id="cb10-9" title="9"><span class="kw"><a href="reference/do_call_rbind.html">do_call_rbind</a></span>(lst)</a>
+<a class="sourceLine" id="cb10-9" title="9"><span class="kw"><a href="reference/bind_rows_data.html">bind_rows_data</a></span>(lst)</a>
 <a class="sourceLine" id="cb10-10" title="10"><span class="co">#&gt; # A tibble: 96 x 13</span></a>
 <a class="sourceLine" id="cb10-11" title="11"><span class="co">#&gt;    row_names   mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear</span></a>
 <a class="sourceLine" id="cb10-12" title="12"><span class="co">#&gt;    &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>

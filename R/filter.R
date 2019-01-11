@@ -20,19 +20,19 @@
 #'   stringsAsFactors = FALSE
 #' )
 #'
-#' filter_rows(d, mpg > 30)
-#' filter_rows(d, !mpg < 30)
-#' filter_rows(d, mpg > 30, !mpg < 30)
-#' filter_rows(d, mpg > 30, gear == 4)
-#' filter_rows(d, mpg > 30 | gear == 4, vs == 1)
+#' filter_data(d, mpg > 30)
+#' filter_data(d, !mpg < 30)
+#' filter_data(d, mpg > 30, !mpg < 30)
+#' filter_data(d, mpg > 30, gear == 4)
+#' filter_data(d, mpg > 30 | gear == 4, vs == 1)
 #'
 #' @export
-filter_rows <- function(.data, ...) UseMethod("filter_rows")
+filter_data <- function(.data, ...) UseMethod("filter_data")
 
 #' @export
-filter_rows.default <- function(.data, ...) {
+filter_data.default <- function(.data, ...) {
   if (length(dim(.data)) != 2) {
-    stop("filter_rows method requires two-dimensional object", call. = FALSE)
+    stop("filter_data method requires two-dimensional object", call. = FALSE)
   }
   dots <- capture_dots(...)
   e <- call_env()

@@ -7,12 +7,12 @@
 #' @param ... Unquoted names of columns to select
 #' @export
 #' @return Data frame with select columns
-select_cols <- function(.data, ...) {
-  UseMethod("select_cols")
+select_data <- function(.data, ...) {
+  UseMethod("select_data")
 }
 
 #' @export
-select_cols.default <- function(.data, ...) {
+select_data.default <- function(.data, ...) {
   dots <- pretty_dots(...)
   if (length(dots) == 0) {
     return(.data)

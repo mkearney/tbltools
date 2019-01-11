@@ -51,15 +51,15 @@ test_that("as_tbl, tabsort, ntbl", {
   expect_error(tabsort(prop = 'a'))
 })
 
-test_that("filter_rows, arrange_rows", {
+test_that("filter_data, arrange_data", {
   set.seed(12)
   d <- data.frame(abc = sample(letters[1:3], 100, replace = TRUE),
     xyz = sample(letters[24:26], 100, replace = TRUE),
     stringsAsFactors = FALSE)
-  expect_true(is.data.frame(filter_rows(d, d$abc == "a")))
-  expect_equal(nrow(filter_rows(d, d$abc == "a")), 34)
-  expect_equal(ncol(filter_rows(d, d$abc == "a")), 2)
-  d <- arrange_rows(d, abc, xyz)
+  expect_true(is.data.frame(filter_data(d, d$abc == "a")))
+  expect_equal(nrow(filter_data(d, d$abc == "a")), 34)
+  expect_equal(ncol(filter_data(d, d$abc == "a")), 2)
+  d <- arrange_data(d, abc, xyz)
   expect_true(is.data.frame(d))
   expect_true(max(which(d$abc == "c")) < min(which(d$abc == "a")))
   expect_true(
@@ -70,7 +70,7 @@ test_that("filter_rows, arrange_rows", {
 })
 
 
-test_that("do_call_rbind", {
+test_that("bind_rows_data", {
   ## list of data frames with inconsistent columns
   x <- data.frame(
     a = letters,
@@ -83,7 +83,7 @@ test_that("do_call_rbind", {
   xxx <- x
   xxx$a <- factor(xxx$a)
   l <- list(x, xx, xxx)
-  d <- do_call_rbind(l)
+  d <- bind_rows_data(l)
   expect_true(is.data.frame(d))
   expect_equal(nrow(d), 78)
   expect_equal(ncol(d), 4)
@@ -92,7 +92,7 @@ test_that("do_call_rbind", {
 })
 
 
-test_that("select_cols", {
+test_that("select_data", {
   ## list of data frames with inconsistent columns
   x <- data.frame(
     a = letters,
@@ -100,7 +100,7 @@ test_that("select_cols", {
     c = rnorm(26),
     stringsAsFactors = FALSE
   )
-  d <- select_cols(x, a, b)
+  d <- select_data(x, a, b)
   expect_true(is.data.frame(d))
   expect_equal(nrow(d), 26)
   expect_equal(ncol(d), 2)

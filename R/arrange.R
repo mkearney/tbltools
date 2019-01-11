@@ -19,18 +19,18 @@
 #' )
 #'
 #' ## arrange by one column
-#' arrange_rows(dat, a)
+#' arrange_data(dat, a)
 #'
 #' ## arrange by multiple columns
-#' arrange_rows(dat, a, b, c)
+#' arrange_data(dat, a, b, c)
 #'
 #' @export
-arrange_rows <- function(.data, ..., desc = TRUE) {
-  UseMethod("arrange_rows")
+arrange_data <- function(.data, ..., desc = TRUE) {
+  UseMethod("arrange_data")
 }
 
 #' @export
-arrange_rows.default <- function(.data, ..., desc = TRUE) {
+arrange_data.default <- function(.data, ..., desc = TRUE) {
   dots <- capture_dots(...)
 
   ## if no columns supplied, return .data
@@ -39,7 +39,7 @@ arrange_rows.default <- function(.data, ..., desc = TRUE) {
   }
 
   ## order the data with relevant columns selected
-  .order_data <- select_cols(.data, ...)
+  .order_data <- select_data(.data, ...)
   row_names <- do.call(base::order, c(as.list(.order_data), decreasing = desc))
 
   ## reorganize using ordered row_names

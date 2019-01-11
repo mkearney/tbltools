@@ -13,7 +13,7 @@
 #'
 #' @return Reordered data frame.
 repos_front <- function(data, ...) {
-  re <- select_cols(data, ...)
+  re <- select_data(data, ...)
   as_tbl(cbind(re, data[!names(data) %in% names(re)]))
 }
 
@@ -31,6 +31,6 @@ repos_front <- function(data, ...) {
 #'
 #' @return Reordered data frame.
 repos_back <- function(data, ...) {
-  re <- select_cols(data, ...)
+  re <- select_data(data, ...)
   as_tbl(cbind(data[!names(data) %in% names(re)], re))
 }

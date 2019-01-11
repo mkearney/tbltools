@@ -22,7 +22,7 @@ group_data.grouped_data <- function(.data, ...) {
 
 #' @export
 group_data.default <- function(.data, ...) {
-  g <- select_cols(.data, ...)
+  g <- select_data(.data, ...)
   is_fct <- sapply(g, is.factor)
   g[!is_fct] <- lapply(g[!is_fct], factor)
   lvs <- lapply(g, levels)

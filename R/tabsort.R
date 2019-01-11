@@ -94,7 +94,7 @@ tabsort.default <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE
 
     ## otherwise use tidy selection of any supplied var names
   } else {
-    .data <- select_cols(.data, ...)
+    .data <- select_data(.data, ...)
     if ("n" %in% names(.data)) {
       warning("variable n renamed to .n", call. = FALSE)
       names(.data)[names(.data) == "n"] <- ".n"
@@ -126,6 +126,6 @@ tabsort.default <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE
 #' @rdname tabsort
 #' @export
 ntbl <- function(.data, ...) {
-  .data <- select_cols(.data, ...)
+  .data <- select_data(.data, ...)
   as_tbl(table(.data))
 }
