@@ -85,7 +85,8 @@ tabsort.default <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE
       warning("variable n renamed to .n", call. = FALSE)
       vars[vars == "n"] <- ".n"
     }
-    .data <- structure(list(.data, ...), class = "list", names = c(assignname, vars))
+    .data <- list(.data, ...)
+    names(.data) <- c(assignname, vars)
 
     ## if single unnamed vector is supplied
   } else if (!is.recursive(.data)) {
@@ -104,7 +105,11 @@ tabsort.default <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE
     }
   }
   if (na_omit) {
-    .data <- tfse::na_omit(.data)
+    if (is.data.frame(.data)) {
+      .data <- na_omit_data.frame(.data)
+    } else {
+      .data <- na_omit_list(.data)
+    }
   }
   x <- as_tbl(do.call("table", as.list(.data)))
   if (prop) {

@@ -9,7 +9,8 @@ arrange_rows(.data, ..., desc = TRUE)
 \arguments{
 \item{.data}{data frame}
 
-\item{...}{The name of up to two column names on which to arrange the rows}
+\item{...}{One or more unquoted names of columns on which to arrange the rows. If none
+are supplied, the data are returned as is.}
 
 \item{desc}{Logical indicating whether to arrange by descending (default) or
 ascending values.}
@@ -19,4 +20,21 @@ Rearranged data frame
 }
 \description{
 Arrange rows via descending or ascending column values
+}
+\examples{
+
+## data frame to arrange
+dat <- data.frame(
+  a = c(rep("a", 3), rep("b", 3), rep("c", 4)),
+  b = c( 3, 3, 2,     8, 8, 1,     5,  5, 5, 9),
+  c = c(-1, 0, 0,    -5, 0, 2,    -2, -4, 1, 0),
+  stringsAsFactors = FALSE
+)
+
+## arrange by one column
+arrange_rows(dat, a)
+
+## arrange by multiple columns
+arrange_rows(dat, a, b, c)
+
 }

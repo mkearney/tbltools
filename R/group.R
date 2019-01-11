@@ -23,13 +23,13 @@ group_data.grouped_data <- function(.data, ...) {
 #' @export
 group_data.default <- function(.data, ...) {
   g <- select_cols(.data, ...)
-  is_fct <- dapr::vap_lgl(g, is.factor)
+  is_fct <- sapply(g, is.factor)
   g[!is_fct] <- lapply(g[!is_fct], factor)
-  lvs <- dapr::lap(g, levels)
+  lvs <- lapply(g, levels)
   group_names <- names(g)
   rows <- vector("list", length(group_names))
   for (i in seq_along(lvs)) {
-    rows[[i]] <- tfse::this_in_that(.data[[group_names[i]]], lvs[[i]], value = lvs[[i]])
+    rows[[i]] <- this_in_that(.data[[group_names[i]]], lvs[[i]], value = lvs[[i]])
   }
   names(rows) <- group_names
   attr(.data, "groups") <- rows
@@ -38,6 +38,25 @@ group_data.default <- function(.data, ...) {
     class = c("grouped_data", "tbl_df", "tbl", "data.frame")
   )
 }
+
+group_data_str <- function(.data, groups) {
+  g <- .data[groups]
+  is_fct <- sapply(g, is.factor)
+  g[!is_fct] <- lapply(g[!is_fct], factor)
+  lvs <- lapply(g, levels)
+  group_names <- names(g)
+  rows <- vector("list", length(group_names))
+  for (i in seq_along(lvs)) {
+    rows[[i]] <- this_in_that(.data[[group_names[i]]], lvs[[i]], value = lvs[[i]])
+  }
+  names(rows) <- group_names
+  attr(.data, "groups") <- rows
+  structure(
+    .data,
+    class = c("grouped_data", "tbl_df", "tbl", "data.frame")
+  )
+}
+
 
 #' Groups in grouped data
 #'

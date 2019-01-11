@@ -81,3 +81,20 @@ env_tbls <- function(env = globalenv(), row_names = TRUE) {
   }
   message("Done!")
 }
+
+
+data_tbl <- function(...) {
+  x <- list(...)
+  if (length(x) == 1L && is.data.frame(x[[1]])) {
+    x <- x[[1]]
+  }
+  lens <- lengths(x)
+  if (n_uq(lens) == 2L && 1L %in% lens) {
+    x[lens == 1L] <- lapply(x[lens == 1L], rep, max(lens))
+  }
+  nms <- names(x)
+  no_nms <- !nzchar(nms)
+  nms[no_nms] <- paste0("x", seq_len(sum(no_nms)))
+  structure(x, names = nms, row.names = .set_row_names(length(x[[1]])),
+    class = c("tbl_df", "tbl", "data.frame"))
+}

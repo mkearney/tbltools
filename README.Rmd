@@ -7,6 +7,7 @@ output: github_document
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE, comment = "#>")
 library(tbltools)
+library(tibble)
 ```
 # tbltools <img src="man/figures/logo.png" width="160px" align="right" />
 
@@ -65,6 +66,44 @@ filter_rows(d, gear > 3 | mpg > 30, vs == 1)
 arrange_rows(d, gear, cyl)
 ```
 
++ **`select_cols()`**: Select columns of data frame
+
+```{r}
+## select only these columns
+select_cols(d, cyl, gear, weight = wt)
+```
+
++ **`mutate_data()`**: Wrangle/create variables in data frame
+
+```{r}
+## select cyl, gear, mpg columns and create new logical column for more efficient cars
+d %>%
+  select_cols(cyl, gear, mpg) %>%
+  mutate_data(eff = mpg > 20)
+```
+
+
++ **`summarise_data()`**: Wrangle/create summary variables in data frame
+
+```{r}
+## select cyl, gear, mpg columns and create new logical column for more efficient cars
+d %>%
+  summarise_data(mpg = mean(mpg), wt = mean(wt))
+```
+
++ **`group_data()`**: Group observations in data frame [and then mutate and/or summarise]
+
+```{r}
+## group by cyl
+d %>%
+  select_cols(cyl, gear, mpg) %>%
+  group_data(cyl) %>%
+  mutate_data(n = length(gear)) %>%
+  summarise_data(
+    n = unique(n),
+    mpg = mean(mpg)
+  )
+```
 
 + **`do_call_rbind()`**: Collapse list of data frames into single data frame
 
@@ -78,12 +117,5 @@ lst <- list(d, d, dd)
 
 ## bind rows into single data frame
 do_call_rbind(lst)
-```
-
-+ **`select_cols()`**: Select columns of data frame
-
-```{r}
-## select only these columns
-select_cols(d, cyl, gear, weight = wt)
 ```
 

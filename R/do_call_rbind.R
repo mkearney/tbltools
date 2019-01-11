@@ -24,13 +24,13 @@
 do_call_rbind <- function(x, fill = TRUE) {
   stopifnot(is.list(x))
   if (length(x) == 1L && is.data.frame(x)) return(x)
-  is_df <- dapr::vap_lgl(x, is.data.frame)
+  is_df <- sapply(x, is.data.frame)
   x <- x[is_df & lengths(x) > 0]
   if (length(x) == 0L) return(data.frame())
   if (length(x) == 1L) return(x[[1]])
   if (fill && !same_names(x)) {
     cls <- lapply(x, function(.x) {
-      tfse::data_set(
+      data_tbl(
         name = names(.x),
         class = lapply(.x, class)
       )
@@ -52,11 +52,11 @@ do_call_rbind <- function(x, fill = TRUE) {
 }
 
 same_names <- function(x) {
-  if (tfse::n_uq(lengths(x)) != 1L) {
+  if (n_uq(lengths(x)) != 1L) {
     return(FALSE)
   }
   nms <- uq_names(x)
-  all(dapr::vap_lgl(x, ~ all(nms %in% names(.x))))
+  all(sapply(x, function(.x) all(nms %in% names(.x))))
 }
 
-uq_names <- function(x) unique(unlist(dapr::lap(x, names)))
+uq_names <- function(x) unique(unlist(lapply(x, names)))

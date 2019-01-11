@@ -17,8 +17,8 @@ mutate_data.default <- function(.data, ...) {
   dots <- pretty_dots(...)
   e <- call_env()
   d2 <- as_tbl(lapply(dots, function(.x) eval(.x, .data, e)))
-  .data <- .data[tfse::nin(names(.data), d2)]
-  cbind(.data, d2)
+  .data <- .data[nin(names(.data), d2)]
+  as_tbl(cbind(.data, d2))
 }
 
 #' Ungroup data
@@ -44,15 +44,16 @@ ungroup_data.default <- function(.data) {
 mutate_data.grouped_data <- function(.data, ...) {
   gd <- group_data_data(.data)
   .data <- ungroup_data(.data)
-  d <- lapply(gd, function(i) {
+  .data <- lapply(gd, function(i) {
     lvs <- unique(i)
     e <- lapply(lvs, function(j) .data[i == j, ])
     e <- lapply(e, function(.x) unique(mutate_data(.x, ...)))
     e <- do_call_rbind(e)
     unique(e)
   })
-  d <- do_call_rbind(d)
-  as_tbl(d)
+  .data <- do_call_rbind(.data)
+  row.names(.data) <- NULL
+  group_data_str(.data, names(gd))
 }
 
 #' Summarise data
@@ -82,7 +83,7 @@ summarise_data.grouped_data <- function(.data, ...) {
   d <- lapply(gd, function(i) {
     lvs <- unique(i)
     e <- lapply(lvs, function(j) .data[i == j, ])
-    e <- lapply(e, function(.x) unique(summarise_data(.x, mpg = mean(mpg))))
+    e <- lapply(e, function(.x) unique(summarise_data(.x, ...)))
     e <- do_call_rbind(e)
     unique(e)
   })

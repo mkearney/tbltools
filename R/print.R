@@ -6,8 +6,8 @@ print.tbl_df <- function(x) {
     #m <- ncol(x) * 10
     x <- as.data.frame(x)
     x <- head(x, 10)
-    is_chr <- dapr::vap_lgl(x, is.character)
-    x[is_chr] <- dapr::lap(x[is_chr], substr, 1, 15)
+    is_chr <- sapply(x, is.character)
+    x[is_chr] <- lapply(x[is_chr], substr, 1, 15)
     chars <- sapply(seq_len(ncol(x)), function(i)
       1 + max(nchar(c(names(x)[i], x[[i]])), na.rm = TRUE))
     w <- getOption("width", 80)

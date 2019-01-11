@@ -3,10 +3,27 @@
 #' Arrange rows via descending or ascending column values
 #'
 #' @param .data data frame
-#' @param ... The name of up to two column names on which to arrange the rows
+#' @param ... One or more unquoted names of columns on which to arrange the rows. If none
+#'   are supplied, the data are returned as is.
 #' @param desc Logical indicating whether to arrange by descending (default) or
 #'   ascending values.
 #' @return Rearranged data frame
+#' @examples
+#'
+#' ## data frame to arrange
+#' dat <- data.frame(
+#'   a = c(rep("a", 3), rep("b", 3), rep("c", 4)),
+#'   b = c( 3, 3, 2,     8, 8, 1,     5,  5, 5, 9),
+#'   c = c(-1, 0, 0,    -5, 0, 2,    -2, -4, 1, 0),
+#'   stringsAsFactors = FALSE
+#' )
+#'
+#' ## arrange by one column
+#' arrange_rows(dat, a)
+#'
+#' ## arrange by multiple columns
+#' arrange_rows(dat, a, b, c)
+#'
 #' @export
 arrange_rows <- function(.data, ..., desc = TRUE) {
   UseMethod("arrange_rows")
@@ -14,23 +31,24 @@ arrange_rows <- function(.data, ..., desc = TRUE) {
 
 #' @export
 arrange_rows.default <- function(.data, ..., desc = TRUE) {
-  row_names <- order(select_cols(.data, ...)[[1]], decreasing = desc)
-  .data <- .data[row_names, ]
-  if (ncol(select_cols(.data, ...)) > 1L) {
-    col1 <- select_cols(.data, ...)[[1]]
-    col2 <- select_cols(.data, ...)[[2]]
-    row_names <- seq_len(nrow(.data))
-    if (tfse::n_uq(col1) < nrow(.data)) {
-      uqv <- unique(col1)
-      for (i in seq_along(uqv)) {
-        if (sum(col1 == uqv[i]) > 1) {
-          o <- order(col2[col1 == uqv[i]], decreasing = desc)
-          row_names[col1 == uqv[i]] <- row_names[col1 == uqv[i]][o]
-        }
-      }
-    }
-    .data <- .data[row_names, ]
+  dots <- capture_dots(...)
+
+  ## if no columns supplied, return .data
+  if (length(dots) == 0) {
+    return(.data)
   }
+
+  ## order the data with relevant columns selected
+  .order_data <- select_cols(.data, ...)
+  row_names <- do.call(base::order, c(as.list(.order_data), decreasing = desc))
+
+  ## reorganize using ordered row_names
+  .data <- .data[row_names, ]
+
+  ## reset row names
   row.names(.data) <- NULL
+
+  ## return data
   .data
 }
+
