@@ -37,3 +37,15 @@ pretty_dots <- function(...) {
 
   dots
 }
+
+pcat <- function(...) {
+  cat(paste0(c(...), collapse = ""), fill = TRUE)
+}
+
+pcat_lines <- function (...) {
+  cat(paste0(..., "\n"), sep = "")
+}
+
+gray_text <- function(...) {
+  paste0("\033[38;5;243m", paste0(c(...), collapse = ""), "\033[39m")
+}
