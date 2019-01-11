@@ -3,3 +3,4 @@
 .Rproj.user
 .DS_Store
 CRAN-RELEASE
+make.R
