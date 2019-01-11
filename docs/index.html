@@ -250,11 +250,11 @@
 <a class="sourceLine" id="cb13-8" title="8">    <span class="dt">mpg =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(mpg)</a>
 <a class="sourceLine" id="cb13-9" title="9">  )</a>
 <a class="sourceLine" id="cb13-10" title="10"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
-<a class="sourceLine" id="cb13-11" title="11"><span class="co">#&gt;       n   mpg cyl  </span></a>
-<a class="sourceLine" id="cb13-12" title="12"><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb13-13" title="13"><span class="co">#&gt; 1     7  19.7 6    </span></a>
-<a class="sourceLine" id="cb13-14" title="14"><span class="co">#&gt; 2    11  26.7 4    </span></a>
-<a class="sourceLine" id="cb13-15" title="15"><span class="co">#&gt; 3    14  15.1 8</span></a></code></pre></div>
+<a class="sourceLine" id="cb13-11" title="11"><span class="co">#&gt;       n   mpg   cyl</span></a>
+<a class="sourceLine" id="cb13-12" title="12"><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb13-13" title="13"><span class="co">#&gt; 1     7  19.7     6</span></a>
+<a class="sourceLine" id="cb13-14" title="14"><span class="co">#&gt; 2    11  26.7     4</span></a>
+<a class="sourceLine" id="cb13-15" title="15"><span class="co">#&gt; 3    14  15.1     8</span></a></code></pre></div>
 <p>Compare with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/identical">identical</a></span>(</a>
 <a class="sourceLine" id="cb14-2" title="2">  d <span class="op">%&gt;%</span></a>
@@ -280,7 +280,7 @@
 <a class="sourceLine" id="cb14-22" title="22"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(cyl) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb14-23" title="23"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(cyl, mpg_total, mpg, n)</a>
 <a class="sourceLine" id="cb14-24" title="24">)</a>
-<a class="sourceLine" id="cb14-25" title="25"><span class="co">#&gt; [1] FALSE</span></a></code></pre></div>
+<a class="sourceLine" id="cb14-25" title="25"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 </div>
 <div id="bind-rows" class="section level3">
 <h3 class="hasAnchor">

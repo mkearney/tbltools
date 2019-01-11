@@ -215,11 +215,11 @@ d %>%
     mpg = mean(mpg)
   )
 #> # A tibble: 3 x 3
-#>       n   mpg cyl  
-#>   <int> <dbl> <chr>
-#> 1     7  19.7 6    
-#> 2    11  26.7 4    
-#> 3    14  15.1 8
+#>       n   mpg   cyl
+#>   <int> <dbl> <dbl>
+#> 1     7  19.7     6
+#> 2    11  26.7     4
+#> 3    14  15.1     8
 ```
 
 Compare with `dplyr::group_by()`
@@ -249,7 +249,7 @@ identical(
     dplyr::arrange(cyl) %>%
     dplyr::select(cyl, mpg_total, mpg, n)
 )
-#> [1] FALSE
+#> [1] TRUE
 ```
 
 ### Bind rows
