@@ -19,6 +19,18 @@
     <loc>https://tbltools.mikewk.com/reference/filter_rows.html</loc>
   </url>
   <url>
+    <loc>https://tbltools.mikewk.com/reference/group_data.html</loc>
+  </url>
+  <url>
+    <loc>https://tbltools.mikewk.com/reference/group_data_data.html</loc>
+  </url>
+  <url>
+    <loc>https://tbltools.mikewk.com/reference/group_data_groups.html</loc>
+  </url>
+  <url>
+    <loc>https://tbltools.mikewk.com/reference/mutate_data.html</loc>
+  </url>
+  <url>
     <loc>https://tbltools.mikewk.com/reference/repos_back.html</loc>
   </url>
   <url>
@@ -28,6 +40,12 @@
     <loc>https://tbltools.mikewk.com/reference/select_cols.html</loc>
   </url>
   <url>
+    <loc>https://tbltools.mikewk.com/reference/summarise_data.html</loc>
+  </url>
+  <url>
     <loc>https://tbltools.mikewk.com/reference/tabsort.html</loc>
+  </url>
+  <url>
+    <loc>https://tbltools.mikewk.com/reference/ungroup_data.html</loc>
   </url>
 </urlset>

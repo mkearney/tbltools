@@ -1,4 +1,14 @@
 
+#' Group data
+#'
+#' Indicate grouping variables in data frame
+#'
+#' @param .data Data frame
+#' @param ... Unquoted (non-standard evaluation) name(s) of group variable(s).
+#' @examples
+#' d <- data.frame(a = c("a", "b", "c"), b = 1:3, stringsAsFactors = FALSE)
+#' group_data(d, a)
+#' @return A data frame with groups attribute
 #' @export
 group_data <- function(.data, ...) {
   UseMethod("group_data")
@@ -29,13 +39,33 @@ group_data.default <- function(.data, ...) {
   )
 }
 
+#' Groups in grouped data
+#'
+#' Returns grouping variable names of grouped data
+#'
+#' @param x Grouped data frame
+#' @return Names of grouping variables
 #' @export
 group_data_groups <- function(x) names(attr(x, "groups"))
 
+#' Group row numbers in grouped data
+#'
+#' Returns row numbers for each group in grouped data
+#'
+#' @param x Groupted data frame
+#' @return List of row numbers for each group
 #' @export
 group_data_data <- function(x) attr(x, "groups")
 
-
+#' Mutate data
+#'
+#' Wrangle data by adding or transforming columns
+#'
+#' @param .data Data frame
+#' @param ... One or more expressions using non-standard evaluation designed
+#'   to return a column of values. These should be named variables. Any names
+#'   already found in the input data will override those input data frame columns
+#' @return Mutated data frame
 #' @export
 mutate_data <- function(.data, ...) {
   UseMethod("mutate_data")
@@ -50,6 +80,12 @@ mutate_data.default <- function(.data, ...) {
   cbind(.data, d2)
 }
 
+#' Ungroup data
+#'
+#' Ungroups grouped data
+#'
+#' @param .data Grouped data
+#' @return Data grame without groups attribute
 #' @export
 ungroup_data <- function(.data) {
   UseMethod("ungroup_data")
@@ -78,6 +114,14 @@ mutate_data.grouped_data <- function(.data, ...) {
   as_tbl(d)
 }
 
+#' Summarise data
+#'
+#' Returns a summary-level data frame
+#'
+#' @param .data Data frame
+#' @param ... One or more namecd expressions evaluating with non-standard evaluation
+#'   to a single summary value.
+#' @return A summary-level data frame
 #' @export
 summarise_data <- function(.data, ...) {
   UseMethod("summarise_data")
