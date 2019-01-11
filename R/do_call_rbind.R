@@ -27,7 +27,7 @@ do_call_rbind <- function(x, fill = TRUE) {
   is_df <- dapr::vap_lgl(x, is.data.frame)
   x <- x[is_df & lengths(x) > 0]
   if (length(x) == 0L) return(data.frame())
-  if (length(x) == 1L) return(x)
+  if (length(x) == 1L) return(x[[1]])
   if (fill && !same_names(x)) {
     cls <- lapply(x, function(.x) {
       tfse::data_set(
