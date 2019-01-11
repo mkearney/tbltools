@@ -7,29 +7,31 @@
 #' @param ... Unquoted (non-standard evaluation) name(s) of group variable(s).
 #' @examples
 #' d <- data.frame(a = c("a", "b", "c"), b = 1:3, stringsAsFactors = FALSE)
-#' group_data(d, a)
+#' group_by_data(d, a)
 #' @return A data frame with groups attribute
 #' @export
-group_data <- function(.data, ...) {
-  UseMethod("group_data")
+group_by_data <- function(.data, ...) {
+  UseMethod("group_by_data")
 }
 
 #' @export
-group_data.grouped_data <- function(.data, ...) {
+group_by_data.grouped_data <- function(.data, ...) {
   .data <- ungroup_data(.data)
-  group_data(.data)
+  group_by_data(.data, ...)
 }
 
 #' @export
-group_data.default <- function(.data, ...) {
+group_by_data.default <- function(.data, ...) {
   g <- select_data(.data, ...)
   is_fct <- sapply(g, is.factor)
-  g[!is_fct] <- lapply(g[!is_fct], factor)
-  lvs <- lapply(g, levels)
+  #g[!is_fct] <- lapply(g[!is_fct], factor)
+  lvs <- lapply(g, unique)
+  lvs[is_fct] <- lapply(g[is_fct], levels)
   group_names <- names(g)
   rows <- vector("list", length(group_names))
   for (i in seq_along(lvs)) {
-    rows[[i]] <- this_in_that(.data[[group_names[i]]], lvs[[i]], value = lvs[[i]])
+    #rows[[i]] <- this_in_that(.data[[group_names[i]]], lvs[[i]], value = lvs[[i]])
+    rows[[i]] <- this_in_that(g[[i]], lvs[[i]], value = lvs[[i]])
   }
   names(rows) <- group_names
   attr(.data, "groups") <- rows
@@ -39,15 +41,17 @@ group_data.default <- function(.data, ...) {
   )
 }
 
-group_data_str <- function(.data, groups) {
+group_by_data_str <- function(.data, groups) {
   g <- .data[groups]
   is_fct <- sapply(g, is.factor)
-  g[!is_fct] <- lapply(g[!is_fct], factor)
-  lvs <- lapply(g, levels)
+  #g[!is_fct] <- lapply(g[!is_fct], factor)
+  lvs <- lapply(g, unique)
+  lvs[is_fct] <- lapply(g[is_fct], levels)
   group_names <- names(g)
   rows <- vector("list", length(group_names))
   for (i in seq_along(lvs)) {
-    rows[[i]] <- this_in_that(.data[[group_names[i]]], lvs[[i]], value = lvs[[i]])
+    #rows[[i]] <- this_in_that(.data[[group_names[i]]], lvs[[i]], value = lvs[[i]])
+    rows[[i]] <- this_in_that(g[[i]], lvs[[i]], value = lvs[[i]])
   }
   names(rows) <- group_names
   attr(.data, "groups") <- rows
@@ -57,6 +61,25 @@ group_data_str <- function(.data, groups) {
   )
 }
 
+
+#' Ungroup data
+#'
+#' Ungroups grouped data
+#'
+#' @param .data Grouped data
+#' @return Data grame without groups attribute
+#' @export
+ungroup_data <- function(.data) {
+  UseMethod("ungroup_data")
+}
+
+#' @export
+ungroup_data.default <- function(.data) {
+  structure(
+    .data,
+    class = c("tbl_df", "tbl", "data.frame")
+  )
+}
 
 #' Groups in grouped data
 #'
@@ -65,7 +88,7 @@ group_data_str <- function(.data, groups) {
 #' @param x Grouped data frame
 #' @return Names of grouping variables
 #' @export
-group_data_groups <- function(x) names(attr(x, "groups"))
+group_by_data_groups <- function(x) names(attr(x, "groups"))
 
 #' Group row numbers in grouped data
 #'
@@ -74,5 +97,5 @@ group_data_groups <- function(x) names(attr(x, "groups"))
 #' @param x Groupted data frame
 #' @return List of row numbers for each group
 #' @export
-group_data_data <- function(x) attr(x, "groups")
+group_by_data_data <- function(x) attr(x, "groups")
 

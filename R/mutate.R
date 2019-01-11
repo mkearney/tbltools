@@ -21,39 +21,37 @@ mutate_data.default <- function(.data, ...) {
   as_tbl(cbind(.data, d2))
 }
 
-#' Ungroup data
-#'
-#' Ungroups grouped data
-#'
-#' @param .data Grouped data
-#' @return Data grame without groups attribute
-#' @export
-ungroup_data <- function(.data) {
-  UseMethod("ungroup_data")
-}
-
-#' @export
-ungroup_data.default <- function(.data) {
-  structure(
-    .data,
-    class = c("tbl_df", "tbl", "data.frame")
-  )
-}
 
 #' @export
 mutate_data.grouped_data <- function(.data, ...) {
-  gd <- group_data_data(.data)
-  .data <- ungroup_data(.data)
-  .data <- lapply(gd, function(i) {
+  gd <- group_by_data_data(.data)
+  # .data <- ungroup_data(.data)
+  # .d <- lapply(gd, function(i) {
+  #   lvs <- unique(i)
+  #   e <- lapply(lvs, function(j) .data[i == j, ])
+  #   e <- lapply(e, function(.x) mutate_data(.x, ...))
+  #   bind_rows_data(e)
+  # })
+  # d <- bind_rows_data(.d)
+  #row.names(.d) <- NULL
+  #group_by_data_str(.d, names(gd))
+
+
+  .d <- ungroup_data(.data)
+  d <- lapply(gd, function(i) {
     lvs <- unique(i)
-    e <- lapply(lvs, function(j) .data[i == j, ])
-    e <- lapply(e, function(.x) unique(mutate_data(.x, ...)))
-    e <- bind_rows_data(e)
-    unique(e)
+    e <- lapply(lvs, function(j) .d[i == j, ])
+    e <- lapply(e, function(.x) mutate_data(.x, ...))
+    bind_rows_data(e)
   })
-  .data <- bind_rows_data(.data)
-  row.names(.data) <- NULL
-  group_data_str(.data, names(gd))
+  d <- bind_rows_data(d)
+  group_by_data_str(d, names(gd))
+  #nms <- names(d)
+  #for (i in seq_along(gd)) {
+  #  d[[names(gd)[i]]] <- gd[[i]]
+  #}
+  #d
+
 }
 
 

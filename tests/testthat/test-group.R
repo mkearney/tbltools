@@ -1,6 +1,6 @@
 context("test-group")
 
-test_that("group_data", {
+test_that("group_by_data", {
   d <- data.frame(
     mpg = c(10.5, 18.5, 22.5, 25.5),
     cyl = c(  8L,   6L,   4L,   4L),
@@ -8,7 +8,7 @@ test_that("group_data", {
   )
   o <- d %>%
     filter_data(mpg > 11) %>%
-    group_data(cyl) %>%
+    group_by_data(cyl) %>%
     mutate_data(n = length(gear)) %>%
     summarise_data(
         n = unique(n),

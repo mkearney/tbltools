@@ -20,11 +20,11 @@ summarise_data.default <- function(.data, ...) {
 
 #' @export
 summarise_data.grouped_data <- function(.data, ...) {
-  gd <- group_data_data(.data)
-  .data <- ungroup_data(.data)
+  gd <- group_by_data_data(.data)
+  .d <- ungroup_data(.data)
   d <- lapply(gd, function(i) {
     lvs <- unique(i)
-    e <- lapply(lvs, function(j) .data[i == j, ])
+    e <- lapply(lvs, function(j) .d[i == j, ])
     e <- lapply(e, function(.x) unique(summarise_data(.x, ...)))
     e <- bind_rows_data(e)
     unique(e)

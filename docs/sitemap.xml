@@ -19,13 +19,16 @@
     <loc>https://tbltools.mikewk.com/reference/filter_data.html</loc>
   </url>
   <url>
-    <loc>https://tbltools.mikewk.com/reference/group_data.html</loc>
+    <loc>https://tbltools.mikewk.com/reference/group_by_data.html</loc>
   </url>
   <url>
-    <loc>https://tbltools.mikewk.com/reference/group_data_data.html</loc>
+    <loc>https://tbltools.mikewk.com/reference/group_by_data_data.html</loc>
   </url>
   <url>
-    <loc>https://tbltools.mikewk.com/reference/group_data_groups.html</loc>
+    <loc>https://tbltools.mikewk.com/reference/group_by_data_groups.html</loc>
+  </url>
+  <url>
+    <loc>https://tbltools.mikewk.com/reference/join.html</loc>
   </url>
   <url>
     <loc>https://tbltools.mikewk.com/reference/mutate_data.html</loc>
