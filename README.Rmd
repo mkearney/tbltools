@@ -32,7 +32,14 @@ Tools for Working with Tibbles
 
 ## Installation
 
-Install the development version from Github with:
+Install from CRAN with:
+
+```{r, eval=FALSE}
+## install {tbltools} from CRAN
+install.packages("tbltools")
+```
+
+Or install the development version from Github with:
 
 ```{r, eval=FALSE}
 ## install remotes pkg if not already
@@ -43,6 +50,14 @@ if (!requireNamespace("remotes")) {
 ## install from github
 remotes::install_github("mkearney/tbltools")
 ```
+
+## Features
++ Very lightweight–zero dependencies!
++ Access numerous [**{dplyr}**](https://dplyr.tidyverse.org)-like functions
+following the `{dplyr_verb}_data` naming convention:
+   - Supported dplyr-like functions: `arrange_data()` `filter_data()`, `select_data()`,
+`mutate_data()`, `summarise_data()`, `bind_rows_data()`, `full_join_data()`,
+`left_join_data()`, `right_join_data()`
 
 ## Use
 

@@ -1,3 +1,9 @@
+# tbltools 0.1.0
+
+* Added dplyr-like functions `arrange_data()` `filter_data()`, `select_data()`,
+`mutate_data()`, `summarise_data()`, `bind_rows_data()`, `full_join_data()`,
+`left_join_data()`, `right_join_data()`
+
 # tbltools 0.0.5
 
 * tbltools is a lot lighter as rlang, tibble, and tidyselect are no longer dependencies

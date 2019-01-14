@@ -18,7 +18,14 @@ Tools for Working with Tibbles
 
 ## Installation
 
-Install the development version from Github with:
+Install from CRAN with:
+
+``` r
+## install {tbltools} from CRAN
+install.packages("tbltools")
+```
+
+Or install the development version from Github with:
 
 ``` r
 ## install remotes pkg if not already
@@ -29,6 +36,16 @@ if (!requireNamespace("remotes")) {
 ## install from github
 remotes::install_github("mkearney/tbltools")
 ```
+
+## Features
+
+  - Very lightweight–zero dependencies\!
+  - Access numerous [**{dplyr}**](https://dplyr.tidyverse.org)-like
+    functions following the `{dplyr_verb}_data` naming convention:
+      - Supported dplyr-like functions: `arrange_data()`
+        `filter_data()`, `select_data()`, `mutate_data()`,
+        `summarise_data()`, `bind_rows_data()`, `full_join_data()`,
+        `left_join_data()`, `right_join_data()`
 
 ## Use
 
@@ -332,11 +349,21 @@ y <- data.frame(cyl = c(1, 4), new = c(1.25, 2.5))
 ``` r
 ## join according to x
 left_join_data(x, y)
-#> Joining, by = cyl
-#> # A tibble: 1 x 12
-#>     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb   new
-#>   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-#> 1  24.4     4  147.    62  3.69  3.19    20     1     0     4     2   2.5
+#> Joining, by = "cyl"
+#> # A tibble: 32 x 12
+#>      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb   new
+#>    <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+#>  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4  NA  
+#>  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4  NA  
+#>  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1   2.5
+#>  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1  NA  
+#>  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2  NA  
+#>  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1  NA  
+#>  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4  NA  
+#>  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2   2.5
+#>  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2   2.5
+#> 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4  NA  
+#> # … with 22 more rows
 ```
 
 Compare with `dplyr::left_join()`:
@@ -346,9 +373,9 @@ same_as_dplyr(
   left_join_data(x, y),
   dplyr::left_join(x, y)
 )
-#> Joining, by = cyl
 #> Joining, by = "cyl"
-#> [1] FALSE
+#> Joining, by = "cyl"
+#> [1] TRUE
 ```
 
   - **`right_join_data()`**: Join according to second (right) data frame
@@ -358,20 +385,20 @@ same_as_dplyr(
 ``` r
 ## join by y
 right_join_data(x, y)
-#> Joining, by = cyl
+#> Joining, by = "cyl"
 #> # A tibble: 12 x 12
 #>      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb   new
 #>    <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-#>  1  22.8     4 108      93  3.85  2.32  18.6     1     1     4     1   2.5
-#>  2  24.4     4 147.     62  3.69  3.19  20       1     0     4     2   2.5
-#>  3  22.8     4 141.     95  3.92  3.15  22.9     1     0     4     2   2.5
-#>  4  32.4     4  78.7    66  4.08  2.2   19.5     1     1     4     1   2.5
-#>  5  30.4     4  75.7    52  4.93  1.62  18.5     1     1     4     2   2.5
-#>  6  33.9     4  71.1    65  4.22  1.84  19.9     1     1     4     1   2.5
-#>  7  21.5     4 120.     97  3.7   2.46  20.0     1     0     3     1   2.5
-#>  8  27.3     4  79      66  4.08  1.94  18.9     1     1     4     1   2.5
-#>  9  26       4 120.     91  4.43  2.14  16.7     0     1     5     2   2.5
-#> 10  30.4     4  95.1   113  3.77  1.51  16.9     1     1     5     2   2.5
+#>  1  NA       1  NA      NA NA    NA     NA      NA    NA    NA    NA  1.25
+#>  2  22.8     4 108      93  3.85  2.32  18.6     1     1     4     1  2.5 
+#>  3  24.4     4 147.     62  3.69  3.19  20       1     0     4     2  2.5 
+#>  4  22.8     4 141.     95  3.92  3.15  22.9     1     0     4     2  2.5 
+#>  5  32.4     4  78.7    66  4.08  2.2   19.5     1     1     4     1  2.5 
+#>  6  30.4     4  75.7    52  4.93  1.62  18.5     1     1     4     2  2.5 
+#>  7  33.9     4  71.1    65  4.22  1.84  19.9     1     1     4     1  2.5 
+#>  8  21.5     4 120.     97  3.7   2.46  20.0     1     0     3     1  2.5 
+#>  9  27.3     4  79      66  4.08  1.94  18.9     1     1     4     1  2.5 
+#> 10  26       4 120.     91  4.43  2.14  16.7     0     1     5     2  2.5 
 #> # … with 2 more rows
 ```
 
@@ -382,9 +409,9 @@ same_as_dplyr(
   right_join_data(x, y),
   dplyr::right_join(x, y)
 )
-#> Joining, by = cyl
 #> Joining, by = "cyl"
-#> [1] FALSE
+#> Joining, by = "cyl"
+#> [1] TRUE
 ```
 
   - **`full_join_data()`**: Join according to both data frames
@@ -394,7 +421,7 @@ same_as_dplyr(
 ``` r
 ## join by x and y
 full_join_data(x, y)
-#> Joining, by = cyl
+#> Joining, by = "cyl"
 #> # A tibble: 33 x 12
 #>      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb   new
 #>    <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
@@ -418,7 +445,7 @@ same_as_dplyr(
   full_join_data(x, y),
   dplyr::full_join(x, y)
 )
-#> Joining, by = cyl
+#> Joining, by = "cyl"
 #> Joining, by = "cyl"
 #> [1] TRUE
 ```
