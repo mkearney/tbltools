@@ -45,7 +45,7 @@ print.tbl_data <- function(x, n = 10, ...) {
 
 
 head_data <- function(x, n = 10) {
-  if (n > nrow(x)) {
+  if (nrow(x) > n) {
     x <- x[seq_len(n), ]
   }
   x
