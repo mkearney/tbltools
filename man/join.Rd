@@ -33,13 +33,12 @@ Right join: Join two data frames by matching the first (left) data frame to the 
 }
 \examples{
 
-d1 <- data.frame(
+d1 <- tbl_data(
   x = 1:10,
   y = rnorm(10),
-  z = letters[1:10],
-  stringsAsFactors = FALSE
+  z = letters[1:10]
 )
-d2 <- data.frame(
+d2 <- tbl_data(
   x = sample(1:10, 20, replace = TRUE),
   y2 = rnorm(20)
 )

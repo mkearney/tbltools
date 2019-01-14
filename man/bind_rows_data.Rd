@@ -23,7 +23,7 @@ columns with NAs of the appropriate class.
 \examples{
 
 ## list of data frames with inconsistent columns
-x <- as_tbl(mtcars[1:3, ])
+x <- as_tbl_data(mtcars[1:3, ])
 xx <- x
 xx$y <- "a"
 l <- list(x, xx, mtcars)

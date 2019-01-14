@@ -145,7 +145,7 @@ with missing values.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## list of data frames with inconsistent columns</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as_tbl.html'>as_tbl</a></span>(<span class='no'>mtcars</span>[<span class='fl'>1</span>:<span class='fl'>3</span>, ])
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as_tbl_data.html'>as_tbl_data</a></span>(<span class='no'>mtcars</span>[<span class='fl'>1</span>:<span class='fl'>3</span>, ])
 <span class='no'>xx</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>
 <span class='no'>xx</span>$<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='st'>"a"</span>
 <span class='no'>l</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>x</span>, <span class='no'>xx</span>, <span class='no'>mtcars</span>)
