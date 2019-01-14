@@ -22,7 +22,7 @@ select_data.default <- function(.data, ...) {
   structure(
     .data,
     row.names = .set_row_names(length(.data[[1]])),
-    class = c("tbl_df", "tbl", "data.frame")
+    class = c("tbl_data", "tbl_df", "tbl", "data.frame")
   )
 }
 

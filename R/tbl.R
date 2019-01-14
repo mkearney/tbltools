@@ -1,37 +1,37 @@
 
 
-#' as_tbl
+#' as_tbl_data
 #'
 #' Converts data objects to tibbles.
 #'
 #' @param x Data frame or data frame-like input.
 #' @param row_names Logical indicating whether to convert non-null row names
 #'   into the first column.
-#' @rdname as_tbl
+#' @rdname as_tbl_data
 #' @examples
 #' ## data with row names
 #' d <- data.frame(x = rnorm(5), y = rnorm(5), row.names = letters[1:5])
 #'
 #' ## convert to tibble
-#' as_tbl(d)
+#' as_tbl_data(d)
 #'
 #' ## convert to tibble and create row_names variable
-#' as_tbl(d, row_names = TRUE)
+#' as_tbl_data(d, row_names = TRUE)
 #'
 #' @export
-as_tbl <- function(x, row_names = FALSE) {
-  UseMethod("as_tbl")
+as_tbl_data <- function(x, row_names = FALSE) {
+  UseMethod("as_tbl_data")
 }
 
 #' @export
-as_tbl.table <- function(x, row_names = FALSE) {
+as_tbl_data.table <- function(x, row_names = FALSE) {
   df <- as.data.frame(x, stringsAsFactors = FALSE)
   names(df) <- c(names(dimnames(x)), "n")
-  as_tbl(df)
+  as_tbl_data(df)
 }
 
 #' @export
-as_tbl.default <- function(x, row_names = FALSE) {
+as_tbl_data.default <- function(x, row_names = FALSE) {
   isdf <- which(vapply(x, is.data.frame, FUN.VALUE = logical(1),
     USE.NAMES = FALSE))
   if (length(isdf) > 0) {
@@ -47,7 +47,7 @@ as_tbl.default <- function(x, row_names = FALSE) {
   structure(
     x,
     row.names = .set_row_names(length(x[[1]])),
-    class = c("tbl_df", "tbl", "data.frame")
+    class = c("tbl_data", "tbl_df", "tbl", "data.frame")
   )
 }
 
@@ -74,7 +74,7 @@ env_tbls <- function(env = globalenv(), row_names = TRUE) {
   for (i in seq_along(o)) {
     x <- get(o[i], envir = env)
     if (is.data.frame(x)) {
-      x <- as_tbl(x, row_names = row_names)
+      x <- as_tbl_data(x, row_names = row_names)
       message("Converting ", o[i], " into tbl_df")
       assign(o[i], x, envir = env)
     }
@@ -83,7 +83,15 @@ env_tbls <- function(env = globalenv(), row_names = TRUE) {
 }
 
 
-data_tbl <- function(...) {
+#' tbl data
+#'
+#' Create a tibble data frame
+#'
+#' @param ... A data frame, vector, or list of values of equal or single-value
+#'   length–similar to \link[base]{data.frame}.
+#' @return An object of class \code{c("tbl_data", "tbl_df", "tbl", "data.frame")}
+#' @export
+tbl_data <- function(...) {
   x <- list(...)
   if (length(x) == 1L && is.data.frame(x[[1]])) {
     x <- x[[1]]
@@ -96,5 +104,5 @@ data_tbl <- function(...) {
   no_nms <- !nzchar(nms)
   nms[no_nms] <- paste0("x", seq_len(sum(no_nms)))
   structure(x, names = nms, row.names = .set_row_names(length(x[[1]])),
-    class = c("tbl_df", "tbl", "data.frame"))
+    class = c("tbl_data", "tbl_df", "tbl", "data.frame"))
 }

@@ -15,7 +15,7 @@ summarise_data <- function(.data, ...) {
 summarise_data.default <- function(.data, ...) {
   dots <- pretty_dots(...)
   e <- call_env()
-  as_tbl(lapply(dots, function(.x) eval(.x, .data, e)))
+  as_tbl_data(lapply(dots, function(.x) eval(.x, .data, e)))
 }
 
 #' @export
@@ -30,7 +30,7 @@ summarise_data.grouped_data <- function(.data, ...) {
     unique(e)
   })
   d <- bind_rows_data(d)
-  d <- as_tbl(d)
+  d <- as_tbl_data(d)
   nms <- names(d)
   for (i in seq_along(gd)) {
     d[[names(gd)[i]]] <- unique(gd[[i]])

@@ -12,7 +12,7 @@
 #' @examples
 #'
 #' ## list of data frames with inconsistent columns
-#' x <- as_tbl(mtcars[1:3, ])
+#' x <- as_tbl_data(mtcars[1:3, ])
 #' xx <- x
 #' xx$y <- "a"
 #' l <- list(x, xx, mtcars)
@@ -30,7 +30,7 @@ bind_rows_data <- function(x, fill = TRUE) {
   if (length(x) == 1L) return(x[[1]])
   if (fill && !same_names(x)) {
     cls <- lapply(x, function(.x) {
-      data_tbl(
+      tbl_data(
         name = names(.x),
         class = lapply(.x, class)
       )

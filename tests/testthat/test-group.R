@@ -1,7 +1,7 @@
 context("test-group")
 
 test_that("group_by_data", {
-  d <- data.frame(
+  d <- tbltools::tbl_data(
     mpg = c(10.5, 18.5, 22.5, 25.5),
     cyl = c(  8L,   6L,   4L,   4L),
     gear = c( 5L,   4L,   4L,   3L)

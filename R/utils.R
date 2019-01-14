@@ -1,3 +1,16 @@
+set_class <- function(x, class) `class<-`(x, class)
+
+as_tibble_tibble <- function(x) {
+  set_class(x, c("tbl_df", "tbl", "data.frame"))
+}
+
+as_data_frame_data_frame <- function(x) {
+  set_class(x, "data.frame")
+}
+
+are_fct <- function(x) vapply(x, is.factor, logical(1), USE.NAMES = FALSE)
+
+
 call_env <- function (n = 1) parent.frame(n + 1)
 
 capture_dots <- function(...) {

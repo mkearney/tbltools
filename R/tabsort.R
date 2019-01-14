@@ -111,7 +111,7 @@ tabsort.default <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE
       .data <- na_omit_list(.data)
     }
   }
-  x <- as_tbl(do.call("table", as.list(.data)))
+  x <- as_tbl_data(do.call("table", as.list(.data)))
   if (prop) {
     x$prop <- x$n / sum(x$n, na.rm = TRUE)
   }
@@ -127,5 +127,5 @@ tabsort.default <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE
 #' @export
 ntbl <- function(.data, ...) {
   .data <- select_data(.data, ...)
-  as_tbl(table(.data))
+  as_tbl_data(table(.data))
 }

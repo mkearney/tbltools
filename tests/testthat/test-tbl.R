@@ -1,6 +1,6 @@
 context("test-tbl")
 
-test_that("as_tbl, tabsort, ntbl", {
+test_that("as_tbl_data, tabsort, ntbl", {
   env <- environment()
   e <- data.frame(
     a = letters,
@@ -25,7 +25,7 @@ test_that("as_tbl, tabsort, ntbl", {
   d <- data.frame(abc = sample(letters[1:3], 100, replace = TRUE),
     xyz = sample(letters[24:26], 100, replace = TRUE),
     stringsAsFactors = FALSE)
-  e <- as_tbl(e, row_names = TRUE)
+  e <- as_tbl_data(e, row_names = TRUE)
   expect_named(e)
   expect_true("d.bb" %in% names(e))
   expect_equal(ncol(e), 7)
@@ -34,11 +34,11 @@ test_that("as_tbl, tabsort, ntbl", {
   expect_true(is.data.frame(e))
   expect_true(is.character(e$row_names))
 
-  expect_true(inherits(as_tbl(d), "tbl_df"))
+  expect_true(inherits(as_tbl_data(d), "tbl_df"))
   d <- tabsort(d)
   expect_equal(ncol(d), 4)
   expect_true(inherits(d, "tbl_df"))
-  expect_true(inherits(as_tbl(d), "tbl_df"))
+  expect_true(inherits(as_tbl_data(d), "tbl_df"))
   expect_true(is.data.frame((ntbl(d, n))))
   expect_equal(ncol(ntbl(d, n)), 2)
 
@@ -72,11 +72,10 @@ test_that("filter_data, arrange_data", {
 
 test_that("bind_rows_data", {
   ## list of data frames with inconsistent columns
-  x <- data.frame(
+  x <- tbl_data(
     a = letters,
     b = 1:26,
-    c = rnorm(26),
-    stringsAsFactors = FALSE
+    c = rnorm(26)
   )
   xx <- x
   xx$d <- "d"

@@ -24,40 +24,36 @@ group_by_data.grouped_data <- function(.data, ...) {
 group_by_data.default <- function(.data, ...) {
   g <- select_data(.data, ...)
   is_fct <- sapply(g, is.factor)
-  #g[!is_fct] <- lapply(g[!is_fct], factor)
   lvs <- lapply(g, unique)
   lvs[is_fct] <- lapply(g[is_fct], levels)
   group_names <- names(g)
   rows <- vector("list", length(group_names))
   for (i in seq_along(lvs)) {
-    #rows[[i]] <- this_in_that(.data[[group_names[i]]], lvs[[i]], value = lvs[[i]])
     rows[[i]] <- this_in_that(g[[i]], lvs[[i]], value = lvs[[i]])
   }
   names(rows) <- group_names
   attr(.data, "groups") <- rows
   structure(
     .data,
-    class = c("grouped_data", "tbl_df", "tbl", "data.frame")
+    class = c("grouped_data", "tbl_data", "tbl_df", "tbl", "data.frame")
   )
 }
 
 group_by_data_str <- function(.data, groups) {
   g <- .data[groups]
   is_fct <- sapply(g, is.factor)
-  #g[!is_fct] <- lapply(g[!is_fct], factor)
   lvs <- lapply(g, unique)
   lvs[is_fct] <- lapply(g[is_fct], levels)
   group_names <- names(g)
   rows <- vector("list", length(group_names))
   for (i in seq_along(lvs)) {
-    #rows[[i]] <- this_in_that(.data[[group_names[i]]], lvs[[i]], value = lvs[[i]])
     rows[[i]] <- this_in_that(g[[i]], lvs[[i]], value = lvs[[i]])
   }
   names(rows) <- group_names
   attr(.data, "groups") <- rows
   structure(
     .data,
-    class = c("grouped_data", "tbl_df", "tbl", "data.frame")
+    class = c("grouped_data", "tbl_data", "tbl_df", "tbl", "data.frame")
   )
 }
 
@@ -77,7 +73,7 @@ ungroup_data <- function(.data) {
 ungroup_data.default <- function(.data) {
   structure(
     .data,
-    class = c("tbl_df", "tbl", "data.frame")
+    class = c("tbl_data", "tbl_df", "tbl", "data.frame")
   )
 }
 
