@@ -302,3 +302,22 @@ same_as_dplyr(
 tabsort(d, cyl, gear)
 ```
 
+
+### tbl_data_frame
+
++ **`tbl_data_frame()`**
+
+```{r}
+tbl_data_frame(
+  a = rnorm(10),
+  b = rnorm(10)
+)
+
+tbl_data_frame(
+  a = rnorm(10),
+  b = rnorm(10),
+  c = (a + b) / 2,
+  d = a + b + c
+)
+```
+
