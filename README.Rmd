@@ -7,6 +7,14 @@ output: github_document
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE, comment = "#>")
 library(tbltools)
+## function to compare with dplyr (ignore non data.frame class diffs)
+same_as_dplyr <- function(x, y) {
+  if (is.data.frame(x) && is.data.frame(y)) {
+    x <- as.data.frame(x)
+    y <- as.data.frame(y)
+  }
+  identical(x, y)
+}
 library(tibble)
 options(tibble.print_max = 5L, tibble.print_min = 5L)
 ```
@@ -38,11 +46,11 @@ remotes::install_github("mkearney/tbltools")
 
 ## Use
 
-+ **`as_tbl()`**: Convert data frames to tibbles
++ **`as_tbl_data()`**: Convert data frames to tibbles
 
 ```{r}
 ## convert mtcars to tibble and create row_names variable
-d <- as_tbl(mtcars, row_names = TRUE)
+d <- as_tbl_data(mtcars, row_names = TRUE)
 ```
 
 
@@ -58,7 +66,7 @@ filter_data(d, gear > 3 | mpg > 30, vs == 1)
 Compare with `dplyr::filter()`
 
 ```{r}
-identical(
+same_as_dplyr(
   filter_data(d, gear > 3 | mpg > 30, vs == 1),
   dplyr::filter(d, gear > 3 | mpg > 30, vs == 1)
 )
@@ -76,7 +84,7 @@ arrange_data(d, gear, cyl)
 Compare with `dplyr::arrange()`
 
 ```{r}
-identical(
+same_as_dplyr(
   arrange_data(d, gear, cyl, desc = FALSE),
   dplyr::arrange(d, gear, cyl)
 )
@@ -94,7 +102,7 @@ select_data(d, cyl, gear, weight = wt)
 Compare with `dplyr::select()`
 
 ```{r}
-identical(
+same_as_dplyr(
   select_data(d, cyl, gear, weight = wt),
   dplyr::select(d, cyl, gear, weight = wt)
 )
@@ -114,7 +122,7 @@ d %>%
 Compare with `dplyr::mutate()`
 
 ```{r}
-identical(
+same_as_dplyr(
   d %>%
     select_data(cyl, gear, mpg) %>%
     mutate_data(eff = mpg > 20),
@@ -130,18 +138,15 @@ identical(
 
 ```{r}
 ## select cyl, gear, mpg columns and create new logical column for more efficient cars
-d %>%
-  summarise_data(mpg = mean(mpg), wt = mean(wt))
+summarise_data(d, mpg = mean(mpg), wt = mean(wt))
 ```
 
 Compare with `dplyr::summarise()`
 
 ```{r}
-identical(
-  d %>%
-    summarise_data(mpg = mean(mpg), wt = mean(wt)),
-  d %>%
-    dplyr::summarise(mpg = mean(mpg), wt = mean(wt))
+same_as_dplyr(
+  summarise_data(d, mpg = mean(mpg), wt = mean(wt)),
+  dplyr::summarise(d, mpg = mean(mpg), wt = mean(wt))
 )
 ```
 
@@ -164,7 +169,7 @@ d %>%
 Compare with `dplyr::group_by()`
 
 ```{r}
-identical(
+same_as_dplyr(
   d %>%
     select_data(cyl, gear, mpg) %>%
     group_by_data(cyl) %>%
@@ -209,7 +214,10 @@ bind_rows_data(lst)
 Compare to `dplyr::bind_rows()`
 
 ```{r}
-identical(bind_rows_data(lst), dplyr::bind_rows(lst))
+same_as_dplyr(
+  bind_rows_data(lst),
+  dplyr::bind_rows(lst)
+)
 ```
 
 ### Joins
@@ -217,23 +225,25 @@ identical(bind_rows_data(lst), dplyr::bind_rows(lst))
 + Data to compare with [dplyr](https://github.com/tidyverse/dplyr) joins:
 
 ```{r}
-x <- tbltools::as_tbl(mtcars)
-y <- data.frame(cyl = c(1L, 4L), new = c(1.25, 2.5))
+## mtcars data and additional cyl/new data
+x <- tbltools::as_tbl_data(mtcars)
+y <- data.frame(cyl = c(1, 4), new = c(1.25, 2.5))
 ```
 
 + **`left_join_data()`**: Join according to first (left) data frame
 
 ```{r}
-## join by x
+## join according to x
 left_join_data(x, y)
 ```
 
 Compare with `dplyr::left_join()`:
 
 ```{r}
-d_lj <- dplyr::left_join(x, y)
-t_lj <- left_join_data(x, y)
-identical(d_lj, t_lj)
+same_as_dplyr(
+  left_join_data(x, y),
+  dplyr::left_join(x, y)
+)
 ```
 
 + **`right_join_data()`**: Join according to second (right) data frame
@@ -246,9 +256,10 @@ right_join_data(x, y)
 Compare with `dplyr::left_join()`:
 
 ```{r}
-d_rj <- dplyr::right_join(x, y)
-t_rj <- right_join_data(x, y)
-identical(d_rj, t_rj)
+same_as_dplyr(
+  right_join_data(x, y),
+  dplyr::right_join(x, y)
+)
 ```
 
 + **`full_join_data()`**: Join according to both data frames
@@ -261,9 +272,10 @@ full_join_data(x, y)
 Compare with `dplyr::left_join()`:
 
 ```{r}
-d_fj <- dplyr::full_join(x, y)
-t_fj <- full_join_data(x, y)
-identical(d_fj, t_fj)
+same_as_dplyr(
+  full_join_data(x, y),
+  dplyr::full_join(x, y)
+)
 ```
 
 ### Frequency tables
