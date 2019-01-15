@@ -161,43 +161,43 @@ responses are missing, a missing value is used as the single category.</p></td>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>5</span>:<span class='fl'>8</span>], <span class='fl'>200</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'>## count and sort frequencies for each vector</span>
-<span class='fu'>tabsort</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 3</span><span>
+<span class='fu'>tabsort</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 3</span><span>
 #&gt;   x         n  prop
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> a        54 0.27 
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> c        53 0.265
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> b        47 0.235
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> d        46 0.23 </div><div class='input'><span class='fu'>tabsort</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 3</span><span>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> a        54 0.27 
+#&gt; </span><span style='color: #555555;'>2</span><span> c        53 0.265
+#&gt; </span><span style='color: #555555;'>3</span><span> b        47 0.235
+#&gt; </span><span style='color: #555555;'>4</span><span> d        46 0.23 </div><div class='input'><span class='fu'>tabsort</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
 #&gt;   x         n  prop
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> g        54 0.27 
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> f        52 0.26 
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> e        47 0.235
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> h        47 0.235</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> g        54 0.27 
+#&gt; </span><span style='color: #555555;'>2</span><span> f        52 0.26 
+#&gt; </span><span style='color: #555555;'>3</span><span> e        47 0.235
+#&gt; </span><span style='color: #555555;'>4</span><span> h        47 0.235</div><div class='input'>
 <span class='co'>## combine x and y into data frame</span>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)
 
 <span class='co'>## select columns and create freq table</span>
-<span class='fu'>tabsort</span>(<span class='no'>dat</span>, <span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 3</span><span>
+<span class='fu'>tabsort</span>(<span class='no'>dat</span>, <span class='no'>x</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
 #&gt;   x         n  prop
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> a        54 0.27 
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> c        53 0.265
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> b        47 0.235
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> d        46 0.23 </div><div class='input'><span class='fu'>tabsort</span>(<span class='no'>dat</span>, <span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 16 x 4</span><span>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> a        54 0.27 
+#&gt; </span><span style='color: #555555;'>2</span><span> c        53 0.265
+#&gt; </span><span style='color: #555555;'>3</span><span> b        47 0.235
+#&gt; </span><span style='color: #555555;'>4</span><span> d        46 0.23 </div><div class='input'><span class='fu'>tabsort</span>(<span class='no'>dat</span>, <span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 16 x 4</span><span>
 #&gt;    x     y         n  prop
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> c     g        19 0.095
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> a     h        16 0.08 
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> a     f        15 0.075
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> c     f        15 0.075
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> d     g        15 0.075
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> a     e        14 0.07 
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> b     e        13 0.065
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> b     f        12 0.06 
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> b     g        11 0.055
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> b     h        11 0.055
-#&gt; </span><span style='color: #949494;'># … with 6 more rows</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> c     g        19 0.095
+#&gt; </span><span style='color: #555555;'> 2</span><span> a     h        16 0.08 
+#&gt; </span><span style='color: #555555;'> 3</span><span> a     f        15 0.075
+#&gt; </span><span style='color: #555555;'> 4</span><span> c     f        15 0.075
+#&gt; </span><span style='color: #555555;'> 5</span><span> d     g        15 0.075
+#&gt; </span><span style='color: #555555;'> 6</span><span> a     e        14 0.07 
+#&gt; </span><span style='color: #555555;'> 7</span><span> b     e        13 0.065
+#&gt; </span><span style='color: #555555;'> 8</span><span> b     f        12 0.06 
+#&gt; </span><span style='color: #555555;'> 9</span><span> b     g        11 0.055
+#&gt; </span><span style='color: #555555;'>10</span><span> b     h        11 0.055
+#&gt; </span><span style='color: #555555;'># … with 6 more rows</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -219,7 +219,7 @@ responses are missing, a missing value is used as the single category.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>
