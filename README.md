@@ -80,8 +80,8 @@ tbl_data_frame(
 ) %>%
   cor()
 #>           x         y
-#> x 1.0000000 0.6950764
-#> y 0.6950764 1.0000000
+#> x 1.0000000 0.4386588
+#> y 0.4386588 1.0000000
 ```
 
 ### Slice
@@ -150,11 +150,11 @@ same_as_dplyr(
 ## count by cyl and gear
 arrange_data(d, gear, cyl)
 #> # A pseudo tibble: 32* x 12+
-#>        row_names  mpg cyl  disp  hp drat   wt qsec vs am gear
-#> 1)  Ford Panter… 15.8   8 351.0 264 4.22 3.17 14.5  0  1    5
-#> 2)  Maserati Bo… 15.0   8 301.0 335 3.54 3.57 14.6  0  1    5
-#> 3)  Ferrari Din… 19.7   6 145.0 175 3.62 2.77 15.5  0  1    5
-#> 4)  Porsche 914… 26.0   4 120.3  91 4.43 2.14 16.7  0  1    5
+#>        row_names  mpg cyl  disp  hp drat    wt  qsec vs am gear
+#> 1)  Toyota Coro… 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3
+#> 2)  Hornet 4 Dr… 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3
+#> 3)       Valiant 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3
+#> 4)  Hornet Spor… 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3
 #> *28 rows not printed;  +1 columns not printed
 ```
 
@@ -162,7 +162,7 @@ Compare with `dplyr::arrange()`
 
 ``` r
 same_as_dplyr(
-  arrange_data(d, gear, cyl, desc = FALSE),
+  arrange_data(d, gear, cyl),
   dplyr::arrange(d, gear, cyl)
 )
 #> [1] TRUE
@@ -274,10 +274,10 @@ d %>%
     mpg = mean(mpg)
   )
 #> # A pseudo tibble: 3 x 3
-#>      n      mpg cyl
-#> 1)   7 19.74286   6
-#> 2)  11 26.66364   4
-#> 3)  14 15.10000   8
+#>     cyl  n      mpg
+#> 1)    6  7 19.74286
+#> 2)    4 11 26.66364
+#> 3)    8 14 15.10000
 ```
 
 Compare with `dplyr::group_by()`
@@ -293,7 +293,7 @@ same_as_dplyr(
       mpg_total = sum(mpg),
       mpg = mean(mpg)
     ) %>%
-    arrange_data(cyl, desc = FALSE) %>%
+    arrange_data(cyl) %>%
     select_data(cyl, mpg_total, mpg, n),
   d %>%
     dplyr::select(cyl, gear, mpg) %>%

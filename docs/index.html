@@ -154,8 +154,8 @@
 <a class="sourceLine" id="cb4-5" title="5">) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-6" title="6"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cor</a></span>()</a>
 <a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt;           x         y</span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt; x 1.0000000 0.7281642</span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; y 0.7281642 1.0000000</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt; x 1.0000000 0.8762345</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; y 0.8762345 1.0000000</span></a></code></pre></div>
 <div id="slice" class="section level3">
 <h3 class="hasAnchor">
 <a href="#slice" class="anchor"></a>Slice</h3>
@@ -212,15 +212,15 @@
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co">## count by cyl and gear</span></a>
 <a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="reference/arrange_data.html">arrange_data</a></span>(d, gear, cyl)</a>
 <a class="sourceLine" id="cb9-3" title="3"><span class="co">#&gt; # A pseudo tibble: 32* x 12+</span></a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt;        row_names  mpg cyl  disp  hp drat   wt qsec vs am gear</span></a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt; 1)  Ford Panter… 15.8   8 351.0 264 4.22 3.17 14.5  0  1    5</span></a>
-<a class="sourceLine" id="cb9-6" title="6"><span class="co">#&gt; 2)  Maserati Bo… 15.0   8 301.0 335 3.54 3.57 14.6  0  1    5</span></a>
-<a class="sourceLine" id="cb9-7" title="7"><span class="co">#&gt; 3)  Ferrari Din… 19.7   6 145.0 175 3.62 2.77 15.5  0  1    5</span></a>
-<a class="sourceLine" id="cb9-8" title="8"><span class="co">#&gt; 4)  Porsche 914… 26.0   4 120.3  91 4.43 2.14 16.7  0  1    5</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt;        row_names  mpg cyl  disp  hp drat    wt  qsec vs am gear</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt; 1)  Toyota Coro… 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3</span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="co">#&gt; 2)  Hornet 4 Dr… 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3</span></a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="co">#&gt; 3)       Valiant 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3</span></a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="co">#&gt; 4)  Hornet Spor… 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3</span></a>
 <a class="sourceLine" id="cb9-9" title="9"><span class="co">#&gt; *28 rows not printed;  +1 columns not printed</span></a></code></pre></div>
 <p>Compare with <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">dplyr::arrange()</a></code></p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">same_as_dplyr</span>(</a>
-<a class="sourceLine" id="cb10-2" title="2">  <span class="kw"><a href="reference/arrange_data.html">arrange_data</a></span>(d, gear, cyl, <span class="dt">desc =</span> <span class="ot">FALSE</span>),</a>
+<a class="sourceLine" id="cb10-2" title="2">  <span class="kw"><a href="reference/arrange_data.html">arrange_data</a></span>(d, gear, cyl),</a>
 <a class="sourceLine" id="cb10-3" title="3">  dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(d, gear, cyl)</a>
 <a class="sourceLine" id="cb10-4" title="4">)</a>
 <a class="sourceLine" id="cb10-5" title="5"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
@@ -312,13 +312,11 @@
 <a class="sourceLine" id="cb17-7" title="7">    <span class="dt">n =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/unique">unique</a></span>(n),</a>
 <a class="sourceLine" id="cb17-8" title="8">    <span class="dt">mpg =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(mpg)</a>
 <a class="sourceLine" id="cb17-9" title="9">  )</a>
-<a class="sourceLine" id="cb17-10" title="10"><span class="co">#&gt; # A pseudo tibble: 9* x 3</span></a>
+<a class="sourceLine" id="cb17-10" title="10"><span class="co">#&gt; # A pseudo tibble: 3 x 3</span></a>
 <a class="sourceLine" id="cb17-11" title="11"><span class="co">#&gt;     cyl  n      mpg</span></a>
-<a class="sourceLine" id="cb17-12" title="12"><span class="co">#&gt; 1)    6  7 21.75714</span></a>
-<a class="sourceLine" id="cb17-13" title="13"><span class="co">#&gt; 2)    4 11 21.75714</span></a>
-<a class="sourceLine" id="cb17-14" title="14"><span class="co">#&gt; 3)    8 14 21.75714</span></a>
-<a class="sourceLine" id="cb17-15" title="15"><span class="co">#&gt; 4)    6  7 18.16364</span></a>
-<a class="sourceLine" id="cb17-16" title="16"><span class="co">#&gt; *5 rows not printed</span></a></code></pre></div>
+<a class="sourceLine" id="cb17-12" title="12"><span class="co">#&gt; 1)    6  7 19.74286</span></a>
+<a class="sourceLine" id="cb17-13" title="13"><span class="co">#&gt; 2)    4 11 26.66364</span></a>
+<a class="sourceLine" id="cb17-14" title="14"><span class="co">#&gt; 3)    8 14 15.10000</span></a></code></pre></div>
 <p>Compare with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">same_as_dplyr</span>(</a>
 <a class="sourceLine" id="cb18-2" title="2">  d <span class="op">%&gt;%</span></a>
@@ -330,7 +328,7 @@
 <a class="sourceLine" id="cb18-8" title="8">      <span class="dt">mpg_total =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(mpg),</a>
 <a class="sourceLine" id="cb18-9" title="9">      <span class="dt">mpg =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(mpg)</a>
 <a class="sourceLine" id="cb18-10" title="10">    ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb18-11" title="11"><span class="st">    </span><span class="kw"><a href="reference/arrange_data.html">arrange_data</a></span>(cyl, <span class="dt">desc =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-11" title="11"><span class="st">    </span><span class="kw"><a href="reference/arrange_data.html">arrange_data</a></span>(cyl) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb18-12" title="12"><span class="st">    </span><span class="kw"><a href="reference/select_data.html">select_data</a></span>(cyl, mpg_total, mpg, n),</a>
 <a class="sourceLine" id="cb18-13" title="13">  d <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb18-14" title="14"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(cyl, gear, mpg) <span class="op">%&gt;%</span></a>
@@ -344,7 +342,7 @@
 <a class="sourceLine" id="cb18-22" title="22"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(cyl) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb18-23" title="23"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(cyl, mpg_total, mpg, n)</a>
 <a class="sourceLine" id="cb18-24" title="24">)</a>
-<a class="sourceLine" id="cb18-25" title="25"><span class="co">#&gt; [1] FALSE</span></a></code></pre></div>
+<a class="sourceLine" id="cb18-25" title="25"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 </div>
 <div id="bind-rows" class="section level3">
 <h3 class="hasAnchor">

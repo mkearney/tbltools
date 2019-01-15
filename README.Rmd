@@ -144,7 +144,7 @@ Compare with `dplyr::arrange()`
 
 ```{r}
 same_as_dplyr(
-  arrange_data(d, gear, cyl, desc = FALSE),
+  arrange_data(d, gear, cyl),
   dplyr::arrange(d, gear, cyl)
 )
 ```
@@ -238,7 +238,7 @@ same_as_dplyr(
       mpg_total = sum(mpg),
       mpg = mean(mpg)
     ) %>%
-    arrange_data(cyl, desc = FALSE) %>%
+    arrange_data(cyl) %>%
     select_data(cyl, mpg_total, mpg, n),
   d %>%
     dplyr::select(cyl, gear, mpg) %>%
