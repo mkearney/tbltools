@@ -21,8 +21,7 @@ same_as_dplyr <- function(d1, d2) {
   }
   identical(d1, d2)
 }
-#library(tibble)
-#options(tibble.print_max = 5L, tibble.print_min = 5L)
+set.seed(12)
 ```
 # tbltools <img src="man/figures/logo.png" width="160px" align="right" />
 

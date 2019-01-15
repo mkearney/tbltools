@@ -80,8 +80,8 @@ tbl_data_frame(
 ) %>%
   cor()
 #>           x         y
-#> x 1.0000000 0.4386588
-#> y 0.4386588 1.0000000
+#> x 1.0000000 0.7827194
+#> y 0.7827194 1.0000000
 ```
 
 ### Slice
@@ -99,7 +99,7 @@ slice_data(d, c(1, 3, 5, 25))
 #> 2)    Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4
 #> 3)  Hornet Spor… 18.7   8  360 175 3.15 3.440 17.02  0  0    3
 #> 4)  Pontiac Fir… 19.2   8  400 175 3.08 3.845 17.05  0  0    3
-#> +1 columns not printed
+#> +1 column(s) not printed
 ```
 
 Compare with `dplyr::slice()`
@@ -127,7 +127,7 @@ filter_data(d, gear > 3 | mpg > 30, vs == 1)
 #> 2)   Merc 240D 24.4   4 146.7  62 3.69 3.19 20.00  1  0    4
 #> 3)    Merc 230 22.8   4 140.8  95 3.92 3.15 22.90  1  0    4
 #> 4)    Merc 280 19.2   6 167.6 123 3.92 3.44 18.30  1  0    4
-#> *7 rows not printed;  +1 columns not printed
+#> *7 row(s) not printed;  +1 column(s) not printed
 ```
 
 Compare with `dplyr::filter()`
@@ -155,7 +155,7 @@ arrange_data(d, gear, cyl)
 #> 2)  Hornet 4 Dr… 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3
 #> 3)       Valiant 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3
 #> 4)  Hornet Spor… 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3
-#> *28 rows not printed;  +1 columns not printed
+#> *28 row(s) not printed;  +1 column(s) not printed
 ```
 
 Compare with `dplyr::arrange()`
@@ -183,7 +183,7 @@ select_data(d, cyl, gear, weight = wt)
 #> 2)    6    4  2.875
 #> 3)    4    4  2.320
 #> 4)    6    3  3.215
-#> *28 rows not printed
+#> *28 row(s) not printed
 ```
 
 Compare with `dplyr::select()`
@@ -214,7 +214,7 @@ d %>%
 #> 2)    6    4 21.0 TRUE
 #> 3)    4    4 22.8 TRUE
 #> 4)    6    3 21.4 TRUE
-#> *28 rows not printed
+#> *28 row(s) not printed
 ```
 
 Compare with `dplyr::mutate()`
@@ -333,7 +333,7 @@ bind_rows_data(lst)
 #> 2)  Mazda RX4 W… 21.0   6  160 110 3.90 2.875 17.02  0  1    4
 #> 3)    Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4
 #> 4)  Hornet 4 Dr… 21.4   6  258 110 3.08 3.215 19.44  1  0    3
-#> *92 rows not printed;  +2 columns not printed
+#> *92 row(s) not printed;  +2 column(s) not printed
 ```
 
 Compare to `dplyr::bind_rows()`
@@ -373,7 +373,7 @@ left_join_data(x, y)
 #> 2)  21.0   6  160 110 3.90 2.875 17.02  0  1    4    4  NA
 #> 3)  22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 2.5
 #> 4)  21.4   6  258 110 3.08 3.215 19.44  1  0    3    1  NA
-#> *28 rows not printed
+#> *28 row(s) not printed
 ```
 
 Compare with `dplyr::left_join()`:
@@ -402,7 +402,7 @@ right_join_data(x, y)
 #> 2)  22.8   4 108.0 93 3.85 2.32 18.61  1  1    4    1 2.50
 #> 3)  24.4   4 146.7 62 3.69 3.19 20.00  1  0    4    2 2.50
 #> 4)  22.8   4 140.8 95 3.92 3.15 22.90  1  0    4    2 2.50
-#> *8 rows not printed
+#> *8 row(s) not printed
 ```
 
 Compare with `dplyr::left_join()`:
@@ -431,7 +431,7 @@ full_join_data(x, y)
 #> 2)  21.0   6  160 110 3.90 2.875 17.02  0  1    4    4  NA
 #> 3)  22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 2.5
 #> 4)  21.4   6  258 110 3.08 3.215 19.44  1  0    3    1  NA
-#> *29 rows not printed
+#> *29 row(s) not printed
 ```
 
 Compare with `dplyr::left_join()`:
@@ -461,5 +461,5 @@ tabsort(d, cyl, gear)
 #> 2)    4    4  8 0.2500
 #> 3)    6    4  4 0.1250
 #> 4)    6    3  2 0.0625
-#> *5 rows not printed
+#> *5 row(s) not printed
 ```
