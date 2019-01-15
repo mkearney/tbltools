@@ -3,12 +3,17 @@
 #' Method for printing pseduo tibble
 #'
 #' @param x Input object
-#' @param n Maximum number of rows to print, defaults to 10
+#' @param n Maximum number of rows to print, if NULL (default) defaults to
+#'   \code{getOption("tbltools.print_n", 10)}.
+#'
 #' @param ... Other args passed to tibble or data.frame print.
 #' @export
-print.tbl_data <- function(x, n = 10, ...) {
+print.tbl_data <- function(x, n = NULL, ...) {
+  if (is.null(n)) {
+    n <- getOption("tbltools.print_n", 10)
+  }
   ## if tibble is installed and loaded, print as tbl_df
-  if (isNamespaceLoaded("tibble")) {
+  if (getOption("tbltools.print_tibble", TRUE) && isNamespaceLoaded("tibble")) {
     x <- as_tibble_tibble(x)
     print(x, n = n, ...)
 
