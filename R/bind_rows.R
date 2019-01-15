@@ -44,7 +44,7 @@ bind_rows_data <- function(..., fill = TRUE) {
       }
     }
   }
-  do.call(base::rbind, x, quote = FALSE)
+  as_tbl_data(do.call(base::rbind, x, quote = FALSE))
 }
 
 same_names <- function(x) {
