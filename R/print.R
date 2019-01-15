@@ -99,7 +99,7 @@ head_data <- function(x, n = 10) {
   n1.9 <- ceiling(n * 1.9)
   if (n > 20) n1.9 <- n
   if (nrow(x) > n1.9) {
-    x <- x[seq_len(n), ]
+    x <- x[seq_len(n), , drop = FALSE]
   }
   x
 }

@@ -11,9 +11,9 @@ test_that("group_by_data", {
     group_by_data(cyl) %>%
     mutate_data(n = length(gear)) %>%
     summarise_data(
-        n = unique(n),
-        mpg = mean(mpg)
-      ) %>%
+      n = unique(n),
+      mpg = mean(mpg)
+    ) %>%
     arrange_data(mpg) %>%
     select_data(cyl, mpg, n)
   expect_true(is.data.frame(o))

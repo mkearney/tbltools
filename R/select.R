@@ -52,7 +52,6 @@ select_data.default <- function(.data, ...) {
       .d[[vd]] <- eval(dots[[vars.dots[i]]], .data, e)
     }
   }
-  #.data <- lapply(dots, function(.x) eval(.x, .data, e))
   structure(
     .d,
     names = names(.d),
