@@ -18,11 +18,45 @@ select_data.default <- function(.data, ...) {
     return(.data)
   }
   e <- call_env()
-  .data <- lapply(dots, function(.x) eval(.x, .data, e))
+  vars.dots <- names(dots)
+  vars.data <- sub("^-", "", vars.dots)
+  if (all(grepl("^-\\S+", vars.dots))) {
+    .d <- .data
+  } else {
+    .d <- list()
+  }
+  assign("-", function(x) NULL, envir = e)
+  on.exit(rm("-", envir = e), add = TRUE)
+  assign(":", function(lhs, rhs) {
+    .data_vars <- rev(
+      ls(all.names = TRUE, sorted = FALSE, envir = as.environment(.data))
+    )
+    lhs <- deparse(substitute(lhs))
+    rhs <- deparse(substitute(rhs))
+    kp <- seq.int(
+      which(.data_vars == lhs),
+      which(.data_vars == rhs)
+    )
+    .data[kp]
+  }, envir = e)
+  on.exit(rm(":", envir = e), add = TRUE)
+  for (i in seq_along(dots)) {
+    vd <- vars.data[i]
+    if (grepl("\\S\\:\\S", vd)) {
+      vd <- strsplit(vd, ":")[[1]]
+      vd <- names(.data)[
+        seq(which(names(.data) == vd[1]), which(names(.data) == vd[2]))
+      ]
+      .d[vd] <- eval(dots[[vars.dots[i]]], .data, e)
+    } else {
+      .d[[vd]] <- eval(dots[[vars.dots[i]]], .data, e)
+    }
+  }
+  #.data <- lapply(dots, function(.x) eval(.x, .data, e))
   structure(
-    .data,
-    names = names(.data),
-    row.names = .set_row_names(length(.data[[1]])),
+    .d,
+    names = names(.d),
+    row.names = .set_row_names(length(.d[[1]])),
     class = c("tbl_data", "tbl_df", "tbl", "data.frame")
   )
 }
