@@ -9,12 +9,17 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE, comment = "#>")
 library(tbltools)
 options(tbltools.print_tibble = FALSE, tbltools.print_n = 4)
 ## function to compare with dplyr (ignore non data.frame class diffs)
-same_as_dplyr <- function(x, y) {
-  if (is.data.frame(x) && is.data.frame(y)) {
-    x <- as.data.frame(x)
-    y <- as.data.frame(y)
+same_as_dplyr <- function(d1, d2) {
+  if (identical(d1, d2)) return(TRUE)
+  if (is.data.frame(d1) && is.data.frame(d2)) {
+    d1 <- as.data.frame(d1)
+    d1at <- attributes(d1)
+    attributes(d1) <- d1at[order(names(d1at))]
+    d2 <- as.data.frame(d2)
+    d2at <- attributes(d2)
+    attributes(d2) <- d2at[order(names(d2at))]
   }
-  identical(x, y)
+  identical(d1, d2)
 }
 #library(tibble)
 #options(tibble.print_max = 5L, tibble.print_min = 5L)
@@ -53,17 +58,19 @@ remotes::install_github("mkearney/tbltools")
 ```
 
 ## Features
-+ **Tidyverse-style** functionality!
-   - Uses **non-standard evaluation for easy interactive analysis**
-   - Exports [{dplyr}](https://dplyr.tidyverse.org)-like **`_data()`** 
-   functions e.g., `arrange_data()` `filter_data()`, `select_data()`, 
-   `mutate_data()`, `summarise_data()`, `bind_rows_data()`, `bind_cols_data()`,
-   `full_join_data()`, `left_join_data()`, `right_join_data()`
-+ Simple and effective **printing of data frames**
-   - Provides **[{tibble}](https://tibble.tidyverse.org)-like** printing experience
-+ Extremely **lightweight**!
-   - Has **zero dependencies**-only requires base R
-   - Compiles **quickly and easily**-ideal for new users, new/difficult machines, working remotely, etc. 
++ [Tidyverse](https://tidyverse.org)-style operability!
+   - Uses non-standard evaluation for **easy interactive analysis**
+   - Provides numerous [{dplyr}](https://dplyr.tidyverse.org)-like
+   **wrangling functions**:
+      + `slice_data()`, `arrange_data()` `filter_data()`, `select_data()`, 
+      `mutate_data()`, `summarise_data()`, `bind_rows_data()`, 
+      `bind_cols_data()`, `full_join_data()`, `left_join_data()`, 
+      `right_join_data()`
++ Extremely lightweight!
+   - Requires only base R–**zero dependencies**)
+   - Installs/compiles **quickly and easily**
++ Simple and effective data frame printing!
+   - Provides a [{tibble}](https://tibble.tidyverse.org)-like printing experience
 
 ## Use
 
@@ -74,7 +81,9 @@ remotes::install_github("mkearney/tbltools")
 d <- as_tbl_data(mtcars, row_names = TRUE)
 ```
 
-+ **`tbl_dat_frame()`: Create data frames using previously defined variables
++ **`tbl_dat_frame()`**: Create data frames
+   - Evaluated within data frame environment, so variables/values can be updated 
+   within the `tbl_data_frame()` call
 
 ```{r}
 ## create data frame where 2 variable depends on evaluation of 1st variable
@@ -94,7 +103,7 @@ tbl_data_frame(
 slice_data(d, c(1, 3, 5, 25))
 ```
 
-Compare with `dplyr::filter()`
+Compare with `dplyr::slice()`
 
 ```{r}
 same_as_dplyr(

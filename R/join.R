@@ -55,8 +55,9 @@ full_join_data <- function(x, y, by = NULL) {
 
 #' Left join
 #'
-#' Left join: Join two data frames by matching the second (right) data frame to the left (first) such that the
-#'   structure of the first (left) data frame is preserved
+#' Left join: Join two data frames by matching the second (right) data frame to
+#' the left (first) such that the structure of the first (left) data frame is
+#' preserved
 #'
 #' @inheritParams full_join
 #' @rdname join
@@ -86,8 +87,10 @@ left_join_data <- function(x, y, by = NULL) {
 
 #' Right join
 #'
-#' Right join: Join two data frames by matching the first (left) data frame to the right (second) such that the
-#'   structure of the second (right) data frame is preserved
+#' Right join: Join two data frames by matching the first (left) data frame to
+#' the right (second) such that the structure of the second (right) data frame
+#' is preserved
+#'
 #' @inheritParams full_join
 #' @rdname join
 #' @export

@@ -39,20 +39,20 @@ remotes::install_github("mkearney/tbltools")
 
 ## Features
 
-  - **Tidyverse-style** functionality\!
-      - Uses **non-standard evaluation for easy interactive analysis**
-      - Exports [{dplyr}](https://dplyr.tidyverse.org)-like
-        **`_data()`** functions e.g., `arrange_data()` `filter_data()`,
-        `select_data()`, `mutate_data()`, `summarise_data()`,
-        `bind_rows_data()`, `bind_cols_data()`, `full_join_data()`,
-        `left_join_data()`, `right_join_data()`
-  - Simple and effective **printing of data frames**
-      - Provides **[{tibble}](https://tibble.tidyverse.org)-like**
+  - [Tidyverse](https://tidyverse.org)-style operability\!
+      - Uses non-standard evaluation for **easy interactive analysis**
+      - Provides numerous [{dplyr}](https://dplyr.tidyverse.org)-like
+        **wrangling functions**:
+          - `slice_data()`, `arrange_data()` `filter_data()`,
+            `select_data()`, `mutate_data()`, `summarise_data()`,
+            `bind_rows_data()`, `bind_cols_data()`, `full_join_data()`,
+            `left_join_data()`, `right_join_data()`
+  - Extremely lightweight\!
+      - Requires only base R–**zero dependencies**)
+      - Installs/compiles **quickly and easily**
+  - Simple and effective data frame printing\!
+      - Provides a [{tibble}](https://tibble.tidyverse.org)-like
         printing experience
-  - Extremely **lightweight**\!
-      - Has **zero dependencies**-only requires base R
-      - Compiles **quickly and easily**-ideal for new users,
-        new/difficult machines, working remotely, etc.
 
 ## Use
 
@@ -65,8 +65,10 @@ remotes::install_github("mkearney/tbltools")
 d <- as_tbl_data(mtcars, row_names = TRUE)
 ```
 
-  - \*\*`tbl_dat_frame()`: Create data frames using previously defined
-    variables
+  - **`tbl_dat_frame()`**: Create data frames
+      - Evaluated within data frame environment, so variables/values can
+        be updated within the `tbl_data_frame()`
+call
 
 <!-- end list -->
 
@@ -78,8 +80,8 @@ tbl_data_frame(
 ) %>%
   cor()
 #>           x         y
-#> x 1.0000000 0.6428509
-#> y 0.6428509 1.0000000
+#> x 1.0000000 0.6950764
+#> y 0.6950764 1.0000000
 ```
 
 ### Slice
@@ -100,14 +102,14 @@ slice_data(d, c(1, 3, 5, 25))
 #> +1 columns not printed
 ```
 
-Compare with `dplyr::filter()`
+Compare with `dplyr::slice()`
 
 ``` r
 same_as_dplyr(
   slice_data(d, c(1, 3, 5, 25)),
   dplyr::slice(d, c(1, 3, 5, 25))
 )
-#> [1] FALSE
+#> [1] TRUE
 ```
 
 ### Filter

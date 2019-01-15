@@ -27,6 +27,6 @@ slice_data.default <- function(.data, ...) {
   rows <- eval(dots[[1]], .data, call_env())
   rows <- as.integer(rows)
   .data <- .data[rows, ]
-  row.names(.data)
+  row.names(.data) <- NULL
   .data
 }

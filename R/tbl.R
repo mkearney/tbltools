@@ -46,6 +46,7 @@ as_tbl_data.default <- function(x, row_names = FALSE) {
   }
   structure(
     x,
+    names = names(x),
     row.names = .set_row_names(length(x[[1]])),
     class = c("tbl_data", "tbl_df", "tbl", "data.frame")
   )
@@ -103,6 +104,10 @@ tbl_data <- function(...) {
   nms <- names(x)
   no_nms <- !nzchar(nms)
   nms[no_nms] <- paste0("x", seq_len(sum(no_nms)))
-  structure(x, names = nms, row.names = .set_row_names(length(x[[1]])),
-    class = c("tbl_data", "tbl_df", "tbl", "data.frame"))
+  structure(
+    x,
+    names = nms,
+    row.names = .set_row_names(length(x[[1]])),
+    class = c("tbl_data", "tbl_df", "tbl", "data.frame")
+  )
 }

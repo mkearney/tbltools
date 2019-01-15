@@ -35,6 +35,8 @@ group_by_data.default <- function(.data, ...) {
   attr(.data, "groups") <- rows
   structure(
     .data,
+    names = names(.data),
+    row.names = .set_row_names(length(.data[[1]])),
     class = c("grouped_data", "tbl_data", "tbl_df", "tbl", "data.frame")
   )
 }
@@ -73,6 +75,8 @@ ungroup_data <- function(.data) {
 ungroup_data.default <- function(.data) {
   structure(
     .data,
+    names = names(.data),
+    row.names = .set_row_names(length(.data[[1]])),
     class = c("tbl_data", "tbl_df", "tbl", "data.frame")
   )
 }

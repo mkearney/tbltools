@@ -21,6 +21,7 @@ select_data.default <- function(.data, ...) {
   .data <- lapply(dots, function(.x) eval(.x, .data, e))
   structure(
     .data,
+    names = names(.data),
     row.names = .set_row_names(length(.data[[1]])),
     class = c("tbl_data", "tbl_df", "tbl", "data.frame")
   )

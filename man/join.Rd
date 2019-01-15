@@ -25,11 +25,13 @@ Joined (merged) data frame
 \description{
 Full join: join two data frames preserving all possible information
 
-Left join: Join two data frames by matching the second (right) data frame to the left (first) such that the
-  structure of the first (left) data frame is preserved
+Left join: Join two data frames by matching the second (right) data frame to
+the left (first) such that the structure of the first (left) data frame is
+preserved
 
-Right join: Join two data frames by matching the first (left) data frame to the right (second) such that the
-  structure of the second (right) data frame is preserved
+Right join: Join two data frames by matching the first (left) data frame to
+the right (second) such that the structure of the second (right) data frame
+is preserved
 }
 \examples{
 
