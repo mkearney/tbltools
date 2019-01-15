@@ -36,24 +36,3 @@ tbl_data_frame <- function(...) {
   }
   as_tbl_data(dots)
 }
-
-.foo <- function(...) {
-  x <- tryCatch(list(...),
-    error = function(e) return("ERROR_TRY_OTHER")
-  )
-  if (identical(x, "ERROR_TRY_OTHER")) {
-    x <- pretty_dots(...)
-    for (i in seq_along(x)) {
-      if (i == 1) {
-        x[[i]] <- eval(x[[i]])
-      } else {
-        x[[i]] <- eval(x[[i]], x)
-      }
-    }
-  } else if (length(x) == 1L && is.data.frame(x[[1]])) {
-    x <- x[[1]]
-  }
-  as_tbl_data(x)
-}
-
-
