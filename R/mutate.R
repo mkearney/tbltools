@@ -20,9 +20,6 @@ mutate_data.default <- function(.data, ...) {
   for (i in vars) {
     .data[[i]] <- eval(dots[[i]], .data, e)
   }
-  #d2 <- as_tbl_data(lapply(dots, function(.x) eval(.x, .data, e)))
-  #.data <- .data[nin(names(.data), d2)]
-  #as_tbl_data(cbind(.data, d2))
   as_tbl_data(.data)
 }
 
