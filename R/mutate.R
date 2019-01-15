@@ -28,14 +28,10 @@ mutate_data.default <- function(.data, ...) {
 mutate_data.grouped_data <- function(.data, ...) {
   gd <- group_by_data_data(.data)
   .d <- ungroup_data(.data)
-  d <- lapply(gd, function(i) {
-    lvs <- unique(i)
-    e <- lapply(lvs, function(j) .d[i == j, ])
-    e <- lapply(e, function(.x) mutate_data(.x, ...))
-    bind_rows_data(e)
+  d <- lapply(gd$.row_num, function(.i) {
+    e <- .d[.i, , drop = FALSE]
+    mutate_data(e, ...)
   })
   d <- bind_rows_data(d)
-  group_by_data_str(d, names(gd))
+  group_by_data_gd(d, gd)
 }
-
-

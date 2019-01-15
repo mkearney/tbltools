@@ -22,19 +22,16 @@ summarise_data.default <- function(.data, ...) {
 summarise_data.grouped_data <- function(.data, ...) {
   gd <- group_by_data_data(.data)
   .d <- ungroup_data(.data)
-  d <- lapply(gd, function(i) {
-    i <- paste(i)
-    lvs <- unique(i)
-    e <- lapply(lvs, function(j) .d[i == j, ])
-    e <- lapply(e, function(.x) unique(summarise_data(.x, ...)))
-    e <- bind_rows_data(e)
-    unique(e)
+  d <- lapply(gd$.row_num, function(.i) {
+    e <- .d[.i, , drop = FALSE]
+    summarise_data(e, ...)
   })
   d <- bind_rows_data(d)
   d <- as_tbl_data(d)
   nms <- names(d)
+  gd$.row_num <- NULL
   for (i in seq_along(gd)) {
-    d[[names(gd)[i]]] <- unique(gd[[i]])
+    d[[names(gd)[i]]] <- gd[[i]]
   }
   d[unique(c(names(gd), names(d)))]
 }
