@@ -14,7 +14,7 @@ test_that("group_by_data", {
       n = unique(n),
       mpg = mean(mpg)
     ) %>%
-    arrange_data(mpg) %>%
+    arrange_data(decr(mpg)) %>%
     select_data(cyl, mpg, n)
   expect_true(is.data.frame(o))
   expect_equal(nrow(o), 2)

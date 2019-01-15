@@ -59,7 +59,7 @@ test_that("filter_data, arrange_data", {
   expect_true(is.data.frame(filter_data(d, d$abc == "a")))
   expect_equal(nrow(filter_data(d, d$abc == "a")), 34)
   expect_equal(ncol(filter_data(d, d$abc == "a")), 2)
-  d <- arrange_data(d, abc, xyz)
+  d <- arrange_data(d, decr(abc), decr(xyz))
   expect_true(is.data.frame(d))
   expect_true(max(which(d$abc == "c")) < min(which(d$abc == "a")))
   expect_true(
