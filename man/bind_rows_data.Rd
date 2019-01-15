@@ -4,10 +4,10 @@
 \alias{bind_rows_data}
 \title{Bind rows}
 \usage{
-bind_rows_data(x, fill = TRUE)
+bind_rows_data(..., fill = TRUE)
 }
 \arguments{
-\item{x}{Input list of data frames}
+\item{...}{Input data frames or list of data frames}
 
 \item{fill}{Logical indicating whether to fill missing columns in data frames
 with missing values.}

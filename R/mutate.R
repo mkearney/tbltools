@@ -15,10 +15,15 @@ mutate_data <- function(.data, ...) {
 #' @export
 mutate_data.default <- function(.data, ...) {
   dots <- pretty_dots(...)
+  vars <- names(dots)
   e <- call_env()
-  d2 <- as_tbl_data(lapply(dots, function(.x) eval(.x, .data, e)))
-  .data <- .data[nin(names(.data), d2)]
-  as_tbl_data(cbind(.data, d2))
+  for (i in vars) {
+    .data[[i]] <- eval(dots[[i]], .data, e)
+  }
+  #d2 <- as_tbl_data(lapply(dots, function(.x) eval(.x, .data, e)))
+  #.data <- .data[nin(names(.data), d2)]
+  #as_tbl_data(cbind(.data, d2))
+  as_tbl_data(.data)
 }
 
 

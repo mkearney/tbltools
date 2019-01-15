@@ -19,6 +19,8 @@ print.tbl_data <- function(x, n = 10, ...) {
     n_cols <- ncol(x)
     x <- head_data(as_data_frame_data_frame(x), n)
     is_chr <- vapply(x, is.character, logical(1), USE.NAMES = FALSE)
+    nms <- substr(names(x), 1, 20)
+    nms[duplicated(nms)] <- names(x)[duplicated(nms)]
     x[is_chr] <- lapply(x[is_chr], substr, 1, 15)
     ## max number of chars per column
     chars <- vapply(
@@ -30,6 +32,7 @@ print.tbl_data <- function(x, n = 10, ...) {
     ## get width
     w <- getOption("width", 80)
     ## only print columns
+    chars[1] <- chars[1] + 2
     kp <- which(cumsum(chars) < w)
     if (length(kp) < n_cols) {
       trunc_cols <- "** (** some columns not printed below!)"

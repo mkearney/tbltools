@@ -28,6 +28,16 @@ tbl_data_frame <- function(...) {
 
 #' @export
 tbl_data_frame <- function(...) {
+  dots <- pretty_dots(...)
+  vars <- names(dots)
+  e <- call_env()
+  for (i in vars) {
+    dots[[i]] <- eval(dots[[i]], dots, e)
+  }
+  as_tbl_data(dots)
+}
+
+.foo <- function(...) {
   x <- tryCatch(list(...),
     error = function(e) return("ERROR_TRY_OTHER")
   )

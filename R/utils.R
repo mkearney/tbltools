@@ -10,6 +10,46 @@ as_data_frame_data_frame <- function(x) {
 
 are_fct <- function(x) vapply(x, is.factor, logical(1), USE.NAMES = FALSE)
 
+is_list <- function(x) inherits(x, "list")
+
+is_list_alist <- function(x) {
+  is_list(x) &&
+    length(x) == 1 &&
+    is_list(x[[1]])
+}
+
+is_list_data.frame <- function(x) {
+  is_list(x) &&
+    length(x) == 1 &&
+    is.data.frame(x[[1]])
+}
+
+is_list_recursive <- function(x) {
+  is_list(x) &&
+    length(x) == 1 &&
+    is.list(x[[1]])
+}
+
+peel_list_alist <- function(x) {
+  if (is_list_alist(x)) {
+    x <- x[[1]]
+  }
+  x
+}
+
+peel_list_data.frame <- function(x) {
+  if (is_list_data.frame(x)) {
+    x <- x[[1]]
+  }
+  x
+}
+
+peel_list_recursive <- function(x) {
+  if (is_list_recursive(x)) {
+    x <- x[[1]]
+  }
+  x
+}
 
 call_env <- function (n = 1) parent.frame(n + 1)
 

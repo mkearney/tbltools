@@ -5,7 +5,7 @@
 #' (a) sets the 'quote' argument to TRUE and (b) fills data frames with missing
 #' columns with NAs of the appropriate class.
 #'
-#' @param x Input list of data frames
+#' @param ... Input data frames or list of data frames
 #' @param fill Logical indicating whether to fill missing columns in data frames
 #'   with missing values.
 #' @return The list collapsed into a single data frame
@@ -21,12 +21,8 @@
 #' bind_rows_data(l)
 #'
 #' @export
-bind_rows_data <- function(x, fill = TRUE) {
-  stopifnot(is.list(x))
-  if (length(x) == 1L && is.data.frame(x)) return(x)
-  is_df <- sapply(x, is.data.frame)
-  x <- x[is_df & lengths(x) > 0]
-  if (length(x) == 0L) return(data.frame())
+bind_rows_data <- function(..., fill = TRUE) {
+  x <- peel_list_alist(list(...))
   if (length(x) == 1L) return(x[[1]])
   if (fill && !same_names(x)) {
     cls <- lapply(x, function(.x) {
@@ -35,7 +31,7 @@ bind_rows_data <- function(x, fill = TRUE) {
         class = lapply(.x, class)
       )
     })
-    cls <- do.call("rbind", cls, quote = TRUE)
+    cls <- do.call(base::rbind, cls, quote = FALSE)
     cls <- cls[!duplicated(cls$name), ]
 
     for (i in seq_along(x)) {
@@ -48,7 +44,7 @@ bind_rows_data <- function(x, fill = TRUE) {
       }
     }
   }
-  do.call("rbind", x, quote = TRUE)
+  do.call(base::rbind, x, quote = FALSE)
 }
 
 same_names <- function(x) {
