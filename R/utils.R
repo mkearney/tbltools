@@ -100,7 +100,12 @@ pcat_lines <- function (...) {
 }
 
 gray_text <- function(...) {
-  paste0("\033[38;5;243m", paste0(c(...), collapse = ""), "\033[39m")
+  dots <- paste0(c(...), collapse = "")
+  if (interactive()) {
+    paste0("\033[38;5;243m", dots, "\033[39m")
+  } else {
+    dots
+  }
 }
 
 

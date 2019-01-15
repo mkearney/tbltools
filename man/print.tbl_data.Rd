@@ -4,12 +4,13 @@
 \alias{print.tbl_data}
 \title{Print tbl_data}
 \usage{
-\method{print}{tbl_data}(x, n = 10, ...)
+\method{print}{tbl_data}(x, n = NULL, ...)
 }
 \arguments{
 \item{x}{Input object}
 
-\item{n}{Maximum number of rows to print, defaults to 10}
+\item{n}{Maximum number of rows to print, if NULL (default) defaults to
+\code{getOption("tbltools.print_n", 10)}.}
 
 \item{...}{Other args passed to tibble or data.frame print.}
 }
