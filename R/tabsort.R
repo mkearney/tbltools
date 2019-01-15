@@ -57,34 +57,8 @@ tabsort.default <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE
     ## if unnamed atomic vector & one or more named objects are supplied
   } else if (!is.recursive(.data) && length(vars) > 0) {
 
-    ## if .data is already a name, then find a simple alphanumeric name to use
-    ## otherwise just name it .data
-    if (".data" %in% vars) {
-      assignname <- NULL
-      i <- 0
-      ltrs <- letters
-      while (is.null(assignname) || assignname %in% vars) {
-        i <- i + 1
-        if (i > length(ltrs)) {
-          i <- 1
-          if (any(grepl("[A-Z]", ltrs))) {
-            ltrs <- paste0(tolower(ltrs), i)
-          } else if (any(grepl("[a-z]", ltrs)) & any(grepl("[0-9]", ltrs))) {
-            ltrs <- paste0(LETTERS, i)
-          } else {
-            ltrs <- toupper(ltrs)
-          }
-        }
-        assignname <- ltrs[i]
-      }
-    } else {
-      assignname <- ".data"
-    }
-    ## if "n" in vars, rename with dot
-    if ("n" %in% vars) {
-      warning("variable n renamed to .n", call. = FALSE)
-      vars[vars == "n"] <- ".n"
-    }
+    ## rename .data using expression text
+    assignname <- deparse(substitute(.data))
     .data <- list(.data, ...)
     names(.data) <- c(assignname, vars)
 
@@ -95,14 +69,6 @@ tabsort.default <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE
     ## otherwise use tidy selection of any supplied var names
   } else {
     .data <- select_data(.data, ...)
-    if ("n" %in% names(.data)) {
-      warning("variable n renamed to .n", call. = FALSE)
-      names(.data)[names(.data) == "n"] <- ".n"
-    }
-    if ("prop" %in% names(.data)) {
-      warning("variable prop renamed to .prop", call. = FALSE)
-      names(.data)[names(.data) == "prop"] <- ".prop"
-    }
   }
   if (na_omit) {
     if (is.data.frame(.data)) {
@@ -110,6 +76,15 @@ tabsort.default <- function(.data, ..., prop = TRUE, na_omit = TRUE, sort = TRUE
     } else {
       .data <- na_omit_list(.data)
     }
+  }
+  ## check/fix names
+  if ("n" %in% names(.data)) {
+    warning("variable n renamed to .n", call. = FALSE)
+    names(.data)[names(.data) == "n"] <- ".n"
+  }
+  if ("prop" %in% names(.data)) {
+    warning("variable prop renamed to .prop", call. = FALSE)
+    names(.data)[names(.data) == "prop"] <- ".prop"
   }
   x <- as_tbl_data(do.call("table", as.list(.data)))
   if (prop) {
