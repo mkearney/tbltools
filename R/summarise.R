@@ -23,6 +23,7 @@ summarise_data.grouped_data <- function(.data, ...) {
   gd <- group_by_data_data(.data)
   .d <- ungroup_data(.data)
   d <- lapply(gd, function(i) {
+    i <- paste(i)
     lvs <- unique(i)
     e <- lapply(lvs, function(j) .d[i == j, ])
     e <- lapply(e, function(.x) unique(summarise_data(.x, ...)))
@@ -35,5 +36,5 @@ summarise_data.grouped_data <- function(.data, ...) {
   for (i in seq_along(gd)) {
     d[[names(gd)[i]]] <- unique(gd[[i]])
   }
-  d
+  d[unique(c(names(gd), names(d)))]
 }
