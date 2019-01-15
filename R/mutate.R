@@ -33,5 +33,5 @@ mutate_data.grouped_data <- function(.data, ...) {
     mutate_data(e, ...)
   })
   d <- bind_rows_data(d)
-  group_by_data_gd(d, gd)
+  group_by_data_str(d, names(gd)[-ncol(gd)])
 }
