@@ -9,6 +9,13 @@ decr(x)
 \arguments{
 \item{x}{Input vector}
 }
+\value{
+Reordered vector
+}
 \description{
 Arranges vector in descending order
+}
+\examples{
+## decreasing 1:10
+decr(1:10)
 }

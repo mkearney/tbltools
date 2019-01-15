@@ -4,7 +4,10 @@
 #' Arranges vector in descending order
 #'
 #' @param x Input vector
+#' @examples
+#' ## decreasing 1:10
+#' decr(1:10)
+#' @return Reordered vector
 #' @export
-#' @example decr(1:10)
 decr <- function(x) -xtfrm(x)
 
