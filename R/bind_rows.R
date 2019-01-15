@@ -31,6 +31,7 @@ bind_rows_data <- function(..., fill = TRUE) {
         class = lapply(.x, class)
       )
     })
+    cls <- c(as.list(cls), stringsAsFactors = FALSE)
     cls <- do.call(base::rbind, cls, quote = FALSE)
     cls <- cls[!duplicated(cls$name), ]
 
@@ -44,6 +45,7 @@ bind_rows_data <- function(..., fill = TRUE) {
       }
     }
   }
+  x <- c(as.list(x), stringsAsFactors = FALSE)
   as_tbl_data(do.call(base::rbind, x, quote = FALSE))
 }
 
