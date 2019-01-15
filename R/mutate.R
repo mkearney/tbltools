@@ -20,18 +20,27 @@ mutate_data.default <- function(.data, ...) {
   for (i in vars) {
     .data[[i]] <- eval(dots[[i]], .data, e)
   }
-  as_tbl_data(.data)
+  .data
 }
 
+
+mutate_data_default <- function(.data, vars, dots, e) {
+  for (i in vars) {
+    .data[[i]] <- eval(dots[[i]], .data, e)
+  }
+  .data
+}
 
 #' @export
 mutate_data.grouped_data <- function(.data, ...) {
   gd <- group_by_data_data(.data)
-  .d <- ungroup_data(.data)
-  d <- lapply(gd$.row_num, function(.i) {
-    e <- .d[.i, , drop = FALSE]
-    mutate_data(e, ...)
+  .data <- ungroup_data(.data)
+  dots <- pretty_dots(...)
+  e <- call_env()
+  vars <- names(dots)
+  .data <- lapply(gd$.row_num, function(.i) {
+    mutate_data_default(.data[.i, , drop = FALSE], vars, dots, e)
   })
-  d <- bind_rows_data(d)
-  group_by_data_str(d, names(gd)[-ncol(gd)])
+  .data <- bind_rows_data(.data, fill = FALSE)
+  group_by_data_str(.data, names(gd)[-ncol(gd)])
 }

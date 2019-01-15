@@ -31,9 +31,10 @@ bind_rows_data <- function(..., fill = TRUE) {
         class = lapply(.x, class)
       )
     })
-    cls <- c(as.list(cls), stringsAsFactors = FALSE)
+    cls <- c(as.list(cls), stringsAsFactors = FALSE,
+      deparse.level = 0, make.row.names = FALSE)
     cls <- do.call(base::rbind, cls, quote = FALSE)
-    cls <- cls[!duplicated(cls$name), ]
+    cls <- cls[!duplicated(cls$name), , drop = FALSE]
 
     for (i in seq_along(x)) {
       if (any(!cls$name %in% names(x[[i]]))) {
@@ -45,7 +46,8 @@ bind_rows_data <- function(..., fill = TRUE) {
       }
     }
   }
-  x <- c(as.list(x), stringsAsFactors = FALSE)
+  x <- c(as.list(x), stringsAsFactors = FALSE,
+    deparse.level = 0, make.row.names = FALSE)
   as_tbl_data(do.call(base::rbind, x, quote = FALSE))
 }
 
@@ -57,4 +59,4 @@ same_names <- function(x) {
   all(sapply(x, function(.x) all(nms %in% names(.x))))
 }
 
-uq_names <- function(x) unique(unlist(lapply(x, names)))
+uq_names <- function(x) unique(unlist(lapply(x, names), use.names = FALSE))

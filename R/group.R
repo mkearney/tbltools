@@ -44,8 +44,10 @@ group_by_data_ <- function(.data, g) {
   r <- as_tbl_data(rows)
   uq_r <- !duplicated(r)
   ur <- r[uq_r, , drop = FALSE]
-  row_vals <- lapply(seq_len(nrow(r)), function(i) unlist(r[i, , drop = TRUE]))
-  uq_rv <- lapply(seq_len(nrow(ur)), function(i) unlist(ur[i, , drop = TRUE]))
+  row_vals <- lapply(seq_len(nrow(r)), function(i)
+    unlist(r[i, , drop = TRUE], use.names = FALSE))
+  uq_rv <- lapply(seq_len(nrow(ur)), function(i)
+    unlist(ur[i, , drop = TRUE], use.names = FALSE))
   g_r_v <- lapply(uq_rv, function(.x) {
     which(sapply(row_vals, function(.y) identical(.y, .x)))
   })
