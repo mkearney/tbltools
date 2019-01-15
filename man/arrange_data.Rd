@@ -4,16 +4,14 @@
 \alias{arrange_data}
 \title{Arrange rows}
 \usage{
-arrange_data(.data, ..., desc = TRUE)
+arrange_data(.data, ...)
 }
 \arguments{
 \item{.data}{data frame}
 
 \item{...}{One or more unquoted names of columns on which to arrange the rows. If none
-are supplied, the data are returned as is.}
-
-\item{desc}{Logical indicating whether to arrange by descending (default) or
-ascending values.}
+are supplied, the data are returned as is. By default, ordering is done in ascending
+order. To orer in descending order, use \code{\link{decr}} on desired variable(s).}
 }
 \value{
 Rearranged data frame
@@ -35,6 +33,6 @@ dat <- data.frame(
 arrange_data(dat, a)
 
 ## arrange by multiple columns
-arrange_data(dat, a, b, c)
+arrange_data(dat, decr(a), b, c)
 
 }

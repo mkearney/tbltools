@@ -117,7 +117,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>arrange_data</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>desc</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>arrange_data</span>(<span class='no'>.data</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -129,12 +129,8 @@
     <tr>
       <th>...</th>
       <td><p>One or more unquoted names of columns on which to arrange the rows. If none
-are supplied, the data are returned as is.</p></td>
-    </tr>
-    <tr>
-      <th>desc</th>
-      <td><p>Logical indicating whether to arrange by descending (default) or
-ascending values.</p></td>
+are supplied, the data are returned as is. By default, ordering is done in ascending
+order. To orer in descending order, use <code><a href='decr.html'>decr</a></code> on desired variable(s).</p></td>
     </tr>
     </table>
     
@@ -155,28 +151,28 @@ ascending values.</p></td>
 
 <span class='co'>## arrange by one column</span>
 <span class='fu'>arrange_data</span>(<span class='no'>dat</span>, <span class='no'>a</span>)</div><div class='output co'>#&gt;    a b  c
-#&gt; 1  c 5 -2
-#&gt; 2  c 5 -4
+#&gt; 1  a 3 -1
+#&gt; 2  a 3  0
+#&gt; 3  a 2  0
+#&gt; 4  b 8 -5
+#&gt; 5  b 8  0
+#&gt; 6  b 1  2
+#&gt; 7  c 5 -2
+#&gt; 8  c 5 -4
+#&gt; 9  c 5  1
+#&gt; 10 c 9  0</div><div class='input'>
+<span class='co'>## arrange by multiple columns</span>
+<span class='fu'>arrange_data</span>(<span class='no'>dat</span>, <span class='fu'><a href='decr.html'>decr</a></span>(<span class='no'>a</span>), <span class='no'>b</span>, <span class='no'>c</span>)</div><div class='output co'>#&gt;    a b  c
+#&gt; 1  c 5 -4
+#&gt; 2  c 5 -2
 #&gt; 3  c 5  1
 #&gt; 4  c 9  0
-#&gt; 5  b 8 -5
-#&gt; 6  b 8  0
-#&gt; 7  b 1  2
-#&gt; 8  a 3 -1
-#&gt; 9  a 3  0
-#&gt; 10 a 2  0</div><div class='input'>
-<span class='co'>## arrange by multiple columns</span>
-<span class='fu'>arrange_data</span>(<span class='no'>dat</span>, <span class='no'>a</span>, <span class='no'>b</span>, <span class='no'>c</span>)</div><div class='output co'>#&gt;    a b  c
-#&gt; 1  c 9  0
-#&gt; 2  c 5  1
-#&gt; 3  c 5 -2
-#&gt; 4  c 5 -4
-#&gt; 5  b 8  0
+#&gt; 5  b 1  2
 #&gt; 6  b 8 -5
-#&gt; 7  b 1  2
-#&gt; 8  a 3  0
+#&gt; 7  b 8  0
+#&gt; 8  a 2  0
 #&gt; 9  a 3 -1
-#&gt; 10 a 2  0</div><div class='input'>
+#&gt; 10 a 3  0</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

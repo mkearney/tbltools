@@ -4,9 +4,8 @@
 #'
 #' @param .data data frame
 #' @param ... One or more unquoted names of columns on which to arrange the rows. If none
-#'   are supplied, the data are returned as is.
-#' @param desc Logical indicating whether to arrange by descending (default) or
-#'   ascending values.
+#'   are supplied, the data are returned as is. By default, ordering is done in ascending
+#'   order. To orer in descending order, use \code{\link{decr}} on desired variable(s).
 #' @return Rearranged data frame
 #' @examples
 #'
@@ -22,15 +21,15 @@
 #' arrange_data(dat, a)
 #'
 #' ## arrange by multiple columns
-#' arrange_data(dat, a, b, c)
+#' arrange_data(dat, decr(a), b, c)
 #'
 #' @export
-arrange_data <- function(.data, ..., desc = TRUE) {
+arrange_data <- function(.data, ...) {
   UseMethod("arrange_data")
 }
 
 #' @export
-arrange_data.default <- function(.data, ..., desc = TRUE) {
+arrange_data.default <- function(.data, ...) {
   dots <- capture_dots(...)
 
   ## if no columns supplied, return .data
@@ -40,7 +39,7 @@ arrange_data.default <- function(.data, ..., desc = TRUE) {
 
   ## order the data with relevant columns selected
   .order_data <- select_data(.data, ...)
-  row_names <- do.call(base::order, c(as.list(.order_data), decreasing = desc))
+  row_names <- do.call(base::order, c(as.list(.order_data)))
 
   ## reorganize using ordered row_names
   .data <- .data[row_names, ]
