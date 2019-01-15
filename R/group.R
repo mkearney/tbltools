@@ -23,6 +23,15 @@ group_by_data.grouped_data <- function(.data, ...) {
 #' @export
 group_by_data.default <- function(.data, ...) {
   g <- select_data(.data, ...)
+  group_by_data_(.data, g)
+}
+
+group_by_data_str <- function(.data, groups) {
+  g <- .data[groups]
+  group_by_data_(.data, g)
+}
+
+group_by_data_ <- function(.data, g) {
   is_fct <- sapply(g, is.factor)
   lvs <- lapply(g, unique)
   lvs[is_fct] <- lapply(g[is_fct], levels)
@@ -32,7 +41,16 @@ group_by_data.default <- function(.data, ...) {
     rows[[i]] <- this_in_that(g[[i]], lvs[[i]], value = lvs[[i]])
   }
   names(rows) <- group_names
-  attr(.data, "groups") <- rows
+  r <- as_tbl_data(rows)
+  uq_r <- !duplicated(r)
+  ur <- r[uq_r, , drop = FALSE]
+  row_vals <- lapply(seq_len(nrow(r)), function(i) unlist(r[i, , drop = TRUE]))
+  uq_rv <- lapply(seq_len(nrow(ur)), function(i) unlist(ur[i, , drop = TRUE]))
+  g_r_v <- lapply(uq_rv, function(.x) {
+    which(sapply(row_vals, function(.y) identical(.y, .x)))
+  })
+  ur$.row_num <- g_r_v
+  attr(.data, "groups") <- ur
   structure(
     .data,
     names = names(.data),
@@ -41,24 +59,16 @@ group_by_data.default <- function(.data, ...) {
   )
 }
 
-group_by_data_str <- function(.data, groups) {
-  g <- .data[groups]
-  is_fct <- sapply(g, is.factor)
-  lvs <- lapply(g, unique)
-  lvs[is_fct] <- lapply(g[is_fct], levels)
-  group_names <- names(g)
-  rows <- vector("list", length(group_names))
-  for (i in seq_along(lvs)) {
-    rows[[i]] <- this_in_that(g[[i]], lvs[[i]], value = lvs[[i]])
-  }
-  names(rows) <- group_names
-  attr(.data, "groups") <- rows
+
+group_by_data_gd <- function(.data, gd) {
+  attr(.data, "groups") <- gd
   structure(
     .data,
+    names = names(.data),
+    row.names = .set_row_names(length(.data[[1]])),
     class = c("grouped_data", "tbl_data", "tbl_df", "tbl", "data.frame")
   )
 }
-
 
 #' Ungroup data
 #'
