@@ -154,8 +154,8 @@
 <a class="sourceLine" id="cb4-5" title="5">) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-6" title="6"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cor</a></span>()</a>
 <a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt;           x         y</span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt; x 1.0000000 0.4752833</span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; y 0.4752833 1.0000000</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt; x 1.0000000 0.8058198</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; y 0.8058198 1.0000000</span></a></code></pre></div>
 <div id="slice" class="section level3">
 <h3 class="hasAnchor">
 <a href="#slice" class="anchor"></a>Slice</h3>
@@ -313,10 +313,10 @@
 <a class="sourceLine" id="cb17-8" title="8">    <span class="dt">mpg =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(mpg)</a>
 <a class="sourceLine" id="cb17-9" title="9">  )</a>
 <a class="sourceLine" id="cb17-10" title="10"><span class="co">#&gt; # A pseudo tibble: 3 x 3</span></a>
-<a class="sourceLine" id="cb17-11" title="11"><span class="co">#&gt;      n      mpg cyl</span></a>
-<a class="sourceLine" id="cb17-12" title="12"><span class="co">#&gt; 1)   7 19.74286   6</span></a>
-<a class="sourceLine" id="cb17-13" title="13"><span class="co">#&gt; 2)  11 26.66364   4</span></a>
-<a class="sourceLine" id="cb17-14" title="14"><span class="co">#&gt; 3)  14 15.10000   8</span></a></code></pre></div>
+<a class="sourceLine" id="cb17-11" title="11"><span class="co">#&gt;     cyl  n      mpg</span></a>
+<a class="sourceLine" id="cb17-12" title="12"><span class="co">#&gt; 1)    6  7 19.74286</span></a>
+<a class="sourceLine" id="cb17-13" title="13"><span class="co">#&gt; 2)    4 11 26.66364</span></a>
+<a class="sourceLine" id="cb17-14" title="14"><span class="co">#&gt; 3)    8 14 15.10000</span></a></code></pre></div>
 <p>Compare with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">same_as_dplyr</span>(</a>
 <a class="sourceLine" id="cb18-2" title="2">  d <span class="op">%&gt;%</span></a>

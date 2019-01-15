@@ -16,6 +16,9 @@
     <loc>https://tbltools.mikewk.com/reference/bind_rows_data.html</loc>
   </url>
   <url>
+    <loc>https://tbltools.mikewk.com/reference/decr.html</loc>
+  </url>
+  <url>
     <loc>https://tbltools.mikewk.com/reference/env_tbls.html</loc>
   </url>
   <url>
@@ -35,6 +38,9 @@
   </url>
   <url>
     <loc>https://tbltools.mikewk.com/reference/mutate_data.html</loc>
+  </url>
+  <url>
+    <loc>https://tbltools.mikewk.com/reference/n_obs.html</loc>
   </url>
   <url>
     <loc>https://tbltools.mikewk.com/reference/pipe.html</loc>
