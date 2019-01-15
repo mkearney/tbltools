@@ -27,23 +27,64 @@ as_tbl_data <- function(x, row_names = FALSE) {
 as_tbl_data.table <- function(x, row_names = FALSE) {
   df <- as.data.frame(x, stringsAsFactors = FALSE)
   names(df) <- c(names(dimnames(x)), "n")
-  as_tbl_data(df)
+  as_tbl_data.data.frame(df)
 }
 
 #' @export
 as_tbl_data.default <- function(x, row_names = FALSE) {
-  isdf <- which(vapply(x, is.data.frame, FUN.VALUE = logical(1),
-    USE.NAMES = FALSE))
-  if (length(isdf) > 0) {
-    for (i in isdf) {
-      x[[i]] <- x[[i]]
-    }
-  }
+  x <- list(x)
+  structure(
+    x,
+    names = names(x),
+    row.names = .set_row_names(length(x[[1]])),
+    class = c("tbl_data", "tbl_df", "tbl", "data.frame")
+  )
+}
+
+#' @export
+as_tbl_data.matrix <- function(x, row_names = FALSE) {
+  x <- as.data.frame(x, stringsAsFactors = FALSE)
+  structure(
+    x,
+    names = colnames(x),
+    row.names = .set_row_names(length(x[[1]])),
+    class = c("tbl_data", "tbl_df", "tbl", "data.frame")
+  )
+}
+
+#' @export
+as_tbl_data.tbl_data <- function(x, row_names = FALSE) {
+  x
+}
+
+#' @export
+as_tbl_data.data.frame <- function(x, row_names = FALSE) {
   if (row_names && !identical(as.character(seq_len(nrow(x))), row.names(x))) {
     x$row_names <- row.names(x)
     x <- x[c(ncol(x), 1:(ncol(x) - 1))]
     row.names(x) <- NULL
   }
+  structure(
+    x,
+    names = names(x),
+    row.names = .set_row_names(length(x[[1]])),
+    class = c("tbl_data", "tbl_df", "tbl", "data.frame")
+  )
+}
+
+#' @export
+as_tbl_data.default <- function(x, row_names = FALSE) {
+  x <- list(x)
+  structure(
+    x,
+    names = names(x),
+    row.names = .set_row_names(length(x[[1]])),
+    class = c("tbl_data", "tbl_df", "tbl", "data.frame")
+  )
+}
+
+#' @export
+as_tbl_data.list <- function(x, row_names = FALSE) {
   structure(
     x,
     names = names(x),
