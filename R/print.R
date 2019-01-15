@@ -24,8 +24,8 @@ print.tbl_data <- function(x, n = NULL, ...) {
     nce <- if (n < 20) ceiling(1.9 * n) else n
     if (nrow(x) > nce) {
       trunc_rows <- "*"
-      ll <- sprintf("*%s rows not printed",
-        formatC(nrow(x) - n, big.mark = ","))
+      ll <- sprintf("*%s row(s) not printed",
+        formatC(nrow(x) - n, big.mark = ",", digits = 15, format = "d", width = -1))
     } else {
       trunc_rows <- ""
       ll <- ""
@@ -58,18 +58,20 @@ print.tbl_data <- function(x, n = NULL, ...) {
     if (length(kp) < n_cols) {
       trunc_cols <- "\u002b"
       if (!identical(ll, "")) {
-        ll <- paste0(ll, sprintf(";  \u002b%s columns not printed",
-          formatC(n_cols - length(kp), big.mark = ",")))
+        ll <- paste0(ll, sprintf(";  \u002b%s column(s) not printed",
+          formatC(n_cols - length(kp), big.mark = ",",
+            digits = 15, format = "d", width = -1)))
       } else {
-        ll <- sprintf("\u002b%s columns not printed",
-          formatC(n_cols - length(kp), big.mark = ","))
+        ll <- sprintf("\u002b%s column(s) not printed",
+          formatC(n_cols - length(kp), big.mark = ",",
+            digits = 15, format = "d", width = -1))
       }
     } else {
       trunc_cols <- ""
     }
     ## print top-level info
     pcat(gray_text("# A pseudo tibble: ",
-      formatC(n_rows, big.mark = ","),
+      formatC(n_rows, big.mark = ",", digits = 15, format = "d", width = -1),
       trunc_rows, " x ",
       n_cols, trunc_cols))
     ## print data
