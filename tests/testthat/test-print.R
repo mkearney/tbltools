@@ -22,5 +22,7 @@ test_that("print tbl_data", {
     c("bignames_mpg", "bignames_cyl", "bignames_disp\u2026", "bignames_hp"),
     var_names[1:4]
   )
+  expect_equal(nrow(slice_data(d, 1:5)), 5)
+  expect_error(slice_data(d, 1:5, 3))
   options(width = ow)
 })
