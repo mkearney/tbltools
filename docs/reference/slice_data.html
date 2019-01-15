@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • tbltools</title>
+<title>Slice data — slice_data • tbltools</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,7 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Slice data — slice_data" />
+
+<meta property="og:description" content="Slice data by row number" />
 
 <meta property="og:image" content="https://tbltools.mikewk.com/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -52,7 +54,7 @@
   </head>
 
   <body>
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -104,68 +106,62 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/mkearney/tbltools/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Slice data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mkearney/tbltools/blob/master/R/slice.R'><code>R/slice.R</code></a></small>
+    <div class="hidden name"><code>slice_data.Rd</code></div>
     </div>
 
-    <div id="tbltools-0-1-0" class="section level1">
-<h1 class="page-header">
-<a href="#tbltools-0-1-0" class="anchor"></a>tbltools 0.1.0<small> Unreleased </small>
-</h1>
-<ul>
-<li>Added dplyr-like functions <code><a href="../reference/arrange_data.html">arrange_data()</a></code> <code><a href="../reference/filter_data.html">filter_data()</a></code>, <code><a href="../reference/select_data.html">select_data()</a></code>, <code><a href="../reference/mutate_data.html">mutate_data()</a></code>, <code><a href="../reference/summarise_data.html">summarise_data()</a></code>, <code><a href="../reference/bind_rows_data.html">bind_rows_data()</a></code>, <code><a href="../reference/join.html">full_join_data()</a></code>, <code><a href="../reference/join.html">left_join_data()</a></code>, <code><a href="../reference/join.html">right_join_data()</a></code>
-</li>
-</ul>
-</div>
-    <div id="tbltools-0-0-5" class="section level1">
-<h1 class="page-header">
-<a href="#tbltools-0-0-5" class="anchor"></a>tbltools 0.0.5<small> Unreleased </small>
-</h1>
-<ul>
-<li>tbltools is a lot lighter as rlang, tibble, and tidyselect are no longer dependencies</li>
-</ul>
-</div>
-    <div id="tbltools-0-0-4" class="section level1">
-<h1 class="page-header">
-<a href="#tbltools-0-0-4" class="anchor"></a>tbltools 0.0.4<small> Unreleased </small>
-</h1>
-<ul>
-<li>Added <code>do_call_rbind()</code> as convenient shortcut for base do.call(“rbind”, …) that will also fill in missing columns with missing values of appropriate class</li>
-<li>Added non-standard evaluation functionality to <code>filter_rows()</code>
-</li>
-</ul>
-</div>
-    <div id="tbltools-0-0-3" class="section level1">
-<h1 class="page-header">
-<a href="#tbltools-0-0-3" class="anchor"></a>tbltools 0.0.3<small> 2019-01-07 </small>
-</h1>
-<ul>
-<li>Added <code>filter_rows()</code> and <code>arrange_rows()</code> methods as convenient shortcuts</li>
-</ul>
-</div>
-    <div id="tbltools-0-0-2" class="section level1">
-<h1 class="page-header">
-<a href="#tbltools-0-0-2" class="anchor"></a>tbltools 0.0.2<small> 2018-10-30 </small>
-</h1>
-<ul>
-<li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    
+    <p>Slice data by row number</p>
+    
+    </div>
 
+    <pre class="usage"><span class='fu'>slice_data</span>(<span class='no'>.data</span>, <span class='no'>...</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>.data</th>
+      <td><p>Input data frame</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Expression to evaluate to integer row positions</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>.data of evaluated row positions</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='co'>## data set</span>
+<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_data.html'>tbl_data</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>))
+
+<span class='co'>## slice first 4 rows</span>
+<span class='fu'>slice_data</span>(<span class='no'>d</span>, <span class='fl'>1</span>:<span class='fl'>4</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 2</span><span>
+#&gt;        x      y
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  0.127 -</span><span style='color: #BB0000;'>2.53</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  1.74   0.393
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> -</span><span style='color: #BB0000;'>0.586</span><span>  0.668
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> -</span><span style='color: #BB0000;'>0.445</span><span> -</span><span style='color: #BB0000;'>0.178</span><span></div></span></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#tbltools-0-1-0">0.1.0</a></li>
-        <li><a href="#tbltools-0-0-5">0.0.5</a></li>
-        <li><a href="#tbltools-0-0-4">0.0.4</a></li>
-        <li><a href="#tbltools-0-0-3">0.0.3</a></li>
-        <li><a href="#tbltools-0-0-2">0.0.2</a></li>
-      </ul>
-    </div>
-  </div>
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
+  </div>
 </div>
 
       <footer>
