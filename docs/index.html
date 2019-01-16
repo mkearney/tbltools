@@ -233,13 +233,13 @@
 <strong><code><a href="reference/select_data.html">select_data()</a></code></strong>: Select columns of data frame</li>
 </ul>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="co">## select only these columns</span></a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="kw"><a href="reference/select_data.html">select_data</a></span>(d, cyl, gear, <span class="dt">weight =</span> wt)</a>
-<a class="sourceLine" id="cb11-3" title="3"><span class="co">#&gt; # A pseudo tibble: 32* x 3</span></a>
-<a class="sourceLine" id="cb11-4" title="4"><span class="co">#&gt;     cyl gear weight</span></a>
-<a class="sourceLine" id="cb11-5" title="5"><span class="co">#&gt; 1)    6    4  2.620</span></a>
-<a class="sourceLine" id="cb11-6" title="6"><span class="co">#&gt; 2)    6    4  2.875</span></a>
-<a class="sourceLine" id="cb11-7" title="7"><span class="co">#&gt; 3)    4    4  2.320</span></a>
-<a class="sourceLine" id="cb11-8" title="8"><span class="co">#&gt; 4)    6    3  3.215</span></a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw"><a href="reference/select_data.html">select_data</a></span>(d, row_names<span class="op">:</span>hp, <span class="op">-</span>disp, gear, <span class="dt">weight =</span> wt)</a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="co">#&gt; # A pseudo tibble: 32* x 6</span></a>
+<a class="sourceLine" id="cb11-4" title="4"><span class="co">#&gt;        row_names  mpg cyl  hp gear weight</span></a>
+<a class="sourceLine" id="cb11-5" title="5"><span class="co">#&gt; 1)     Mazda RX4 21.0   6 110    4  2.620</span></a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="co">#&gt; 2)  Mazda RX4 W… 21.0   6 110    4  2.875</span></a>
+<a class="sourceLine" id="cb11-7" title="7"><span class="co">#&gt; 3)    Datsun 710 22.8   4  93    4  2.320</span></a>
+<a class="sourceLine" id="cb11-8" title="8"><span class="co">#&gt; 4)  Hornet 4 Dr… 21.4   6 110    3  3.215</span></a>
 <a class="sourceLine" id="cb11-9" title="9"><span class="co">#&gt; *28 row(s) not printed</span></a></code></pre></div>
 <p>Compare with <code><a href="https://dplyr.tidyverse.org/reference/select.html">dplyr::select()</a></code></p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">same_as_dplyr</span>(</a>
@@ -305,18 +305,23 @@
 </ul>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="co">## group by cyl</span></a>
 <a class="sourceLine" id="cb17-2" title="2">d <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb17-3" title="3"><span class="st">  </span><span class="kw"><a href="reference/select_data.html">select_data</a></span>(cyl, gear, mpg) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb17-4" title="4"><span class="st">  </span><span class="kw"><a href="reference/group_by_data.html">group_by_data</a></span>(cyl) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="st">  </span><span class="kw"><a href="reference/select_data.html">select_data</a></span>(mpg<span class="op">:</span>cyl, gear) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="st">  </span><span class="kw"><a href="reference/group_by_data.html">group_by_data</a></span>(cyl, gear) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb17-5" title="5"><span class="st">  </span><span class="kw"><a href="reference/mutate_data.html">mutate_data</a></span>(<span class="dt">n =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(gear)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb17-6" title="6"><span class="st">  </span><span class="kw"><a href="reference/summarise_data.html">summarise_data</a></span>(</a>
 <a class="sourceLine" id="cb17-7" title="7">    <span class="dt">n =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/unique">unique</a></span>(n),</a>
 <a class="sourceLine" id="cb17-8" title="8">    <span class="dt">mpg =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(mpg)</a>
 <a class="sourceLine" id="cb17-9" title="9">  )</a>
-<a class="sourceLine" id="cb17-10" title="10"><span class="co">#&gt; # A pseudo tibble: 3 x 3</span></a>
-<a class="sourceLine" id="cb17-11" title="11"><span class="co">#&gt;     cyl  n      mpg</span></a>
-<a class="sourceLine" id="cb17-12" title="12"><span class="co">#&gt; 1)    6  7 19.74286</span></a>
-<a class="sourceLine" id="cb17-13" title="13"><span class="co">#&gt; 2)    4 11 26.66364</span></a>
-<a class="sourceLine" id="cb17-14" title="14"><span class="co">#&gt; 3)    8 14 15.10000</span></a></code></pre></div>
+<a class="sourceLine" id="cb17-10" title="10"><span class="co">#&gt; # A pseudo tibble: 8 x 4</span></a>
+<a class="sourceLine" id="cb17-11" title="11"><span class="co">#&gt;     cyl gear  n    mpg</span></a>
+<a class="sourceLine" id="cb17-12" title="12"><span class="co">#&gt; 1)    6    4  4 19.750</span></a>
+<a class="sourceLine" id="cb17-13" title="13"><span class="co">#&gt; 2)    4    4  8 26.925</span></a>
+<a class="sourceLine" id="cb17-14" title="14"><span class="co">#&gt; 3)    6    3  2 19.750</span></a>
+<a class="sourceLine" id="cb17-15" title="15"><span class="co">#&gt; 4)    8    3 12 15.050</span></a>
+<a class="sourceLine" id="cb17-16" title="16"><span class="co">#&gt; 5)    4    3  1 21.500</span></a>
+<a class="sourceLine" id="cb17-17" title="17"><span class="co">#&gt; 6)    4    5  2 28.200</span></a>
+<a class="sourceLine" id="cb17-18" title="18"><span class="co">#&gt; 7)    8    5  2 15.400</span></a>
+<a class="sourceLine" id="cb17-19" title="19"><span class="co">#&gt; 8)    6    5  1 19.700</span></a></code></pre></div>
 <p>Compare with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">same_as_dplyr</span>(</a>
 <a class="sourceLine" id="cb18-2" title="2">  d <span class="op">%&gt;%</span></a>

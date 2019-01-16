@@ -176,13 +176,13 @@ same_as_dplyr(
 
 ``` r
 ## select only these columns
-select_data(d, cyl, gear, weight = wt)
-#> # A pseudo tibble: 32* x 3
-#>     cyl gear weight
-#> 1)    6    4  2.620
-#> 2)    6    4  2.875
-#> 3)    4    4  2.320
-#> 4)    6    3  3.215
+select_data(d, row_names:hp, -disp, gear, weight = wt)
+#> # A pseudo tibble: 32* x 6
+#>        row_names  mpg cyl  hp gear weight
+#> 1)     Mazda RX4 21.0   6 110    4  2.620
+#> 2)  Mazda RX4 W… 21.0   6 110    4  2.875
+#> 3)    Datsun 710 22.8   4  93    4  2.320
+#> 4)  Hornet 4 Dr… 21.4   6 110    3  3.215
 #> *28 row(s) not printed
 ```
 
@@ -266,18 +266,23 @@ same_as_dplyr(
 ``` r
 ## group by cyl
 d %>%
-  select_data(cyl, gear, mpg) %>%
-  group_by_data(cyl) %>%
+  select_data(mpg:cyl, gear) %>%
+  group_by_data(cyl, gear) %>%
   mutate_data(n = length(gear)) %>%
   summarise_data(
     n = unique(n),
     mpg = mean(mpg)
   )
-#> # A pseudo tibble: 3 x 3
-#>     cyl  n      mpg
-#> 1)    6  7 19.74286
-#> 2)    4 11 26.66364
-#> 3)    8 14 15.10000
+#> # A pseudo tibble: 8 x 4
+#>     cyl gear  n    mpg
+#> 1)    6    4  4 19.750
+#> 2)    4    4  8 26.925
+#> 3)    6    3  2 19.750
+#> 4)    8    3 12 15.050
+#> 5)    4    3  1 21.500
+#> 6)    4    5  2 28.200
+#> 7)    8    5  2 15.400
+#> 8)    6    5  1 19.700
 ```
 
 Compare with `dplyr::group_by()`

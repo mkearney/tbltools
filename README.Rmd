@@ -154,7 +154,7 @@ same_as_dplyr(
 
 ```{r}
 ## select only these columns
-select_data(d, cyl, gear, weight = wt)
+select_data(d, row_names:hp, -disp, gear, weight = wt)
 ```
 
 Compare with `dplyr::select()`
@@ -215,8 +215,8 @@ same_as_dplyr(
 ```{r}
 ## group by cyl
 d %>%
-  select_data(cyl, gear, mpg) %>%
-  group_by_data(cyl) %>%
+  select_data(mpg:cyl, gear) %>%
+  group_by_data(cyl, gear) %>%
   mutate_data(n = length(gear)) %>%
   summarise_data(
     n = unique(n),
