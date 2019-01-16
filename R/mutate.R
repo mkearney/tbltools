@@ -35,12 +35,17 @@ mutate_data_default <- function(.data, vars, dots, e) {
 mutate_data.grouped_data <- function(.data, ...) {
   gd <- group_by_data_data(.data)
   .data <- ungroup_data(.data)
+  ## row position placeholder
+  .data$.__pre_row_id__ <- seq_len(nrow(.data))
   dots <- pretty_dots(...)
   e <- call_env()
   vars <- names(dots)
-  .data <- lapply(gd$.row_num, function(.i) {
-    mutate_data_default(.data[.i, , drop = FALSE], vars, dots, e)
+  .data <- lapply(unique(gd$.row_num), function(.i) {
+    mutate_data_default(.data[gd$.row_num == .i, , drop = FALSE], vars, dots, e)
   })
   .data <- bind_rows_data(.data, fill = FALSE)
-  group_by_data_str(.data, names(gd)[-ncol(gd)])
+  ## return to pre-mutate order
+  .data <- .data[order(.data$.__pre_row_id__), , drop = FALSE]
+  .data$.__pre_row_id__ <- NULL
+  group_by_data_gd(.data, gd)
 }

@@ -32,27 +32,11 @@ group_by_data_str <- function(.data, groups) {
 }
 
 group_by_data_ <- function(.data, g) {
-  is_fct <- sapply(g, is.factor)
-  lvs <- lapply(g, unique)
-  lvs[is_fct] <- lapply(g[is_fct], levels)
-  group_names <- names(g)
-  rows <- vector("list", length(group_names))
-  for (i in seq_along(lvs)) {
-    rows[[i]] <- this_in_that(g[[i]], lvs[[i]], value = lvs[[i]])
-  }
-  names(rows) <- group_names
-  r <- as_tbl_data(rows)
-  uq_r <- !duplicated(r)
-  ur <- r[uq_r, , drop = FALSE]
-  row_vals <- lapply(seq_len(nrow(r)), function(i)
-    unlist(r[i, , drop = TRUE], use.names = FALSE))
-  uq_rv <- lapply(seq_len(nrow(ur)), function(i)
-    unlist(ur[i, , drop = TRUE], use.names = FALSE))
-  g_r_v <- lapply(uq_rv, function(.x) {
-    which(sapply(row_vals, function(.y) identical(.y, .x)))
-  })
-  ur$.row_num <- g_r_v
-  attr(.data, "groups") <- ur
+  is_fct <- vapply(g, is.factor, FUN.VALUE = logical(1), USE.NAMES = FALSE)
+  og <- g
+  g[!is_fct] <- lapply(g[!is_fct], function(.x) factor(.x, levels = unique(.x)))
+  og$.row_num <- as.integer(interaction(g, drop = TRUE))
+  attr(.data, "groups") <- og
   structure(
     .data,
     names = names(.data),

@@ -14,12 +14,22 @@ summarise_data <- function(.data, ...) {
 #' @export
 summarise_data.default <- function(.data, ...) {
   dots <- pretty_dots(...)
+  vars <- names(dots)
   e <- call_env()
-  as_tbl_data(lapply(dots, function(.x) eval(.x, .data, e)))
+  .data <- unclass(.data)
+  for (i in vars) {
+    .data[[i]] <- eval(dots[[i]], .data, e)
+  }
+  as_tbl_data(.data[vars])
 }
 
-summarise_data_default <- function(.data, dots, e) {
-  as_tbl_data.list(lapply(dots, function(.x) eval(.x, .data, e)))
+summarise_data_default <- function(.data, vars, dots, e) {
+  vars <- names(dots)
+  .data <- unclass(.data)
+  for (i in vars) {
+    .data[[i]] <- eval(dots[[i]], .data, e)
+  }
+  as_tbl_data(.data[vars])
 }
 
 
@@ -29,11 +39,13 @@ summarise_data.grouped_data <- function(.data, ...) {
   .data <- ungroup_data(.data)
   e <- call_env()
   dots <- pretty_dots(...)
-  .data <- lapply(gd$.row_num, function(.i) {
-    summarise_data_default(.data[.i, , drop = FALSE], dots, e)
+  vars <- names(dots)
+  .data <- lapply(unique(gd$.row_num), function(.i) {
+    summarise_data_default(.data[gd$.row_num == .i, , drop = FALSE], vars, dots, e)
   })
   .data <- bind_rows_data(.data, fill = FALSE)
   gd$.row_num <- NULL
+  gd <- unique(gd)
   for (i in seq_along(gd)) {
     .data[[names(gd)[i]]] <- gd[[i]]
   }
