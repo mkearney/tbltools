@@ -8,20 +8,12 @@ as_data_frame_data_frame <- function(x) {
   set_class(x, "data.frame")
 }
 
-are_fct <- function(x) vapply(x, is.factor, logical(1), USE.NAMES = FALSE)
-
 is_list <- function(x) inherits(x, "list")
 
 is_list_alist <- function(x) {
   is_list(x) &&
     length(x) == 1 &&
     is_list(x[[1]])
-}
-
-is_list_data.frame <- function(x) {
-  is_list(x) &&
-    length(x) == 1 &&
-    is.data.frame(x[[1]])
 }
 
 is_list_recursive <- function(x) {
@@ -32,20 +24,6 @@ is_list_recursive <- function(x) {
 
 peel_list_alist <- function(x) {
   if (is_list_alist(x)) {
-    x <- x[[1]]
-  }
-  x
-}
-
-peel_list_data.frame <- function(x) {
-  if (is_list_data.frame(x)) {
-    x <- x[[1]]
-  }
-  x
-}
-
-peel_list_recursive <- function(x) {
-  if (is_list_recursive(x)) {
     x <- x[[1]]
   }
   x
@@ -108,29 +86,7 @@ gray_text <- function(...) {
   }
 }
 
-
 n_uq <- function(x) NROW(unique(x))
-
-
-nin <- function(lhs, rhs, value = TRUE) {
-  x <- !lhs %in% rhs
-  if (value) {
-    x <- lhs[x]
-  }
-  x
-}
-
-this_in_that <- function(this, that, value = NULL) {
-  m <- match(this, that)
-  if (is.null(value)) {
-    return(m)
-  }
-  if (length(that) != length(value)) {
-    stop("'value' must be same length as 'that' (table)",
-      call. = FALSE)
-  }
-  value[m]
-}
 
 all_na <- function(x) all(is.na(unlist(x, use.names = FALSE)) | lengths(x) == 0)
 
@@ -143,4 +99,27 @@ na_omit_data.frame <- function(x) {
 na_omit_list <- function(x) {
   na_elems <- vapply(x, all_na, logical(1))
   x[!na_elems]
+}
+
+as_fct <- function(x) {
+  levels <- unique(x)
+  x <- as.character(x)
+  f <- match(x, levels)
+  levels(f) <- as.character(levels)
+  class(f) <- "factor"
+  f
+}
+
+split_default <- function(.data, .i) {
+  .Internal(split(.data, as_fct(.i)))
+}
+
+split_groups <- function(.data) {
+  .row_num <- attr(.data, ".row_num")
+  class(.data) <- "data.frame"
+  attributes(.data) <- attributes(.data)[c("names", "row.names", "class")]
+  lapply(
+    split_default(seq_len(nrow(.data)), .row_num),
+    function(.i) unclass(.data[.i, , drop = FALSE])
+  )
 }

@@ -33,10 +33,13 @@ group_by_data_str <- function(.data, groups) {
 
 group_by_data_ <- function(.data, g) {
   is_fct <- vapply(g, is.factor, FUN.VALUE = logical(1), USE.NAMES = FALSE)
-  og <- g
-  g[!is_fct] <- lapply(g[!is_fct], function(.x) factor(.x, levels = unique(.x)))
-  og$.row_num <- as.integer(interaction(g, drop = TRUE))
-  attr(.data, "groups") <- og
+  attr(.data, ".row_num") <- as.integer(interaction(
+    lapply(g[!is_fct], function(.x) {
+      if (is.factor(.x)) return(.x) else factor(.x, levels = unique(.x))
+    }),
+    drop = TRUE
+  ))
+  attr(.data, "group_names") <- names(g)
   structure(
     .data,
     names = names(.data),
@@ -84,7 +87,7 @@ ungroup_data.default <- function(.data) {
 #' @param x Grouped data frame
 #' @return Names of grouping variables
 #' @export
-group_by_data_groups <- function(x) names(attr(x, "groups"))
+group_by_data_groups <- function(x) attr(x, "group_names")
 
 #' Group row numbers in grouped data
 #'
@@ -93,5 +96,5 @@ group_by_data_groups <- function(x) names(attr(x, "groups"))
 #' @param x Groupted data frame
 #' @return List of row numbers for each group
 #' @export
-group_by_data_data <- function(x) attr(x, "groups")
+group_by_data_data <- function(x) attr(x, ".row_num")
 

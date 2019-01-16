@@ -24,28 +24,23 @@ mutate_data.default <- function(.data, ...) {
 }
 
 
-mutate_data_default <- function(.data, vars, dots, e) {
+mutate_data_default <- function(.data, group_names, vars, dots, e) {
   for (i in vars) {
     .data[[i]] <- eval(dots[[i]], .data, e)
   }
-  .data
+  as_tbl_data(.data)
 }
 
 #' @export
 mutate_data.grouped_data <- function(.data, ...) {
-  gd <- group_by_data_data(.data)
-  .data <- ungroup_data(.data)
-  ## row position placeholder
-  .data$.__pre_row_id__ <- seq_len(nrow(.data))
-  dots <- pretty_dots(...)
   e <- call_env()
+  dots <- pretty_dots(...)
   vars <- names(dots)
-  .data <- lapply(unique(gd$.row_num), function(.i) {
-    mutate_data_default(.data[gd$.row_num == .i, , drop = FALSE], vars, dots, e)
-  })
+  group_names <- attr(.data, "group_names")
+  .row_num <- attr(.data, ".row_num")
+  .data <- lapply(split_groups(.data),
+    mutate_data_default,
+    group_names, vars, dots, e)
   .data <- bind_rows_data(.data, fill = FALSE)
-  ## return to pre-mutate order
-  .data <- .data[order(.data$.__pre_row_id__), , drop = FALSE]
-  .data$.__pre_row_id__ <- NULL
-  group_by_data_gd(.data, gd)
+  group_by_data_str(.data, group_names)
 }
