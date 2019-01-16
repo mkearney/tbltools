@@ -111,7 +111,7 @@ as_fct <- function(x) {
 }
 
 split_default <- function(.data, .i) {
-  .Internal(split(.data, as_fct(.i)))
+  split(.data, as_fct(.i), drop = TRUE)
 }
 
 split_groups <- function(.data) {
