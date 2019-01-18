@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mutate data — mutate_data • tbltools</title>
+<title>Mutate certain columns — mutate_if_data • tbltools</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Mutate data — mutate_data" />
+<meta property="og:title" content="Mutate certain columns — mutate_if_data" />
 
-<meta property="og:description" content="Wrangle data by adding or transforming columns" />
+<meta property="og:description" content="Wrangle only columns that pass a logical test" />
 
 <meta property="og:image" content="https://tbltools.mikewk.com/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -106,41 +106,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Mutate data</h1>
+    <h1>Mutate certain columns</h1>
     <small class="dont-index">Source: <a href='https://github.com/mkearney/tbltools/blob/master/R/mutate.R'><code>R/mutate.R</code></a></small>
-    <div class="hidden name"><code>mutate_data.Rd</code></div>
+    <div class="hidden name"><code>mutate_if_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Wrangle data by adding or transforming columns</p>
+    <p>Wrangle only columns that pass a logical test</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>mutate_data</span>(<span class='no'>.data</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>mutate_if_data</span>(<span class='no'>.data</span>, <span class='no'>.predicate</span>, <span class='no'>.f</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.data</th>
-      <td><p>Data frame</p></td>
+      <td><p>Input data frame</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>One or more expressions using non-standard evaluation designed
-to return a column of values. These should be named variables. Any names
-already found in the input data will override those input data frame columns</p></td>
+      <th>.predicate</th>
+      <td><p>Function applied to each column evaluating to a logical</p></td>
+    </tr>
+    <tr>
+      <th>.f</th>
+      <td><p>Function applied to each .predicate-passing column. Can be written
+in the formula <code>~ .x</code> format.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Mutated data frame</p>
+    <p>Data frame with .predicate-passing columns mutated.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other mutate: <code><a href='mutate_if_data.html'>mutate_if_data</a></code></p></div>
+    <div class='dont-index'><p>Other mutate: <code><a href='mutate_data.html'>mutate_data</a></code></p></div>
     
 
   </div>

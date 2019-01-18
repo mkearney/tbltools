@@ -19,3 +19,7 @@ Mutated data frame
 \description{
 Wrangle data by adding or transforming columns
 }
+\seealso{
+Other mutate: \code{\link{mutate_if_data}}
+}
+\concept{mutate}
