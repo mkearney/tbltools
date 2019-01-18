@@ -68,7 +68,7 @@ mutate_if_data <- function(.data, .predicate, .f) {
 is_lang <- function(x) identical(typeof(x), "language")
 
 #' @export
-mutate_if_data.default <- function(.data, .predicate, .f, e) {
+mutate_if_data.default <- function(.data, .predicate, .f) {
   .col <- vapply(.data, .predicate, logical(1), USE.NAMES = FALSE)
   if (is_lang(.f)) {
     e <- call_env()
