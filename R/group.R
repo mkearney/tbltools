@@ -35,7 +35,11 @@ group_by_data_ <- function(.data, g) {
   is_fct <- vapply(g, is.factor, FUN.VALUE = logical(1), USE.NAMES = FALSE)
   attr(.data, ".row_num") <- as.integer(interaction(
     lapply(g[!is_fct], function(.x) {
-      if (is.factor(.x)) return(.x) else factor(.x, levels = unique(.x))
+      if (is.factor(.x)) {
+        return(.x)
+      }
+      .x <- as.character(.x)
+      factor(.x, levels = unique(.x))
     }),
     drop = TRUE
   ))

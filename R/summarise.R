@@ -17,8 +17,8 @@ summarise_data.default <- function(.data, ...) {
   vars <- names(dots)
   e <- call_env()
   .data <- unclass(.data)
-  for (i in vars) {
-    .data[[i]] <- eval(dots[[i]], .data, e)
+  for (i in seq_along(vars)) {
+    .data[[vars[i]]] <- eval(dots[[i]], .data, e)
   }
   if (any(lengths(.data[vars]) > 1L)) {
     stop("summarise evaluated to more than 1 value")

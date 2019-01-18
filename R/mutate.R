@@ -17,16 +17,16 @@ mutate_data.default <- function(.data, ...) {
   dots <- pretty_dots(...)
   vars <- names(dots)
   e <- call_env()
-  for (i in vars) {
-    .data[[i]] <- eval(dots[[i]], .data, e)
+  for (i in seq_along(vars)) {
+    .data[[vars[i]]] <- eval(dots[[i]], .data, e)
   }
   .data
 }
 
 
 mutate_data_default <- function(.data, group_names, vars, dots, e) {
-  for (i in vars) {
-    .data[[i]] <- eval(dots[[i]], .data, e)
+  for (i in seq_along(vars)) {
+    .data[[vars[i]]] <- eval(dots[[i]], .data, e)
   }
   as_tbl_data(.data)
 }

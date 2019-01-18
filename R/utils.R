@@ -111,15 +111,16 @@ as_fct <- function(x) {
 }
 
 split_default <- function(.data, .i) {
-  split(.data, as_fct(.i), drop = TRUE)
+  split.default(x = .data, f = as_fct(.i), drop = TRUE)
 }
 
 split_groups <- function(.data) {
   .row_num <- attr(.data, ".row_num")
   class(.data) <- "data.frame"
   attributes(.data) <- attributes(.data)[c("names", "row.names", "class")]
+  row_nums <- split_default(seq_len(nrow(.data)), .row_num)
   lapply(
-    split_default(seq_len(nrow(.data)), .row_num),
-    function(.i) unclass(.data[.i, , drop = FALSE])
+    row_nums,
+    function(ind) .data[ind, , drop = FALSE]
   )
 }
