@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>move vars to front — repos_front • tbltools</title>
+<title>Pull data — pull_data • tbltools</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="move vars to front — repos_front" />
+<meta property="og:title" content="Pull data — pull_data" />
 
-<meta property="og:description" content="move vars to front" />
+<meta property="og:description" content="Pull (extract) data from a data frame" />
 
 <meta property="og:image" content="https://tbltools.mikewk.com/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -106,51 +106,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>move vars to front</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mkearney/tbltools/blob/master/R/repos.R'><code>R/repos.R</code></a></small>
-    <div class="hidden name"><code>repos_front.Rd</code></div>
+    <h1>Pull data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mkearney/tbltools/blob/master/R/pull.R'><code>R/pull.R</code></a></small>
+    <div class="hidden name"><code>pull_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>move vars to front</p>
+    <p>Pull (extract) data from a data frame</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>repos_front</span>(<span class='no'>data</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>pull_data</span>(<span class='no'>.data</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>data frame</p></td>
+      <th>.data</th>
+      <td><p>Input data frame</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>columns to move to front</p></td>
+      <td><p>Unquoted name of column to pull from data frame</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Reordered data frame.</p>
+    <p>A column pulled from its data frame (inheriting whatever class the
+  column is)</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## data with row names</span>
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>5</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>5</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>5</span>])
-
-<span class='co'>## move y to front</span>
-<span class='fu'>repos_front</span>(<span class='no'>d</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 2</span><span>
-#&gt;         y      x
-#&gt;     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>  0.127   0.394
-#&gt; </span><span style='color: #555555;'>2</span><span>  1.74    0.124
-#&gt; </span><span style='color: #555555;'>3</span><span> -</span><span style='color: #BB0000;'>0.586</span><span>   0.161
-#&gt; </span><span style='color: #555555;'>4</span><span> -</span><span style='color: #BB0000;'>0.445</span><span>  -</span><span style='color: #BB0000;'>1.27</span><span> 
-#&gt; </span><span style='color: #555555;'>5</span><span> -</span><span style='color: #BB0000;'>0.086</span><span style='color: #BB0000;text-decoration: underline;'>9</span><span> -</span><span style='color: #BB0000;'>1.18</span><span> </div><div class='input'>
-</div></span></pre>
+    <pre class="examples"><div class='input'>
+<span class='co'>## pull the 'y' variable from the data frame</span>
+<span class='fu'><a href='tbl_data.html'>tbl_data</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>5</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>5</span>]) <span class='kw'>%&gt;%</span> <span class='fu'>pull_data</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; [1] "a" "b" "c" "d" "e"</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
