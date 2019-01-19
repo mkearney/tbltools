@@ -69,7 +69,19 @@ is_lang <- function(x) identical(typeof(x), "language")
 
 #' @export
 mutate_if_data.default <- function(.data, .predicate, .f) {
-  .col <- vapply(.data, .predicate, logical(1), USE.NAMES = FALSE)
+  ## .predicate
+  if (is_lang(.predicate)) {
+    e <- call_env()
+    .predicate <- eval(.predicate, envir = e)[[2]]
+    .col <- vapply(.data,
+      function(.x) eval(.predicate, list(.x = .x), e),
+      FUN.VALUE = logical(1),
+      USE.NAMES = FALSE
+    )
+  } else {
+    .col <- vapply(.data, .predicate, logical(1), USE.NAMES = FALSE)
+  }
+  ## function
   if (is_lang(.f)) {
     e <- call_env()
     .f <- eval(.f, envir = e)[[2]]
@@ -82,8 +94,18 @@ mutate_if_data.default <- function(.data, .predicate, .f) {
 
 #' @export
 mutate_if_data.grouped_data <- function(.data, .predicate, .f) {
-  .col <- vapply(.data, .predicate, logical(1), USE.NAMES = FALSE)
   e <- call_env()
+  ## .predicate
+  if (is_lang(.predicate)) {
+    .predicate <- eval(.predicate, envir = e)[[2]]
+    .col <- vapply(.data,
+      function(.x) eval(.predicate, list(.x = .x), e),
+      FUN.VALUE = logical(1),
+      USE.NAMES = FALSE
+    )
+  } else {
+    .col <- vapply(.data, .predicate, logical(1), USE.NAMES = FALSE)
+  }
   group_names <- attr(.data, "group_names")
   .row_num <- attr(.data, ".row_num")
   .data <- lapply(split_groups(.data), mutate_if_data_default, .col, .f, e)
