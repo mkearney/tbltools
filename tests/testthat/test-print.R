@@ -19,7 +19,7 @@ test_that("print tbl_data", {
   var_names <- strsplit(o[2], "\\s+")[[1]][-1]
   expect_equal(length(var_names), 8)
   expect_equal(
-    c("bignames_mpg", "bignames_cyl", "bignames_disp\u2026", "bignames_hp"),
+    c("bignames_mpg", "bignames_cyl", "bignames_disp", "bignames_hp"),
     var_names[1:4]
   )
   expect_equal(nrow(slice_data(d, 1:5)), 5)

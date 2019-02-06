@@ -22,6 +22,8 @@ print.tbl_data <- function(x, n = NULL, ...) {
     ## get dimensions
     n_rows <- nrow(x)
     nce <- if (n < 20) ceiling(1.9 * n) else n
+
+    ## if rows are cutoff, make printing note
     if (nrow(x) > nce) {
       trunc_rows <- "*"
       ll <- sprintf("*%s row(s) not printed",
@@ -32,17 +34,39 @@ print.tbl_data <- function(x, n = NULL, ...) {
     }
     n_cols <- ncol(x)
     x <- head_data(as_data_frame_data_frame(x), n)
-    is_chr <- vapply(x, is.character, logical(1), USE.NAMES = FALSE)
-    nms <- substr_dots(names(x), 14)
-    nms[duplicated(nms)] <- names(x)[duplicated(nms)]
-    names(x) <- nms
-    x[is_chr] <- lapply(x[is_chr], substr_dots, stop = 12)
-    is_psx <- vapply(
-      x, inherits, c("POSIXct", "POSIXt"),
-      FUN.VALUE = logical(1),
-      USE.NAMES = FALSE
-    )
-    x[is_psx] <- lapply(x[is_psx], substr_dots, stop = 10)
+
+    ## convert to ASCII for consistent printing
+    is_chr <- vapply(x, function(.x)
+      is.character(.x) || is.factor(.x),
+      logical(1), USE.NAMES = FALSE)
+    x[is_chr] <- lapply(x[is_chr], iconv, to = "ASCII", sub = "byte")
+
+    ## get printing width
+    w <- getOption("width", 80)
+
+    ## column widths
+    col_widths <- vapply(seq_len(ncol(x)),
+      function(i) {
+        .x <- as.character(c(names(x)[i], x[[i]]))
+        max(nchar(.x), na.rm = TRUE)
+      },
+      integer(1), USE.NAMES = FALSE)
+
+    ## if data needs truncating...
+    if (sum(col_widths) > w) {
+      ## max trunc long char and poxi columns and var names
+      nms <- substr_dots(names(x), stop = 22)
+      nms[duplicated(nms)] <- names(x)[duplicated(nms)]
+      names(x) <- nms
+      x[is_chr] <- lapply(x[is_chr], substr_dots, stop = 22)
+      is_psx <- vapply(
+        x, inherits, c("POSIXct", "POSIXt"),
+        FUN.VALUE = logical(1),
+        USE.NAMES = FALSE
+      )
+      x[is_psx] <- lapply(x[is_psx], substr_dots, stop = 22)
+    }
+
     ## max number of chars per column
     chars <- vapply(
       seq_len(ncol(x)),
@@ -50,11 +74,11 @@ print.tbl_data <- function(x, n = NULL, ...) {
       numeric(1),
       USE.NAMES = FALSE
     )
-    ## get width
-    w <- getOption("width", 80)
-    ## only print columns
+
+    ## determine columns to print
     chars[1] <- chars[1] + 1
     kp <- which(cumsum(chars) < w)
+
     if (length(kp) < n_cols) {
       trunc_cols <- "\u002b"
       if (!identical(ll, "")) {
@@ -106,10 +130,10 @@ head_data <- function(x, n = 10) {
   x
 }
 
-substr_dots <- function(x, stop = 10) {
+substr_dots <- function(x, stop = 20) {
   ## adjust stop depending on extent to which mean char is greater than stop
   if (all(is.na(x))) return(x)
-  x <- iconv(x, to = "ascii", sub = "byte")
+  x <- as.character(x)
   ncs <- nchar(x)
   if (mean(ncs, na.rm = TRUE) >= (stop * 5.0)) {
     stop <- ceiling(stop * 2.0)
