@@ -29,6 +29,6 @@ xx$y <- "a"
 l <- list(x, xx, mtcars)
 
 ## bind rows and fill missing columns with NAs
-bind_rows_data(l)
+bind_rows_data(l, fill = TRUE)
 
 }

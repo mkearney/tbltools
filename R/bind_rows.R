@@ -18,7 +18,7 @@
 #' l <- list(x, xx, mtcars)
 #'
 #' ## bind rows and fill missing columns with NAs
-#' bind_rows_data(l)
+#' bind_rows_data(l, fill = TRUE)
 #'
 #' @export
 bind_rows_data <- function(..., fill = FALSE) {
