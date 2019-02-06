@@ -70,26 +70,4 @@ test_that("filter_data, arrange_data", {
 })
 
 
-test_that("bind_rows_data", {
-  ## list of data frames with inconsistent columns
-  x <- tbl_data(
-    a = letters,
-    b = 1:26,
-    c = rnorm(26)
-  )
-  xx <- x
-  xx$d <- "d"
-  xxx <- x
-  xxx$a <- factor(xxx$a)
-  l <- list(x, xx, xxx)
-  d <- bind_rows_data(l)
-  expect_true(is.data.frame(d))
-  expect_equal(nrow(d), 78)
-  expect_equal(ncol(d), 4)
-  expect_true(is.character(d$a))
-  expect_true(is.character(d$d))
-})
-
-
-
 

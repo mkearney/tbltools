@@ -21,7 +21,7 @@
 #' bind_rows_data(l)
 #'
 #' @export
-bind_rows_data <- function(..., fill = TRUE) {
+bind_rows_data <- function(..., fill = FALSE) {
   x <- peel_list_alist(list(...))
   if (length(x) == 1L) return(x[[1]])
   if (fill && !same_names(x)) {

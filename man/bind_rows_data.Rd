@@ -4,7 +4,7 @@
 \alias{bind_rows_data}
 \title{Bind rows}
 \usage{
-bind_rows_data(..., fill = TRUE)
+bind_rows_data(..., fill = FALSE)
 }
 \arguments{
 \item{...}{Input data frames or list of data frames}
