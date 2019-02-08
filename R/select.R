@@ -60,3 +60,19 @@ select_data.default <- function(.data, ...) {
   )
 }
 
+
+#' @export
+select_data.grouped_data <- function(.data, ...) {
+  ## copy attributes
+  atts <- attributes(.data)
+  .data <- as.data.frame(.data)
+  .data <- select_data(.data, ...)
+  structure(
+    .data,
+    names = names(.data),
+    row.names = .set_row_names(length(.data[[1]])),
+    class = c("grouped_data", "tbl_data", "tbl_df", "tbl", "data.frame"),
+    .row_num = atts$.row_num,
+    group_names = atts$group_names
+  )
+}
