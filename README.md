@@ -94,12 +94,12 @@ tbl_data_frame(
 ## select rows 1, 3, 5, 25 of data
 slice_data(d, c(1, 3, 5, 25))
 #> # A pseudo tibble: 4 x 12+
-#>        row_names  mpg cyl disp  hp drat    wt  qsec vs am gear
-#> 1)     Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4
-#> 2)    Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4
-#> 3)  Hornet Spor… 18.7   8  360 175 3.15 3.440 17.02  0  0    3
-#> 4)  Pontiac Fir… 19.2   8  400 175 3.08 3.845 17.05  0  0    3
-#> +1 column(s) not printed
+#>             row_names  mpg cyl disp  hp drat    wt  qsec vs am
+#> 1)          Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1
+#> 2)         Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1
+#> 3)  Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0
+#> 4)   Pontiac Firebird 19.2   8  400 175 3.08 3.845 17.05  0  0
+#> +2 column(s) not printed
 ```
 
 Compare with `dplyr::slice()`
@@ -150,12 +150,12 @@ same_as_dplyr(
 ## count by cyl and gear
 arrange_data(d, gear, cyl)
 #> # A pseudo tibble: 32* x 12+
-#>        row_names  mpg cyl  disp  hp drat    wt  qsec vs am gear
-#> 1)  Toyota Coro… 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3
-#> 2)  Hornet 4 Dr… 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3
-#> 3)       Valiant 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3
-#> 4)  Hornet Spor… 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3
-#> *28 row(s) not printed;  +1 column(s) not printed
+#>             row_names  mpg cyl  disp  hp drat    wt  qsec vs am
+#> 1)      Toyota Corona 21.5   4 120.1  97 3.70 2.465 20.01  1  0
+#> 2)     Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0
+#> 3)            Valiant 18.1   6 225.0 105 2.76 3.460 20.22  1  0
+#> 4)  Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0
+#> *28 row(s) not printed;  +2 column(s) not printed
 ```
 
 Compare with `dplyr::arrange()`
@@ -178,11 +178,11 @@ same_as_dplyr(
 ## select only these columns
 select_data(d, row_names:hp, -disp, gear, weight = wt)
 #> # A pseudo tibble: 32* x 6
-#>        row_names  mpg cyl  hp gear weight
-#> 1)     Mazda RX4 21.0   6 110    4  2.620
-#> 2)  Mazda RX4 W… 21.0   6 110    4  2.875
-#> 3)    Datsun 710 22.8   4  93    4  2.320
-#> 4)  Hornet 4 Dr… 21.4   6 110    3  3.215
+#>          row_names  mpg cyl  hp gear weight
+#> 1)       Mazda RX4 21.0   6 110    4  2.620
+#> 2)   Mazda RX4 Wag 21.0   6 110    4  2.875
+#> 3)      Datsun 710 22.8   4  93    4  2.320
+#> 4)  Hornet 4 Drive 21.4   6 110    3  3.215
 #> *28 row(s) not printed
 ```
 
@@ -331,13 +331,13 @@ dd$new_var <- sample(letters, nrow(d), replace = TRUE)
 lst <- list(d, d, dd)
 
 ## bind rows into single data frame
-bind_rows_data(lst)
+bind_rows_data(lst, fill = TRUE)
 #> # A pseudo tibble: 96* x 13+
-#>        row_names  mpg cyl disp  hp drat    wt  qsec vs am gear
-#> 1)     Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4
-#> 2)  Mazda RX4 W… 21.0   6  160 110 3.90 2.875 17.02  0  1    4
-#> 3)    Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4
-#> 4)  Hornet 4 Dr… 21.4   6  258 110 3.08 3.215 19.44  1  0    3
+#>          row_names  mpg cyl disp  hp drat    wt  qsec vs am gear
+#> 1)       Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4
+#> 2)   Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4
+#> 3)      Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4
+#> 4)  Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3
 #> *92 row(s) not printed;  +2 column(s) not printed
 ```
 
@@ -345,7 +345,7 @@ Compare to `dplyr::bind_rows()`
 
 ``` r
 same_as_dplyr(
-  bind_rows_data(lst),
+  bind_rows_data(lst, fill = TRUE),
   dplyr::bind_rows(lst)
 )
 #> [1] TRUE

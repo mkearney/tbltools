@@ -266,14 +266,14 @@ dd$new_var <- sample(letters, nrow(d), replace = TRUE)
 lst <- list(d, d, dd)
 
 ## bind rows into single data frame
-bind_rows_data(lst)
+bind_rows_data(lst, fill = TRUE)
 ```
 
 Compare to `dplyr::bind_rows()`
 
 ```{r}
 same_as_dplyr(
-  bind_rows_data(lst),
+  bind_rows_data(lst, fill = TRUE),
   dplyr::bind_rows(lst)
 )
 ```
