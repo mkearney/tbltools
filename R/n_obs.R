@@ -6,10 +6,14 @@
 #' @return Number of observations in group
 #' @export
 n_obs <- function() {
-  if (identical(parent.frame(), base::.GlobalEnv)) {
+  if (identical(call_env(), base::.GlobalEnv)) {
     stop("`n_obs()` should not be used in global environment", call. = FALSE)
   }
-  vars <- ls(all.names = TRUE, envir = parent.frame())
+  vars <- ls(all.names = TRUE, envir = call_env(), sorted = TRUE)
   if (length(vars) == 0) return(0)
-  length(get(vars[1], envir = parent.frame()))
+  lens <- integer(length(vars))
+  for (i in seq_along(vars)) {
+    lens[i] <- length(get(vars[i], envir = call_env()))
+  }
+  max(lens)
 }
